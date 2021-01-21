@@ -1,0 +1,26 @@
+input[type=radio] {
+    margin-top: 12px;
+  }
+
+  #topo {
+    margin-bottom: 15px;
+  }
+
+  .modal-body p span {
+    font-weight: bold;
+  }
+
+  .img {
+    max-height: 150px;
+    margin: 5px;
+    width: auto;
+  }
+
+  .projetoConteudo {
+    padding: 3px;
+    margin: 3px;
+  }
+  .projetoConteudo h3 {
+    text-transform: uppercase;
+    background-color: aqua;
+  }
