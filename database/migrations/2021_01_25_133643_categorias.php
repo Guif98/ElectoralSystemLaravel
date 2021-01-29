@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Categoria extends Migration
+class Categorias extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class Categoria extends Migration
      */
     public function up()
     {
-        Schema::create('categoria', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->tinyIncrements('id');
+            $table->tinyInteger('projeto_id')->unsigned();
             $table->string('nome');
+            $table->foreign('projeto_id')->references('id')->on('projetos');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +29,6 @@ class Categoria extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categoria');
+        Schema::dropIfExists('categorias');
     }
 }
