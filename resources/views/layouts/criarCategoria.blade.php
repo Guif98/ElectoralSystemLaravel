@@ -1,5 +1,9 @@
 @extends('layouts.template')
 
+@section('content')
+
+
+
 <div class="container mt-5 col-8">
 @if (isset($categoria))
 <form name="formEdit" id="formEdit" action="{{url("categorias/$categoria->projeto_id/$categoria->id")}}" class="m-auto col-6" method="POST">
@@ -34,3 +38,4 @@
     </a>
   </form>
 </div>
+@endsection

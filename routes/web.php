@@ -1,5 +1,6 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'ProjetoControlador@index')->name('projetos');
-Route::post('/projetos', 'ProjetoControlador@store');
+Route::get('/', 'ProjetoControlador@index')->middleware('auth')
+->name('projetos');
+
+Route::post('/novoProjeto', 'ProjetoControlador@store');
 Route::get('/novoProjeto', 'ProjetoControlador@create');
 Route::get('projetos/{id}/edit', 'ProjetoControlador@edit');
 Route::patch('projetos/{id}','ProjetoControlador@update');
@@ -36,3 +39,9 @@ Route::post('/categorias/criar', 'CategoriasControlador@store');
 Route::get('/categorias/{projeto_id}/edit/{id}', 'CategoriasControlador@edit');
 Route::patch('/categorias/{projeto_id}/{id}', 'CategoriasControlador@update');
 Route::get('/categorias/delete/{projeto_id}', 'CategoriasControlador@destroy');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');

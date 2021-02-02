@@ -1,6 +1,9 @@
 @extends('layouts.template')
 
-<div class="container mt-5 col-8">
+@section('content')
+
+
+
 
 @if (isset($subProjeto))
 
@@ -57,4 +60,4 @@
     <a href="{{url("/subprojetos/$projeto_id")}}" class="btn btn-primary">Ver SubProjetos
     </a>
   </form>
-</div>
+@endsection

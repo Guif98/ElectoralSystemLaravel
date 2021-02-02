@@ -1,0 +1,30 @@
+@media (max-width: 575.98px) {
+    .tabela {
+        width: 300px;
+        margin: auto;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .little-table {
+        display: block;
+    }
+
+    .input-formCriar {
+        width: 200px;
+    }
+
+    .titulo-sm {
+        font: 1.5em sans-serif;
+        font-weight: bold;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .little-table {
+        display: none;
+    }
+ }

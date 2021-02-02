@@ -1,5 +1,10 @@
 @extends('layouts.template')
 
+
+@section('content')
+
+
+
 @if (session('message'))
  <div class="text-center m-auto p-3 alert-{{session('msg-type')}}">
     <p>{{session('message')}}</p>
@@ -21,7 +26,7 @@
             <button class="btn btn-secondary">Voltar</button>
         </a>
     </div>
-<table class="table mt-5 table-hover table-responsive-lg table-responsive-md table-responsive-sm">
+<table class="table mt-5 table-hover table-dark table-responsive-lg table-responsive-md table-responsive-sm">
     <thead>
       <tr>
         <th scope="col">Nome da Categoria</th>
@@ -51,3 +56,4 @@
     </tbody>
   </table>
 </div>
+@endsection

@@ -1,5 +1,8 @@
 @extends('layouts.template')
 
+@section('content')
+
+
 
 <form name="formCriar" id="formCriar" action="{{url("/subprojetos/$subProjeto->projeto_id/$subProjeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
     @method('POST')
@@ -30,3 +33,4 @@
 
 </form>
 
+@endsection

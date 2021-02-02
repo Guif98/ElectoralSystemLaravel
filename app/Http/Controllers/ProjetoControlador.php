@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Projeto;
 use App\Http\Requests\ProjetoRequest;
 use App\Models\SubProjetos;
@@ -18,6 +19,7 @@ class ProjetoControlador extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth');
         $this->objProjeto = new Projeto();
         $this->objSubProjeto = new SubProjetos();
         $this->objCategoria = new Categorias();

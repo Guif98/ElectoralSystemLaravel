@@ -34,9 +34,9 @@ class SubProjetoControlador extends Controller
     public function index($projeto_id)
     {
         $subProjetos = SubProjetos::where('projeto_id', $projeto_id)->get();
-
         $categorias = $this->objCategoria->all();
         return view('layouts.subprojetos', compact('categorias','subProjetos'));
+
     }
 
     /**
