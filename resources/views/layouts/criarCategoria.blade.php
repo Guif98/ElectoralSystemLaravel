@@ -4,7 +4,7 @@
 
 
 
-<div class="container mt-5 col-8">
+<div class="container mt-5 mx-auto">
 @if (isset($categoria))
 <form name="formEdit" id="formEdit" action="{{url("categorias/$categoria->projeto_id/$categoria->id")}}" class="m-auto col-6" method="POST">
     @method('PATCH')
@@ -14,8 +14,8 @@
 @endif
 @csrf
 
-<div class="m-auto mt-5 mb-5">
-    <h2 class="text-center">@if (isset($categoria))Editar Categoria @else Criar Categoria @endif</h2>
+<div class="text-center">
+    <h2 class="titulo-sm">@if (isset($categoria))Editar Categoria @else Criar Categoria @endif</h2>
 </div>
 
 @if (count($errors)>0)
@@ -29,12 +29,12 @@
     <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
-    <div class="mb-3">
+    <div class="mb-3 input-formCriar mt-5">
       <label for="nome" class="form-label">Nome da Categoria</label>
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($categoria)) value="{{$categoria->nome ?? ''}}" @endif >
     </div>
-    <button type="submit" class="btn btn-success">@if (isset($categoria))Atualizar @else Criar  @endif</button>
-    <a href="{{url("categorias/$projeto_id")}}" class="btn btn-secondary">Ver Categorias
+    <button type="submit" class="btn btn-success input-formCriar">@if (isset($categoria))Atualizar @else Criar  @endif</button>
+    <a href="{{url("categorias/$projeto_id")}}" class="btn btn-secondary input-formCriar">Ver Categorias
     </a>
   </form>
 </div>

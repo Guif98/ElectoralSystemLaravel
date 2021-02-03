@@ -3,6 +3,8 @@
 @section('content')
 
 
+<div class="mx-auto">
+
 
 
 @if (isset($subProjeto))
@@ -19,8 +21,8 @@
 
 @endif
 
-<div class="m-auto mt-5 mb-5">
-    <h3 class="text-center">Criar SubProjeto para o Projeto</h3>
+<div class="mx-auto mt-5 mb-5">
+    <h3 class="titulo-sm text-center">Criar SubProjeto para o Projeto</h3>
 </div>
 
 @if (isset($errors) && count($errors)>0)
@@ -35,29 +37,31 @@
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
 
-    <div class="mb-3">
+    <div class="mb-3 input-formCriar">
         <label for="titulo" class="form-label">Título</label>
         <input required type="text" class="form-control" id="titulo" name="titulo" @if (isset($subProjeto)) value="{{$subProjeto->titulo}}" @endif>
     </div>
-    <div class="mb-3">
+    <div class="mb-3 input-formCriar">
       <label for="categoria" class="form-label">Categoria</label>
-        <select class="form-select" name="categoria_id" id="categoria_id">
-        <option class="form-control" value="{{$subProjeto->relCategorias->id ?? ''}}">@if (isset($subProjeto)){{$subProjeto->relCategorias->nome}}@else Categoria @endif</option>
+        <select class="form-control" name="categoria_id" id="categoria_id">
+        <option  value="{{$subProjeto->relCategorias->id ?? ''}}">@if (isset($subProjeto)){{$subProjeto->relCategorias->nome}}@else Categoria @endif</option>
         @foreach ($categorias as $categoria)
         <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
         @endforeach
     </select>
     </div>
     <label for="descricao_div" class="form-label">Descrição</label>
-    <div class="" id="descricao_id">
+    <div class="input-formCriar" id="descricao_id">
         <textarea class="mb-3 form-control" id="descricao" name="descricao"  value="">@if (isset($subProjeto)) {{$subProjeto->descricao}} @endif</textarea>
     </div>
     <label for="integrantes_div" class="form-label">Integrantes</label>
-    <div class="" id="integrantes_div">
+    <div class="input-formCriar" id="integrantes_div">
         <textarea class="mb-3 form-control" id="integrantes" name="integrantes">@if (isset($subProjeto)) {{$subProjeto->integrantes}} @endif</textarea>
     </div>
-    <button type="submit" class="btn btn-success">@if (isset($subProjeto))Atualizar @else Criar  @endif</button>
-    <a href="{{url("/subprojetos/$projeto_id")}}" class="btn btn-primary">Ver SubProjetos
+    <button type="submit" class="btn btn-success input-formCriar">@if (isset($subProjeto))Atualizar @else Criar  @endif</button>
+    <a href="{{url("/subprojetos/$projeto_id")}}" class="btn btn-primary input-formCriar">Ver SubProjetos
     </a>
   </form>
+
+</div>
 @endsection

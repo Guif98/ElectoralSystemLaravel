@@ -24,7 +24,7 @@ class SubProjetos extends Model
     }
 
     public function relProjeto() {
-        return $this->hasOne(\App\Models\Projeto::class, 'projeto_id', 'projeto_id');
+        return $this->hasOne(\App\Models\Projeto::class, 'id', 'projeto_id');
     }
 
     public function relFotos() {

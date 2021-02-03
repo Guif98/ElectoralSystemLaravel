@@ -26,6 +26,7 @@ Route::get('projetos/delete/{id}', 'ProjetoControlador@destroy');
 
 Route::get('/subprojetos/{projeto_id}', 'SubProjetoControlador@index')->name('subprojetos');
 Route::get('/subprojetos/{projeto_id}/formProjeto', 'SubProjetoControlador@create');
+Route::get('/subprojetos/{projeto_id}/ver/{id}', 'SubProjetoControlador@show');
 Route::post('/subprojetos/formProjeto', 'SubProjetoControlador@store');
 Route::get('/subprojetos/{projeto_id}/edit/{id}', 'SubProjetoControlador@edit');
 Route::put('/subprojetos/{projeto_id}/{id}', 'SubProjetoControlador@update');

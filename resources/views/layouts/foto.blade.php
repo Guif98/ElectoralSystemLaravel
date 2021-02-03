@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<div class="container mx-auto mt-5">
 
 <form name="formCriar" id="formCriar" action="{{url("/subprojetos/$subProjeto->projeto_id/$subProjeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
     @method('POST')
@@ -19,18 +19,22 @@
 @endif
 
 
-<div class="container col-lg-6 m-auto mt-5">
 
-    <div class="mb-3">
-        <label for="foto" class="form-label">Foto</label>
-        <input type="file" class="form-control" name="foto[]" id="foto[]" multiple>
+
+    <div class="mb-3 mx-auto input-formCriar">
+        <label class="form-label" for="foto">Selecione as fotos (no máximo 8 imagens)</label>
+        <input type="file" class="form-control" name="foto[]"  id="foto[]"  multiple/>
+
     </div>
-    <button type="submit" class="btn btn-success">Add Foto</button>
+
+    <button type="submit" class="btn btn-success input-formCriar">Add Foto</button>
     <a href="">
-        <button class="btn btn-primary">Voltar</button>
+        <button class="btn btn-primary input-formCriar">Voltar</button>
     </a>
-</div>
+
 
 </form>
+
+</div>
 
 @endsection

@@ -112,12 +112,12 @@ class SubProjetoControlador extends Controller
                     'foto' => $filename,
                     'subprojeto_id' => $id
                 ]);
-                if (Foto::where('subprojeto_id', $id)->count() < 4){
+                if (Foto::where('subprojeto_id', $id)->count() < 8){
                     $objFoto->save();
                 }
                 else {
                     return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'O limite de imagens para cada projeto
-                    é de quatro imagens!', 'msg-type' => 'danger']);
+                    é de 8 imagens!', 'msg-type' => 'danger']);
                 }
 
             endforeach;
@@ -132,9 +132,11 @@ class SubProjetoControlador extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($projeto_id, $id)
     {
-        //
+        $subProjeto = $this->objSubProjeto->find($id);
+        $projetos = $this->objProjeto->all();
+        return view('layouts.ver', compact('subProjeto', 'projetos'));
     }
 
     /**
@@ -146,7 +148,7 @@ class SubProjetoControlador extends Controller
     public function edit($projeto_id, $id)
     {
         $subProjeto = $this->objSubProjeto->find($id);
-        $categorias=$this->objCategoria->all();
+        $categorias = Categorias::where('projeto_id', $projeto_id)->get();
         return view('layouts.formProjeto', compact('subProjeto', 'categorias'));
     }
 
