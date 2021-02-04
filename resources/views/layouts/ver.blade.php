@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
-    <div class="container mt-5 mx-auto">
+    <div class="container mt-5 mx-auto mb-5">
         <div>
             <h3><b>Id: </b> {{$subProjeto->id}}</h3>
         </div>
@@ -22,7 +22,7 @@
         </div>
         <div>
             <h3><b>Fotos do Projeto: </b></h3>
-            <div>
+            <div class="mt-5 mx-auto">
                 @php
                     $fotos = $subProjeto->find($subProjeto->id)->relFotos;
                 @endphp

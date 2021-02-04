@@ -12,10 +12,6 @@
         display: inline-flex;
     }
 
-    #little-table-subprojetos {
-        display: block;
-    }
-
     #lg-table-subprojetos {
         display: none;
     }
@@ -60,7 +56,7 @@
 @media (min-width: 576px) {
 
     #lg-table-projetos {
-        display: block;
+        display: none;
     }
 
     #tiny-table-projetos {
@@ -72,7 +68,7 @@
     }
 
     #lg-table-subprojetos {
-        display: block;
+        display: none;
     }
 
     #xl-table-subprojetos {
@@ -133,7 +129,7 @@
 }
 
 
-@media (max-width: 369px) {
+@media (max-width: 629px) {
 
     #little-table-subprojetos {
         display: block;
@@ -142,15 +138,13 @@
     #medium-table-subprojetos {
         display: none;
     }
-}
 
-@media (min-width: 460px) and (max-width: 576px) {
-    #little-table-subprojetos {
+    #lg-table-subprojetos {
         display: none;
     }
 
-    #medium-table-subprojetos {
-        display: block;
+    #xl-table-subprojetos {
+        display: none;
     }
 }
 
@@ -174,7 +168,7 @@
 
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 863px) {
 
     #xl-table-subprojetos {
         display: block;
@@ -223,3 +217,40 @@
     }
 }
 
+/** Tabela subprojeto tamanho médio **/
+
+@media (min-width: 621px) and (max-width: 800px) {
+    #xl-table-subprojetos {
+        display: none;
+    }
+
+    #lg-table-subprojetos {
+        display: none;
+    }
+
+    #little-table-subprojetos {
+        display: none;
+    }
+
+    #medium-table-subprojetos {
+        display: block;
+    }
+}
+
+@media (max-width: 463px) {
+    #xl-table-subprojetos {
+        display: none;
+    }
+
+    #lg-table-subprojetos {
+        display: none;
+    }
+
+    #little-table-subprojetos {
+        display: block;
+    }
+
+    #medium-table-subprojetos {
+        display: none;
+    }
+}

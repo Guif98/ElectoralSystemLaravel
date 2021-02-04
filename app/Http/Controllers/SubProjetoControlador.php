@@ -112,12 +112,12 @@ class SubProjetoControlador extends Controller
                     'foto' => $filename,
                     'subprojeto_id' => $id
                 ]);
-                if (Foto::where('subprojeto_id', $id)->count() < 8){
+                if (Foto::where('subprojeto_id', $id)->count() < 4){
                     $objFoto->save();
                 }
                 else {
                     return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'O limite de imagens para cada projeto
-                    é de 8 imagens!', 'msg-type' => 'danger']);
+                    é de 4 imagens!', 'msg-type' => 'danger']);
                 }
 
             endforeach;
