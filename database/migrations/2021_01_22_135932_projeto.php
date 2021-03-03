@@ -16,6 +16,7 @@ class Projeto extends Migration
         Schema::create('projetos', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('nome');
+            $table->boolean('ativo');
             $table->date('dataInicio')->date_format('d/m/Y');
             $table->date('dataFim')->date_format('d/m/Y');
             $table->timestamps();

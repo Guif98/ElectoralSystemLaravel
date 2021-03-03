@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', 'ProjetoControlador@index')->middleware('auth')
+Route::get('/', 'SubProjetoControlador@home');
+
+Route::get('/projetos', 'ProjetoControlador@index')->middleware('auth')
 ->name('projetos');
 
 Route::post('/novoProjeto', 'ProjetoControlador@store');

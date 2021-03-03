@@ -28,6 +28,7 @@
         <th scope="col">Nome do Projeto</th>
         <th scope="col">Data de Início</th>
         <th scope="col">Data do Fim</th>
+        <th scope="col">Ativo</th>
         <th scope="col" colspan="3">Ações</th>
       </tr>
     </thead>
@@ -37,6 +38,7 @@
             <td><a style="color: aqua" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
             <td>{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>
             <td>{{date('d/m/Y', strtotime($projeto->dataFim))}}</td>
+            @if ($projeto->ativo == 1)<td>Ativo</td> @else <td>Inativo</td>@endif
             <td>
                 <a class="text-decoration-none" href="{{url("projetos/$projeto->id/edit")}}">
                     <button class="btn btn-outline-primary">Editar</button>

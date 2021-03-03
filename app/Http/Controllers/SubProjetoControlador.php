@@ -9,6 +9,8 @@ use App\Models\SubProjetos;
 use App\Models\Projeto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Cache\RedisTaggedCache;
+use Illuminate\Support\Facades\DB;
+
 class SubProjetoControlador extends Controller
 {
 
@@ -39,6 +41,13 @@ class SubProjetoControlador extends Controller
 
     }
 
+    public function home()
+    {
+        $projeto = Projeto::where('ativo', '1')->first();
+        $subProjetos = SubProjetos::all();
+        return view('home', compact('projeto','subProjetos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -47,7 +56,10 @@ class SubProjetoControlador extends Controller
     public function create($projeto_id)
     {
         $subProjetos = $this->objSubProjeto->all();
+
+
         $categorias = Categorias::where('projeto_id', $projeto_id)->get();
+
         return view('layouts.formProjeto', compact('categorias'));
     }
 

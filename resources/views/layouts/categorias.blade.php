@@ -22,7 +22,7 @@
         <a class="text-decoration-none" href="{{url("categorias/$projeto_id/criar")}}">
             <button class="btn btn-success">Criar Categorias</button>
         </a>
-        <a class="text-decoration-none" href="{{url('/')}}">
+        <a class="text-decoration-none" href="{{url('/projetos')}}">
             <button class="btn btn-secondary">Voltar</button>
         </a>
     </div>

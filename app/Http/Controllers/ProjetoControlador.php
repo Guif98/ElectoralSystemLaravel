@@ -58,6 +58,12 @@ class ProjetoControlador extends Controller
         $this->objProjeto->nome = $request->nome;
         $this->objProjeto->dataInicio = $request->dataInicio;
         $this->objProjeto->dataFim = $request->dataFim;
+        if (is_null($request->ativo)) {
+            $this->objProjeto->ativo = 0;
+        }
+        else {
+            $this->objProjeto->ativo = implode("", $request->ativo);
+        }
         $this->objProjeto->save();
 
 
@@ -101,6 +107,7 @@ class ProjetoControlador extends Controller
             'nome'=>$request->nome,
             'dataInicio'=>$request->dataInicio,
             'dataFim'=>$request->dataFim,
+            'ativo'=> implode("", $request->ativo),
         ]);
 
         return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso', 'msg-type' => 'warning']);

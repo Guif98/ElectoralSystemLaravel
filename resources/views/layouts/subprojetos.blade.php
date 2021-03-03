@@ -21,7 +21,7 @@
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
             <button class="btn btn-success">Criar SubProjeto</button>
         </a>
-        <a class="text-decoration-none" href="{{url("/")}}">
+        <a class="text-decoration-none" href="{{url("/projetos")}}">
             <button class="btn btn-danger">Voltar Para Projetos</button>
         </a>
     </div>

@@ -43,7 +43,7 @@
     </div>
     <div class="mb-3 input-formCriar">
       <label for="categoria" class="form-label">Categoria</label>
-        <select class="form-control" name="categoria_id" id="categoria_id">
+        <select class="form-control selector" name="categoria_id" id="categoria_id">
         <option  value="{{$subProjeto->relCategorias->id ?? ''}}">@if (isset($subProjeto)){{$subProjeto->relCategorias->nome}}@else Categoria @endif</option>
         @foreach ($categorias as $categoria)
         <option value="{{$categoria->id}}">{{$categoria->nome}}</option>

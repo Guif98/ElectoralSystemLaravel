@@ -10,7 +10,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ url('/projetos') }}">
             {{ config('app.name', 'SIGEPRO') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
@@ -29,5 +29,6 @@
       </nav>
       @yield('content')
       <script src="{{url('js/app.js')}}"></script>
+      <script src="{{url('js/sigepro.js')}}"></script>
 </body>
 </html>
