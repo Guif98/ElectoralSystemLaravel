@@ -43,9 +43,11 @@ class SubProjetoControlador extends Controller
 
     public function home()
     {
-        $projeto = Projeto::where('ativo', '1')->first();
-        $subProjetos = SubProjetos::all();
-        return view('home', compact('projeto','subProjetos'));
+        $projetos = $this->objProjeto->where('ativo', 1)->get();
+        $subProjetos = $this->objSubProjeto->all();
+        $categorias = $this->objCategoria->all();
+        $fotos = $this->objFoto->all();
+        return view('home', compact('projetos','subProjetos', 'categorias', 'fotos'));
     }
 
     /**
