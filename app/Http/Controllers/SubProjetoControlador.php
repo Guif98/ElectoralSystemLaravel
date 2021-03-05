@@ -38,7 +38,6 @@ class SubProjetoControlador extends Controller
         $subProjetos = SubProjetos::where('projeto_id', $projeto_id)->get();
         $categorias = $this->objCategoria->all();
         return view('layouts.subprojetos', compact('categorias','subProjetos'));
-
     }
 
     public function home()
@@ -48,6 +47,10 @@ class SubProjetoControlador extends Controller
         $categorias = $this->objCategoria->all();
         $fotos = $this->objFoto->all();
         return view('home', compact('projetos','subProjetos', 'categorias', 'fotos'));
+    }
+
+    public function votar(Request $request, $id) {
+        dd($request);
     }
 
     /**
