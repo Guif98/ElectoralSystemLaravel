@@ -7,6 +7,7 @@ use App\Models\Categorias;
 use App\Models\Foto;
 use App\Models\SubProjetos;
 use App\Models\Projeto;
+use App\Models\Voto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Cache\RedisTaggedCache;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class SubProjetoControlador extends Controller
     private $objSubProjeto;
     private $objProjeto;
     private $objFoto;
+    private $objVoto;
 
     public function __construct()
     {
@@ -25,6 +27,7 @@ class SubProjetoControlador extends Controller
         $this->objCategoria = new Categorias();
         $this->objProjeto = new Projeto();
         $this->objFoto = new Foto();
+        $this->objVoto = new Voto();
     }
 
 
@@ -49,8 +52,15 @@ class SubProjetoControlador extends Controller
         return view('home', compact('projetos','subProjetos', 'categorias', 'fotos'));
     }
 
-    public function votar(Request $request, $id) {
-        dd($request);
+    public function votar(Request $request) {
+        foreach ($request->voto as $v) {
+            $novoVoto = new Voto();
+            $novoVoto->subProjeto_id = $v;
+            $novoVoto->save();
+        }
+
+
+        return redirect()->back();
     }
 
     /**

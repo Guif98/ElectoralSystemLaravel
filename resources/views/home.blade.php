@@ -10,6 +10,7 @@
     </header>
         <section class="home-section mb-5">
 
+
         @foreach ($projetos as $projeto)
             @php
             //dd($projeto->id)
@@ -37,12 +38,12 @@
                     @endphp
 
                     <!-- Div projeto -->
-                    <form action="{{url("/$s->id")}}" method="post">
+                    <form id="formVotar" action="{{url("/")}}" method="post">
                         @method('post')
                         @csrf
 
-                        <div class="project-div d-flex flex-column" id="{{$s->id}}">
-                            <input type="hidden" name="voto" value="{{$s->id}}">
+                        <div class="radio project-div d-flex flex-column">
+                            <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
                             <div class="flex-column">
                                 <h4><b>{{$s->titulo}}</b></h4>
                                 <p>{{$s->descricao}}</p>
@@ -59,8 +60,7 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success btn-lg">VOTAR</button>
-                    </form>
+
                         <!--Fim da div projeto -->
 
                     @endforeach
@@ -72,9 +72,10 @@
 
         @endforeach
 
-
-        <footer class="mt5 mb5 p-5 mx-auto text-center">
-
+        <footer>
+            <div class="p-2 mt-5 mx-auto text-center">
+                <button type="submit" id="voto" form="formVotar" class="btn btn-success btn-lg">VOTAR</button>
+            </div>
         </footer>
     </section>
 
@@ -120,6 +121,7 @@
                 $("#imgModal").modal("hide");
 
             });
+
         });
 
 
@@ -130,8 +132,13 @@
                 function(event)
             {
                 $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark");
+                $(this).parent().find('.radio').removeClass('selected');
+                $(this).addClass('selected');
+                $(this).children('input').attr('name', 'voto[]');
+                $(this).children('input').parent().siblings('div').children('input').removeAttr('name');
             }
             );
+
         });
 
     </script>
