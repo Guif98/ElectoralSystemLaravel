@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Cache\RedisTaggedCache;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\isNull;
+
 class SubProjetoControlador extends Controller
 {
 
@@ -60,7 +62,7 @@ class SubProjetoControlador extends Controller
         }
 
 
-        return redirect()->back();
+        return redirect()->back()->with(['message' => 'Voto computado com sucesso', 'msg-type' => 'success']);
     }
 
     /**
@@ -142,6 +144,7 @@ class SubProjetoControlador extends Controller
                 if (Foto::where('subprojeto_id', $id)->count() < 4){
                     $objFoto->save();
                 }
+
                 else {
                     return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'O limite de imagens para cada projeto
                     é de 4 imagens!', 'msg-type' => 'danger']);
@@ -150,8 +153,19 @@ class SubProjetoControlador extends Controller
             endforeach;
         endif;
 
-        return redirect()->route('subprojetos', $projeto_id)->with(['message' => 'Imagem inserida com sucesso!', 'msg-type' => 'success']);
+        if (!isset($fotos)){
+            return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'Deve ser selecionado no mínimo uma imagem!', 'msg-type' => 'danger']);
+        } else {
+            return redirect()->route('subprojetos', $projeto_id)->with(['message' => 'Imagem inserida com sucesso!', 'msg-type' => 'success']);
+
+        }
     }
+
+
+    public function deletarFoto($projeto_id, $id ) {
+    /*        $this->objFoto->destroy($id);
+        return redirect()->back()->with(['message' => 'Imagem excluída com sucesso!', 'msg-type' => 'danger']);
+    */}
 
     /**
      * Display the specified resource.

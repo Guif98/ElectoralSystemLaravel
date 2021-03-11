@@ -13,7 +13,7 @@ class FotoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,6 +23,12 @@ class FotoRequest extends FormRequest
      */
     public function rules()
     {
+        return [
+            //
+        ];
+    }
+
+    public function messages() {
         return [
             //
         ];

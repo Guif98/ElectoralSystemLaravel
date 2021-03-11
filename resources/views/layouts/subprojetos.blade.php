@@ -25,14 +25,14 @@
             <button class="btn btn-danger">Voltar Para Projetos</button>
         </a>
     </div>
-<table id="xl-table-subprojetos" class="table text-center mt-5 table-hover table-dark table-striped">
+<table id="xl-table-subprojetos" class="table mt-5 table-hover table-dark table-striped">
     <thead>
       <tr>
         <th scope="col">Título</th>
         <th scope="col">Categoria</th>
-        <th scope="col">Descricao</th>
+        <th scope="col" class="w-25">Descricao</th>
         <th scope="col">Integrantes</th>
-        <th class="w-50" scope="col">Fotos</th>
+        <th scope="col" class="w-25">Fotos</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
@@ -47,7 +47,9 @@
             <td>{{$subProjeto->descricao}}</td>
             <td>{{$subProjeto->integrantes}}</td>
             <td>@foreach ($fotos as $foto)
-                <img style="width: 100px; height: 100px;" src="{{url("/storage/app/fotos/$foto->foto")}}"  alt="image">
+                <a href="#imgModal" class="img" id="{{$foto->id}}">
+                    <img style="width: 100px; height: 100px;" src="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                </a>
               @endforeach
             </td>
             <td>
@@ -196,5 +198,45 @@
 
 
 </div>
+
+
+
+<!-- Modal para imagens-->
+
+        <div id="imgModal" class="modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                    <div class="slide">
+                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
+                    </div>
+                <div class="modal-footer bg-dark">
+                    <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="imgModal">Fechar</button>
+                    <a class="deletar" href="{{url("subprojetos/$projeto_id/delete/")}}">
+                        <button id="excluir" class="btn btn-danger">Excluir</button>
+                    </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+    <script>
+        $(document).ready(function() {
+            $(".img").click(function() {
+                let imgSrc = document.getElementById(this.id).children[0].currentSrc;
+
+                let imageInsideModal = document.getElementById('imageInsideModal');
+                $("#imgModal").modal("show");
+                imageInsideModal.src = imgSrc;
+            });
+
+            $("#excluir").click(function() {
+                $(".deletar").attr('href', function(href) {
+                    //
+                });
+            });
+    });
+    </script>
+
 
 @endsection

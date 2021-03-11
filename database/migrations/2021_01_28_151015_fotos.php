@@ -17,7 +17,7 @@ class Fotos extends Migration
             $table->tinyIncrements('id');
             $table->tinyInteger('subprojeto_id')->unsigned();
             $table->string('foto');
-            $table->foreign('subprojeto_id')->references('id')->on('subProjetos');
+            $table->foreign('subprojeto_id')->references('id')->on('subProjetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

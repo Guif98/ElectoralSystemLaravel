@@ -25,7 +25,7 @@ class ProjetoRequest extends FormRequest
     {
         return [
             'nome' => 'required|string',
-            'dataInicio' => 'required|date',
+            'dataInicio' => 'required|date|before:dataFim',
             'dataFim' => 'required|date'
         ];
     }

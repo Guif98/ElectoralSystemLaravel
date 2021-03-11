@@ -35,6 +35,7 @@ Route::get('/subprojetos/{projeto_id}/edit/{id}', 'SubProjetoControlador@edit');
 Route::put('/subprojetos/{projeto_id}/{id}', 'SubProjetoControlador@update');
 Route::get('/subprojetos/{id}/delete', 'SubProjetoControlador@destroy');
 Route::get('/subprojetos/{projeto_id}/addFoto/{id}', 'SubProjetoControlador@fotos')->name('addFoto');
+Route::get('/subprojetos/{projeto_id}/delete/{id}', 'SubProjetoControlador@deletarFoto')->name('deletarFoto');
 Route::post('/subprojetos/{projeto_id}/{id}', 'SubProjetoControlador@storeFoto');
 
 Route::get('/categorias/{projeto_id}', 'CategoriasControlador@index')->name('categorias');
