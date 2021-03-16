@@ -15,18 +15,11 @@ class Votos extends Migration
     {
         Schema::create('votos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cpf')->unique();
-            $table->string('nome')->nullable('false')->change();
-            $table->string('sobrenome')->nullable('false')->change();
-            $table->date('dataNascimento')->nullable('false')->change();
-            $table->string('email')->unique();
-            $table->string('telefone')->nullable('false')->change();
-            $table->string('endereco')->nullable('false')->change();
-            $table->string('bairro')->nullable('false')->change();
-            $table->string('cidade')->nullable('false')->change();
-            $table->string('uf')->nullable('false')->change();
+            $table->bigInteger('cpf')->nullable('false');
+            $table->string('nome')->nullable('false');
+            $table->string('sobrenome')->nullable('false');
             $table->tinyInteger('subProjeto_id')->unsigned();
-            $table->foreign('subProjeto_id')->references('id')->on('subProjetos');
+            $table->foreign('subProjeto_id')->references('id')->on('subProjetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

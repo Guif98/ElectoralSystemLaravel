@@ -211,8 +211,9 @@
                     </div>
                 <div class="modal-footer bg-dark">
                     <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="imgModal">Fechar</button>
-                    <a class="deletar" href="{{url("subprojetos/$projeto_id/delete/")}}">
-                        <button id="excluir" class="btn btn-danger">Excluir</button>
+
+                    <a id="deleteImg" href="{{url("/subprojetos/$projeto_id/deletar/")}}">
+                        <button class="btn btn-danger">Excluir</button>
                     </a>
                 </div>
               </div>
@@ -223,19 +224,29 @@
     <script>
         $(document).ready(function() {
             $(".img").click(function() {
+
+                let img = document.getElementById(this.id).id;
                 let imgSrc = document.getElementById(this.id).children[0].currentSrc;
 
                 let imageInsideModal = document.getElementById('imageInsideModal');
                 $("#imgModal").modal("show");
                 imageInsideModal.src = imgSrc;
+
+                    var url = document.getElementById("deleteImg").href;
+                    url = url + "/" + img
+
+                    $("#deleteImg").click(function() {
+                        document.getElementById("deleteImg").href= url
+                    });
+
+                    $("#close").click(function() {
+                        document.getElementById("#imgModal").modal('hide');
+                    });
             });
 
-            $("#excluir").click(function() {
-                $(".deletar").attr('href', function(href) {
-                    //
-                });
-            });
+
     });
+
     </script>
 
 

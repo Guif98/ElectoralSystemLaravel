@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\VotoRequest;
 use App\Models\Categorias;
 use App\Models\Foto;
 use App\Models\SubProjetos;
@@ -54,9 +55,14 @@ class SubProjetoControlador extends Controller
         return view('home', compact('projetos','subProjetos', 'categorias', 'fotos'));
     }
 
-    public function votar(Request $request) {
+    public function votar(VotoRequest $request) {
+        $novoVoto = new Voto();
+        $novoVoto->nome = $request->nome;
+        $novoVoto->sobrenome = $request->sobrenome;
+        $novoVoto->cpf = $request->cpf;
+
         foreach ($request->voto as $v) {
-            $novoVoto = new Voto();
+
             $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
         }
@@ -162,10 +168,10 @@ class SubProjetoControlador extends Controller
     }
 
 
-    public function deletarFoto($projeto_id, $id ) {
-    /*        $this->objFoto->destroy($id);
+    public function deletarFoto($projeto_id, $img) {
+        $this->objFoto->destroy($img);
         return redirect()->back()->with(['message' => 'Imagem excluída com sucesso!', 'msg-type' => 'danger']);
-    */}
+    }
 
     /**
      * Display the specified resource.

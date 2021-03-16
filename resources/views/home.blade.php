@@ -17,8 +17,6 @@
     </header>
         <section class="home-section mb-5">
 
-
-
         @foreach ($projetos as $projeto)
             @php
             //dd($projeto->id)
@@ -81,7 +79,7 @@
 
         <footer>
             <div class="p-2 mt-5 mx-auto text-center">
-                <button type="submit" id="voto" form="formVotar" class="btn btn-success btn-lg">VOTAR</button>
+                    <button type="submit" form="formVotar" id="voto" class="btn btn-success btn-lg">VOTAR</button>
             </div>
         </footer>
     </section>
@@ -118,55 +116,38 @@
                 <div class="modal-header">
                   <h5 class="modal-title" id="votoModal">Antes de votar, preencha as informações abaixo:</h5>
                 </div>
-                <div class="modal-body">
-                    <div>
-                        <label for="nome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" name="nome" id="nome">
+                <form action="{{route('validarEleitor')}}"  method="POST">
+                    <div class="modal-body">
+
+                        @if (count($errors)>0)
+                            <div class="alert-danger text-center m-auto mb-5 mt-5 p-3 rounded">
+                                @foreach ($errors->all() as $error)
+                                    <p>{{$error}}</p>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        <div>
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" name="nome" id="nome">
+                        </div>
+                        <div>
+                            <label for="sobrenome" class="form-label">Sobrenome</label>
+                            <input type="text" class="form-control" name="sobrenome" id="sobrenome">
+                        </div>
+                        <div>
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" maxlength="11" class="form-control" id="cpf" onkeypress="return apenasNumeros()" name="cpf">
+                        </div>
                     </div>
-                    <div>
-                        <label for="sobrenome" class="form-label">Sobrenome</label>
-                        <input type="text" class="form-control" name="sobrenome" id="sobrenome">
+                    <div class="modal-footer">
+                        <button type="button" id="confirmar" class="btn btn-primary">Confirmar</button>
                     </div>
-                    <div>
-                        <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" maxlength="11"  class="form-control" onkeypress="return apenasNumeros()" name="cpf" id="cpf">
-                    </div>
-                    <div>
-                        <label for="dataNascimento" class="form-label">Data de nascimento</label>
-                        <input type="date" maxlength="10" class="form-control" name="dataNascimento" id="dataNascimento">
-                    </div>
-                    <div>
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" name="email" id="email">
-                    </div>
-                    <div>
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" maxlength="11"  class="form-control" onkeypress="return apenasNumeros()" name="telefone" id="telefone">
-                    </div>
-                    <div>
-                        <label for="endereco" class="form-label">Endereço</label>
-                        <input type="endereco" maxlength="120" class="form-control" name="endereco" id="endereco">
-                    </div>
-                    <div>
-                        <label for="bairro" class="form-label">Bairro</label>
-                        <input type="bairro" maxlength="60" class="form-control" name="bairro" id="bairro">
-                    </div>
-                    <div>
-                        <label for="cidade" class="form-label">Cidade</label>
-                        <input type="cidade" maxlength="60" class="form-control" name="cidade" id="cidade">
-                    </div>
-                    <div>
-                        <label for="uf" class="form-label">Uf</label>
-                        <input type="uf" maxlength="2" class="form-control" name="uf" id="uf">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Understood</button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
+
 
     <script>
         $(document).ready(function() {
@@ -183,16 +164,21 @@
 
             });
 
-            $("#close").click(function() {
-                $("#imgModal").modal("hide");
-
-            });
-
-
             setTimeout(function() {
                 $("#votoModal").modal("show");
-            }, 3000);
+            }, 100);
+                $("#votoModal").modal({
+                    backdrop: 'static',
+                    keyboard: false
+                });
 
+            $("#confirmar").click(function() {
+                $("#votoModal").modal('hide');
+            });
+
+            $("#voto").click(function() {
+                $("#descricaoModal").modal('show');
+            });
         });
 
 

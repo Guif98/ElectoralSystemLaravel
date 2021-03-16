@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SIGEPRO</title>
     <link rel="stylesheet" href="{{url('css/app.css')}}">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
@@ -21,7 +22,7 @@
 
               <ul class="navbar-nav ml-auto">
                 <div class="navbar-nav">
-                    <li class="nav-item"><a class="nav-item nav-link" href="{{route('projetos')}}">Página Inicial<span class="sr-only">(Página atual)</span></a></li>
+                    <li class="nav-item"><a class="nav-item nav-link" href="{{route('home')}}">Ir para votos<span class="sr-only">(Página atual)</span></a></li>
                     <li class="nav-item"><a class="nav-item nav-link" href="{{route('logout')}}">Sair</a></li>
                 </div>
             </ul>
