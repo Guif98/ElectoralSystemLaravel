@@ -48,21 +48,23 @@
                         @method('post')
                         @csrf
 
-                        <div class="radio project-div d-flex flex-column">
+                        <div class="radio project-div d-flex flex-wrap">
                             <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
                             <div class="flex-column">
                                 <h4><b>{{$s->titulo}}</b></h4>
                                 <p>{{$s->descricao}}</p>
                                 <p><b>Integrantes:</b> {{$s->integrantes}}</p>
 
-                                <div class="column">
-                                    @foreach ($foto as $f)
-                                        <a href="#imgModal" class="img" id="{{$f->id}}">
-                                            <img style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$f->foto")}}"  alt="image">
-                                        </a>
-                                    @endforeach
-                                </div>
 
+                                    @foreach ($foto as $f)
+                                    <ul class="flex-c slide">
+                                        <li>
+                                            <a href="#imgModal" class="img" id="{{$f->id}}">
+                                                <img class="imgProjeto" style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$f->foto")}}"  alt="image">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    @endforeach
                             </div>
                         </div>
 
@@ -71,7 +73,7 @@
                     @endforeach
                 </div>
 
-                <!--FIm da div categoria-->
+                <!--Fim da div categoria-->
 
             @endforeach
 
@@ -79,7 +81,7 @@
 
         <footer>
             <div class="p-2 mt-5 mx-auto text-center">
-                    <button type="submit" form="formVotar" id="voto" class="btn btn-success btn-lg">VOTAR</button>
+                    <button type="button" id="voto" class="btn btn-success btn-lg">VOTAR</button>
             </div>
         </footer>
     </section>
@@ -92,15 +94,31 @@
         <!-- Modal para imagens-->
 
         <div id="imgModal" class="modal">
-            <div class="modal-dialog">
-              <div class="modal-content">
+            <div class="modal-dialog bg-light">
+              <div class="modal-content bg-light">
                 <div class="modal-body">
-                    <div class="slide">
+                    <div class="slide d-flex flex-row">
                         <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
                     </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Modal para confirmar submit -->
+
+          <div class="modal" id="descricaoModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Verifique se as informações abaixo constam com os seus dados informados:</h5>
+                </div>
+                <div class="modal-body" id="descricao">
+
+                </div>
                 <div class="modal-footer">
-                  <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
                 </div>
               </div>
             </div>
@@ -173,12 +191,34 @@
                 });
 
             $("#confirmar").click(function() {
-                $("#votoModal").modal('hide');
+                if (document.getElementById("nome").value) {
+                    if (document.getElementById("sobrenome").value) {
+                        if (document.getElementById("cpf").value) {
+                            $("#votoModal").modal('hide');
+                        }
+                    }
+                }
             });
 
             $("#voto").click(function() {
+                let nome =  document.getElementById("nome").value;
+                let sobrenome =  document.getElementById("sobrenome").value;
+                let cpf =  document.getElementById("cpf").value;
+                let projetoVotado = document.querySelector(".selected");
+                let titulo = projetoVotado.children[1].children[0].textContent
+
                 $("#descricaoModal").modal('show');
+
+                document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome}</p>
+                <p><b>Sobrenome:</b> ${sobrenome}</p>
+                <p><b>Cpf:</b> ${cpf}</p>
+                <p><b>Projeto Votado:</b> ${titulo}</p>`
             });
+        });
+
+        $("#proximo").click(function(){
+            let proximo = document.getElementById("proximo");
+            console.log(proximo.previousElementSibling.parentElement.nextSibling)
         });
 
 

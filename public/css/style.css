@@ -308,3 +308,18 @@
     border-radius: 0.8em;
     cursor: pointer;
 }
+
+.flex-c {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+@media (min-width: 360px) and (max-width: 655px) {
+    .imgProjeto {
+        display: none;
+    }
+}
