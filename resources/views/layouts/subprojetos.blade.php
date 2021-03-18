@@ -240,7 +240,7 @@
                     });
 
                     $("#close").click(function() {
-                        document.getElementById("#imgModal").modal('hide');
+                       $("#imgModal").modal("hide");
                     });
             });
 

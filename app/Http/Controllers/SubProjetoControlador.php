@@ -56,13 +56,11 @@ class SubProjetoControlador extends Controller
     }
 
     public function votar(VotoRequest $request) {
-        $novoVoto = new Voto();
-        $novoVoto->nome = $request->nome;
-        $novoVoto->sobrenome = $request->sobrenome;
-        $novoVoto->cpf = $request->cpf;
-
         foreach ($request->voto as $v) {
-
+            $novoVoto = new Voto();
+            $novoVoto->nome = $request->nome;
+            $novoVoto->sobrenome = $request->sobrenome;
+            $novoVoto->cpf = $request->cpf;
             $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
         }

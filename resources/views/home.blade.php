@@ -48,24 +48,29 @@
                         @method('post')
                         @csrf
 
-                        <div class="radio project-div d-flex flex-wrap">
+                        <div class="radio project-div">
                             <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
-                            <div class="flex-column">
+                            <div class="d-flex flex-column">
                                 <h4><b>{{$s->titulo}}</b></h4>
                                 <p>{{$s->descricao}}</p>
                                 <p><b>Integrantes:</b> {{$s->integrantes}}</p>
+                                <a id="ver_fotos" href="#imgModalSmartphone">
+                                    <button type="button" class="btn btn-sm btn-secondary">Ver Fotos</button>
+                                </a>
+                            </div>
 
-
-                                    @foreach ($foto as $f)
-                                    <ul class="flex-c slide">
+                            <div class="container d-flex flex-wrap justify-content-around">
+                                @foreach ($foto as $f)
+                                    <ul class="list-unstyled  ">
                                         <li>
                                             <a href="#imgModal" class="img" id="{{$f->id}}">
                                                 <img class="imgProjeto" style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$f->foto")}}"  alt="image">
                                             </a>
                                         </li>
                                     </ul>
-                                    @endforeach
+                                @endforeach
                             </div>
+
                         </div>
 
 
@@ -87,22 +92,45 @@
     </section>
 
 
+    <!-- Modal para imagens SmartPhone -->
+
+
+    <div id="imgModalSmartphone" class="modal">
+        <div style="top: 10%; left: 10%;">
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="text-light" style="font-size: 2em;">&times;</span>
+            </button>
+
+        </div>
+
+        <button type="button" id="next" class="btn-primary btn">Netx
+        </button>
+          <div class="modal-content bg-light" >
+            <div class="modal-body">
+                <div class="slide d-flex flex-row">
+
+                </div>
+            </div>
+          </div>
+      </div>
 
 
 
-
-        <!-- Modal para imagens-->
+        <!-- Modal para imagens Desktop -->
 
         <div id="imgModal" class="modal">
-            <div class="modal-dialog bg-light">
-              <div class="modal-content bg-light">
+            <div style="top: 10%; left: 10%;">
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-light" style="font-size: 4em;">&times;</span>
+                </button>
+            </div>
+              <div class="modal-content bg-light" style="width: 60%; margin: 5% auto;" >
                 <div class="modal-body">
                     <div class="slide d-flex flex-row">
-                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
+                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%; height:100%;" >
                     </div>
                 </div>
               </div>
-            </div>
           </div>
 
 
@@ -204,21 +232,34 @@
                 let nome =  document.getElementById("nome").value;
                 let sobrenome =  document.getElementById("sobrenome").value;
                 let cpf =  document.getElementById("cpf").value;
-                let projetoVotado = document.querySelector(".selected");
-                let titulo = projetoVotado.children[1].children[0].textContent
+                let projetoVotado = document.querySelectorAll(".selected");
+                let projeto = [];
+                projetoVotado.forEach(function(p) {
+                    projeto.push(p.children[1].firstElementChild.textContent
+                    );
+                });
+
 
                 $("#descricaoModal").modal('show');
 
                 document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome}</p>
                 <p><b>Sobrenome:</b> ${sobrenome}</p>
                 <p><b>Cpf:</b> ${cpf}</p>
-                <p><b>Projeto Votado:</b> ${titulo}</p>`
+                <p><b>Projetos Votados:</b> ${projeto.toString()}</p>
+                `
             });
         });
 
-        $("#proximo").click(function(){
-            let proximo = document.getElementById("proximo");
-            console.log(proximo.previousElementSibling.parentElement.nextSibling)
+        $("#ver_fotos").click(function() {
+            let n = 0;
+            let fotos = this.parentElement.parentElement.children[2].getElementsByTagName('img');
+            console.log(fotos)
+            $("#imgModalSmartphone").modal("show")
+            document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+            $("#next").click(function(){
+                n++;
+                document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+            });
         });
 
 
