@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\VotoRequest;
 use App\Models\Categorias;
 use App\Models\Foto;
 use App\Models\SubProjetos;
 use App\Models\Projeto;
+use App\Models\Voto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Cache\RedisTaggedCache;
 use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\isNull;
 
 class SubProjetoControlador extends Controller
 {
@@ -18,6 +22,7 @@ class SubProjetoControlador extends Controller
     private $objSubProjeto;
     private $objProjeto;
     private $objFoto;
+    private $objVoto;
 
     public function __construct()
     {
@@ -25,6 +30,7 @@ class SubProjetoControlador extends Controller
         $this->objCategoria = new Categorias();
         $this->objProjeto = new Projeto();
         $this->objFoto = new Foto();
+        $this->objVoto = new Voto();
     }
 
 
@@ -49,8 +55,18 @@ class SubProjetoControlador extends Controller
         return view('home', compact('projetos','subProjetos', 'categorias', 'fotos'));
     }
 
-    public function votar(Request $request, $id) {
-        //
+    public function votar(VotoRequest $request) {
+        foreach ($request->voto as $v) {
+            $novoVoto = new Voto();
+            $novoVoto->nome = $request->nome;
+            $novoVoto->sobrenome = $request->sobrenome;
+            $novoVoto->cpf = $request->cpf;
+            $novoVoto->subProjeto_id = $v;
+            $novoVoto->save();
+        }
+
+
+        return redirect()->back()->with(['message' => 'Voto computado com sucesso', 'msg-type' => 'success']);
     }
 
     /**
@@ -132,6 +148,7 @@ class SubProjetoControlador extends Controller
                 if (Foto::where('subprojeto_id', $id)->count() < 4){
                     $objFoto->save();
                 }
+
                 else {
                     return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'O limite de imagens para cada projeto
                     é de 4 imagens!', 'msg-type' => 'danger']);
@@ -140,7 +157,18 @@ class SubProjetoControlador extends Controller
             endforeach;
         endif;
 
-        return redirect()->route('subprojetos', $projeto_id)->with(['message' => 'Imagem inserida com sucesso!', 'msg-type' => 'success']);
+        if (!isset($fotos)){
+            return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'Deve ser selecionado no mínimo uma imagem!', 'msg-type' => 'danger']);
+        } else {
+            return redirect()->route('subprojetos', $projeto_id)->with(['message' => 'Imagem inserida com sucesso!', 'msg-type' => 'success']);
+
+        }
+    }
+
+
+    public function deletarFoto($projeto_id, $img) {
+        $this->objFoto->destroy($img);
+        return redirect()->back()->with(['message' => 'Imagem excluída com sucesso!', 'msg-type' => 'danger']);
     }
 
     /**

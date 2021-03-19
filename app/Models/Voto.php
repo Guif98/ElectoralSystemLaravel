@@ -10,7 +10,7 @@ class Voto extends Model
     use HasFactory;
 
     protected $table = 'votos';
-    protected $fillable = ['cpf', 'subProjeto_id'];
+    protected $fillable = ['nome', 'sobrenome', 'cpf', 'subProjeto_id'];
 
     public function relSubProjeto() {
         return $this->hasOne(\App\Models\SubProjetos::class, 'id', 'subProjeto_id');

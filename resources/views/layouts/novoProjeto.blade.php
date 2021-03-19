@@ -26,7 +26,7 @@
 </div>
 @endif
 
-    <div class="mb-3 input-formCriar">
+    <div class="mb-3 mt-5 input-formCriar">
       <label for="nome" class="form-label">Nome do Projeto</label>
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($projeto)) value="{{$projeto->nome ?? ''}}" @endif >
     </div>

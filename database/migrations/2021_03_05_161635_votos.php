@@ -15,9 +15,11 @@ class Votos extends Migration
     {
         Schema::create('votos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cpf');
+            $table->bigInteger('cpf')->nullable('false');
+            $table->string('nome')->nullable('false');
+            $table->string('sobrenome')->nullable('false');
             $table->tinyInteger('subProjeto_id')->unsigned();
-            $table->foreign('subProjeto_id')->references('id')->on('subProjetos');
+            $table->foreign('subProjeto_id')->references('id')->on('subProjetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

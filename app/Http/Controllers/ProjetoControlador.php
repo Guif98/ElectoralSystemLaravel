@@ -103,12 +103,19 @@ class ProjetoControlador extends Controller
      */
     public function update(ProjetoRequest $request, $id)
     {
-        $this->objProjeto->where(['id'=>$id])->update([
-            'nome'=>$request->nome,
-            'dataInicio'=>$request->dataInicio,
-            'dataFim'=>$request->dataFim,
-            'ativo'=> implode("", $request->ativo),
-        ]);
+
+        $projeto = $this->objProjeto->where(['id'=>$id])->first();
+        $projeto->nome = $request->nome;
+        $projeto->dataInicio = $request->dataInicio;
+        $projeto->dataFim = $request->dataFim;
+        if (is_null($request->ativo)) {
+                $projeto->ativo = 0;
+            }
+        else {
+                $projeto->ativo = implode("", $request->ativo);
+            }
+
+        $projeto->save();
 
         return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso', 'msg-type' => 'warning']);
     }

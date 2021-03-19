@@ -308,3 +308,47 @@
     border-radius: 0.8em;
     cursor: pointer;
 }
+
+.flex-c {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#ver_fotos {
+    display: none;
+}
+
+@media (min-width: 360px) and (max-width: 655px) {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #imgModalSmartphone {
+        width: 100%;
+
+    }
+
+    #ver_fotos {
+        display: block;
+    }
+
+
+    .project-div {
+        width: 98%;
+    }
+
+    .categoria {
+        width: 100%;
+    }
+
+    .imgProjeto {
+        display: none;
+    }
+
+
+}
