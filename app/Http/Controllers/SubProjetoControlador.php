@@ -50,7 +50,7 @@ class SubProjetoControlador extends Controller
     }
 
     public function votar(Request $request, $id) {
-        dd($request);
+        //
     }
 
     /**
