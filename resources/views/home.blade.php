@@ -102,9 +102,8 @@
             </button>
 
         </div>
-
-        <button type="button" id="next" class="btn-primary btn">Netx
-        </button>
+        <button type="button" id="prev" class="btn-warning btn">Anterior</button>      
+        <button type="button" id="next" class="btn-primary btn">Próximo</button>
           <div class="modal-content bg-light" >
             <div class="modal-body">
                 <div class="slide d-flex flex-row">
@@ -146,7 +145,8 @@
 
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
+                    <button type="button" id="cancelarVoto" class="btn btn-danger">Cancelar</button>
+                    <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
                 </div>
               </div>
             </div>
@@ -156,7 +156,7 @@
 
           <!-- Modal para votos -->
 
-          <div class="modal fade" id="votoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="votoModal" aria-hidden="true">
+          <div class="modal fade mt-5" id="votoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="votoModal" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -218,6 +218,11 @@
                     keyboard: false
                 });
 
+            $("#cancelarVoto").click(function() {
+               $("#descricaoModal").modal('hide'); 
+            });
+
+
             $("#confirmar").click(function() {
                 if (document.getElementById("nome").value) {
                     if (document.getElementById("sobrenome").value) {
@@ -256,8 +261,20 @@
             console.log(fotos)
             $("#imgModalSmartphone").modal("show")
             document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+           
             $("#next").click(function(){
-                n++;
+                if (n == fotos.length)  {
+                    n = 0;
+                } else {
+                    n++;    
+                }
+                document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+            });
+            $("#prev").click(function(){
+                if (n == 0) {
+                    n = 4;
+                }
+                n--;    
                 document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             });
         });

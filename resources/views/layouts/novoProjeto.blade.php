@@ -39,7 +39,7 @@
         <input required type="date" class="form-control input-formCriar" id="dataFim" name="dataFim" @if (isset($projeto)) ?? value="{{$projeto->dataFim}}" : value="" @endif>
     </div>
     <div class="form-check form-switch mb-4 input-formCriar">
-        <input class="form-check-input" value="1" type="checkbox" name="ativo[]">
+        <input class="form-check-input" value="1" type="checkbox" id="ativo" name="ativo[]">
         <label class="form-check-label" for="ativo">Projeto ativo</label>
     </div>
     <button type="submit" class="input-formCriar btn btn-outline-success">@if (isset($projeto))Atualizar @else Criar  @endif</button>

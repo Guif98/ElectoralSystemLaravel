@@ -203,7 +203,7 @@
 
 <!-- Modal para imagens-->
 
-        <div id="imgModal" class="modal">
+        <div id="imgModal" class="modal mt-5">
             <div class="modal-dialog">
               <div class="modal-content">
                     <div class="slide">
