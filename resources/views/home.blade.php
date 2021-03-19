@@ -59,7 +59,7 @@
                                 </a>
                             </div>
 
-                            <div class="container d-flex flex-wrap justify-content-around">
+                            <div class="{{$s->id}} container d-flex flex-wrap justify-content-around">
                                 @foreach ($foto as $f)
                                     <ul class="list-unstyled  ">
                                         <li>
@@ -102,8 +102,9 @@
             </button>
 
         </div>
-        <button type="button" id="prev" class="btn-warning btn">Anterior</button>      
-        <button type="button" id="next" class="btn-primary btn">Próximo</button>
+
+        <button type="button" id="next" class="btn-primary btn">Netx
+        </button>
           <div class="modal-content bg-light" >
             <div class="modal-body">
                 <div class="slide d-flex flex-row">
@@ -125,6 +126,9 @@
             </div>
               <div class="modal-content bg-light" style="width: 60%; margin: 5% auto;" >
                 <div class="modal-body">
+                    <button id="anterior" class="btn btn-lg btn-primary" type="button">Previous</button>
+                    <button id="proximo" class="btn btn-lg btn-success" type="button">Next</button>
+
                     <div class="slide d-flex flex-row">
                         <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%; height:100%;" >
                     </div>
@@ -145,8 +149,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="cancelarVoto" class="btn btn-danger">Cancelar</button>
-                    <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
+                  <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
                 </div>
               </div>
             </div>
@@ -156,7 +159,7 @@
 
           <!-- Modal para votos -->
 
-          <div class="modal fade mt-5" id="votoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="votoModal" aria-hidden="true">
+          <div class="modal fade" id="votoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="votoModal" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -195,17 +198,65 @@
           </div>
 
 
+
     <script>
         $(document).ready(function() {
             $(".img").click(function() {
 
+                let currentImg = document.getElementById(this.id);
+                let singularImg = currentImg.childNodes[1];
 
-                let imgSrc = document.getElementById(this.id).children[0].currentSrc;
+                let parentDiv = currentImg.parentNode.parentNode.parentNode;
+                let siblingImages = parentDiv.getElementsByTagName('img');
+
+                for (let i=0; i < siblingImages.length; i++) {
+                    siblingImages[i].onclick = function() {
+                        index = i;
+                        return index;
+                    }
+                }
+
+                $("#imgModal").modal();
+                let imageInsideModal = document.getElementById("imageInsideModal");
+                let imgSrc = siblingImages[index].currentSrc;
+
+                $("#proximo").click(function() {
+                    console.log(index)
+                    index++;
+                    if (index >= siblingImages.length) {
+                        index = 0;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
+                });
+
+                $("#anterior").click(function() {
+                    console.log(index)
+                    index--;
+                    if (index <= -1) {
+                        index = siblingImages.length - 1;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
+                });
+
+
+                imageInsideModal.src = imgSrc;
+
+
+
+
+
+
+                $("#proximo").click(function() {
+                    currentImg.src = currentImg.src + 1;
+                });
+
+               /* let imgSrc = currentImg.children[0].currentSrc;
                 console.log(imgSrc)
 
-                let imageInsideModal = document.getElementById("imageInsideModal");
-                $("#imgModal").modal();
-                imageInsideModal.src = imgSrc;
+
+                imageInsideModal.src = imgSrc;*/
 
 
             });
@@ -217,11 +268,6 @@
                     backdrop: 'static',
                     keyboard: false
                 });
-
-            $("#cancelarVoto").click(function() {
-               $("#descricaoModal").modal('hide'); 
-            });
-
 
             $("#confirmar").click(function() {
                 if (document.getElementById("nome").value) {
@@ -261,20 +307,8 @@
             console.log(fotos)
             $("#imgModalSmartphone").modal("show")
             document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-           
             $("#next").click(function(){
-                if (n == fotos.length)  {
-                    n = 0;
-                } else {
-                    n++;    
-                }
-                document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-            });
-            $("#prev").click(function(){
-                if (n == 0) {
-                    n = 4;
-                }
-                n--;    
+                n++;
                 document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             });
         });

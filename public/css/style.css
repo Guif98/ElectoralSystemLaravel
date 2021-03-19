@@ -322,6 +322,7 @@
     display: none;
 }
 
+
 @media (min-width: 360px) and (max-width: 655px) {
     body {
         margin: 0;
