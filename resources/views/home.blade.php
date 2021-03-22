@@ -10,10 +10,11 @@
     @endif
 
     <header class="m-0 p-0" style="z-index: 1">
-        <video class="video-container" muted autoplay loop>
-            <source src="{{url('video/video.mp4')}}" type="video/mp4"/>
-        </video>
-        <h2 class="title text-center">Bem-Vindo!</h2>
+        @foreach ($projetos as $projeto)
+        <div class="projeto-cover d-flex align-items-center justify-content-center">
+            <img src="{{url("/storage/app/fotos/$projeto->capa")}}" style="width: 100%; height: 100%;"  alt="">
+        </div>
+        @endforeach
     </header>
         <section class="home-section mb-5">
 
@@ -150,6 +151,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </div>
             </div>
@@ -164,6 +166,10 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="votoModal">Antes de votar, preencha as informações abaixo:</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+
                 </div>
                 <form action="{{route('validarEleitor')}}"  method="POST">
                     <div class="modal-body">
@@ -204,44 +210,45 @@
             $(".img").click(function() {
 
                 let currentImg = document.getElementById(this.id);
-                let singularImg = currentImg.childNodes[1];
 
                 let parentDiv = currentImg.parentNode.parentNode.parentNode;
                 let siblingImages = parentDiv.getElementsByTagName('img');
+                console.log(siblingImages)
+                let index = 0;
 
                 for (let i=0; i < siblingImages.length; i++) {
                     siblingImages[i].onclick = function() {
                         index = i;
-                        return index;
+                        console.log(index)
+
+                        $("#proximo").click(function() {
+                            index++;
+                            if (index > 3) {
+                                index = 0;
+                            }
+                            imgSrc = siblingImages[index].currentSrc;
+                            imageInsideModal.src = imgSrc;
+                        });
+
+                        $("#anterior").click(function() {
+                            index--;
+                            if (index < 0) {
+                                index = 3;
+                            }
+                            imgSrc = siblingImages[index].currentSrc;
+                            imageInsideModal.src = imgSrc;
+                        });
+
+                        $("#imgModal").modal();
+                        let imageInsideModal = document.getElementById("imageInsideModal");
+                        let imgSrc = siblingImages[index].currentSrc;
+                        imageInsideModal.src = imgSrc;
                     }
                 }
 
-                $("#imgModal").modal();
-                let imageInsideModal = document.getElementById("imageInsideModal");
-                let imgSrc = siblingImages[index].currentSrc;
-
-                $("#proximo").click(function() {
-                    console.log(index)
-                    index++;
-                    if (index >= siblingImages.length) {
-                        index = 0;
-                    }
-                    imgSrc = siblingImages[index].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                });
-
-                $("#anterior").click(function() {
-                    console.log(index)
-                    index--;
-                    if (index <= -1) {
-                        index = siblingImages.length - 1;
-                    }
-                    imgSrc = siblingImages[index].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                });
 
 
-                imageInsideModal.src = imgSrc;
+
 
 
 

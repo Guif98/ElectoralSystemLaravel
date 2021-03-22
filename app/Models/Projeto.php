@@ -9,7 +9,7 @@ class Projeto extends Model
 {
     use HasFactory;
     protected $table = 'projetos';
-    protected $fillable = ['nome', 'dataInicio', 'dataFim', 'ativo'
+    protected $fillable = ['nome', 'dataInicio', 'dataFim', 'capa', 'ativo'
     ];
 
     public function relSubProjetos() {

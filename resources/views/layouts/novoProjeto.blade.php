@@ -6,10 +6,10 @@
 
 <div class="mt-5 mx-auto">
 @if (isset($projeto))
-<form name="formEdit" id="formEdit" action="{{url("projetos/$projeto->id")}}" class="m-auto col-6" method="POST">
+<form name="formEdit" id="formEdit" action="{{url("projetos/$projeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
     @method('patch')
 @else
-<form name="formCriar" id="formCriar" action="{{url('novoProjeto')}}" class="m-auto col-6" method="POST">
+<form name="formCriar" id="formCriar" action="{{url('novoProjeto')}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
     @method('POST')
 @endif
 @csrf
@@ -38,6 +38,11 @@
         <label for="dataFim" class="form-label">Data do Fim</label>
         <input required type="date" class="form-control input-formCriar" id="dataFim" name="dataFim" @if (isset($projeto)) ?? value="{{$projeto->dataFim}}" : value="" @endif>
     </div>
+    <label for="capa">Adicionar foto de capa</label>
+    <div class="custom-file mb-3" id="capa">
+        <input type="file" name="capa" class="custom-file-input" id="capa">
+        <label class="custom-file-label" for="capa">Selecionar arquivo</label>
+      </div>
     <div class="form-check form-switch mb-4 input-formCriar">
         <input class="form-check-input" value="1" type="checkbox" id="ativo" name="ativo[]">
         <label class="form-check-label" for="ativo">Projeto ativo</label>

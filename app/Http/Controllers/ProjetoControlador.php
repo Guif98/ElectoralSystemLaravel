@@ -58,6 +58,15 @@ class ProjetoControlador extends Controller
         $this->objProjeto->nome = $request->nome;
         $this->objProjeto->dataInicio = $request->dataInicio;
         $this->objProjeto->dataFim = $request->dataFim;
+
+        if ($request->hasFile('capa')) {
+            $capa = $request->file('capa');
+            $filename = time() . '__' . $capa->getClientOriginalExtension();
+            $capa->move('storage/app/fotos', $filename);
+            $this->objProjeto->capa = $filename;
+        }
+
+
         if (is_null($request->ativo)) {
             $this->objProjeto->ativo = 0;
         }
@@ -108,6 +117,14 @@ class ProjetoControlador extends Controller
         $projeto->nome = $request->nome;
         $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
+
+        if ($request->hasFile('capa')) {
+            $capa = $request->file('capa');
+            $filename = time() . '__' . $capa->getClientOriginalExtension();
+            $capa->move('storage/app/fotos', $filename);
+            $projeto->capa = $filename;
+        }
+
         if (is_null($request->ativo)) {
                 $projeto->ativo = 0;
             }
