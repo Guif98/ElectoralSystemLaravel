@@ -28,8 +28,8 @@
 
 
     <div class="mb-3 mt-5 mx-auto input-formCriar">
-        <label class="form-label" for="foto">Selecione as fotos (no máximo 4 imagens)</label>
-        <input type="file" class="form-control" name="foto[]"  id="foto[]"  multiple/>
+        <label class="custom-file-label" for="foto">Selecione as fotos (no máximo 4 imagens)</label>
+        <input type="file" class="custom-file-input" name="foto[]"  id="foto[]"  multiple/>
     </div>
 
     <button type="submit" class="btn btn-success input-formCriar">Add Foto</button>

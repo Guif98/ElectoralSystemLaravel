@@ -34,7 +34,7 @@
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($categoria)) value="{{$categoria->nome ?? ''}}" @endif >
     </div>
     <button type="submit" class="btn btn-success input-formCriar">@if (isset($categoria))Atualizar @else Criar  @endif</button>
-    <a href="{{url("categorias/$projeto_id")}}" class="btn btn-secondary input-formCriar">Ver Categorias
+    <a href="{{url("categorias/$projeto_id")}}" class="btn btn-secondary input-formCriar">Voltar
     </a>
   </form>
 </div>

@@ -226,28 +226,28 @@
         }
 
         $("#proximo").click(function() {
-            index++;
-            if (index > 3) {
-                index = 3;
-            }
-            else if (index < 0) {
-                index = 0;
-            }
-            imgSrc = siblingImages[index].currentSrc;
-            imageInsideModal.src = imgSrc;
-        });
+                    index++;
+                    if (index > 3) {
+                        index = 3;
+                    }
+                    else if (index < 0) {
+                        index = 0;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
+                });
 
-        $("#anterior").click(function() {
-            index--;
-            if (index < 0) {
-                index = 0;
-            }
-            else if (index > 3) {
-                index = 3;
-            }
-            imgSrc = siblingImages[index].currentSrc;
-            imageInsideModal.src = imgSrc;
-        });
+                $("#anterior").click(function() {
+                    index--;
+                    if (index < 0) {
+                        index = 0;
+                    }
+                    else if (index > 3) {
+                        index = 3;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
+                });
 
                /* let imgSrc = currentImg.children[0].currentSrc;
                 console.log(imgSrc)
