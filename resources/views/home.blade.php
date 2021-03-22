@@ -209,49 +209,45 @@
         $(document).ready(function() {
             $(".img").click(function() {
 
+                var index = 0;
                 let currentImg = document.getElementById(this.id);
                 let parentDiv = currentImg.parentElement.parentElement.parentElement;
                 let siblingImages = parentDiv.getElementsByTagName('img');
-                console.log(siblingImages)
-                var index = 0;
-
                 for (let i=0; i < siblingImages.length; i++) {
-                    siblingImages[i].onclick = function() {
+                    siblingImages[i].onclick = function(index) {
                         index = i;
-                    }
-                }
-
-                $("#proximo").click(function() {
-                    index++;
-                    console.log(index);
-                    if (index > 3) {
-                        index = 3;
-                    }
-                    else if (index < 0) {
-                        index = 0;
-                    }
-                    imgSrc = siblingImages[index].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                });
-
-                $("#anterior").click(function() {
-                    index--;
-                    if (index < 0) {
-                        index = 0;
-                    }
-                    else if (index > 3) {
-                        index = 3;
-                    }
-                    imgSrc = siblingImages[index].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                });
 
                 $("#imgModal").modal();
                 let imageInsideModal = document.getElementById("imageInsideModal");
                 let imgSrc = siblingImages[index].currentSrc;
                 imageInsideModal.src = imgSrc;
 
+            }
+        }
 
+        $("#proximo").click(function() {
+            index++;
+            if (index > 3) {
+                index = 3;
+            }
+            else if (index < 0) {
+                index = 0;
+            }
+            imgSrc = siblingImages[index].currentSrc;
+            imageInsideModal.src = imgSrc;
+        });
+
+        $("#anterior").click(function() {
+            index--;
+            if (index < 0) {
+                index = 0;
+            }
+            else if (index > 3) {
+                index = 3;
+            }
+            imgSrc = siblingImages[index].currentSrc;
+            imageInsideModal.src = imgSrc;
+        });
 
                /* let imgSrc = currentImg.children[0].currentSrc;
                 console.log(imgSrc)
