@@ -49,7 +49,7 @@
                         @method('post')
                         @csrf
 
-                        <div class="radio project-div">
+                        <div class="radio project-div" onblur="loseIndex();">
                             <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
                             <div class="d-flex flex-column">
                                 <h4><b>{{$s->titulo}}</b></h4>
@@ -127,8 +127,8 @@
             </div>
               <div class="modal-content bg-light" style="width: 60%; margin: 5% auto;" >
                 <div class="modal-body">
-                    <button id="anterior" class="btn btn-lg btn-primary" type="button">Previous</button>
-                    <button id="proximo" class="btn btn-lg btn-success" type="button">Next</button>
+                    <span id="anterior" class="arrow arrow-left" type="button"></span>
+                    <span id="proximo" class="arrow arrow-right" type="button"></span>
 
                     <div class="slide d-flex flex-row">
                         <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%; height:100%;" >
@@ -210,54 +210,48 @@
             $(".img").click(function() {
 
                 let currentImg = document.getElementById(this.id);
-
-                let parentDiv = currentImg.parentNode.parentNode.parentNode;
+                let parentDiv = currentImg.parentElement.parentElement.parentElement;
                 let siblingImages = parentDiv.getElementsByTagName('img');
                 console.log(siblingImages)
-                let index = 0;
+                var index = 0;
 
                 for (let i=0; i < siblingImages.length; i++) {
                     siblingImages[i].onclick = function() {
                         index = i;
-                        console.log(index)
-
-                        $("#proximo").click(function() {
-                            index++;
-                            if (index > 3) {
-                                index = 0;
-                            }
-                            imgSrc = siblingImages[index].currentSrc;
-                            imageInsideModal.src = imgSrc;
-                        });
-
-                        $("#anterior").click(function() {
-                            index--;
-                            if (index < 0) {
-                                index = 3;
-                            }
-                            imgSrc = siblingImages[index].currentSrc;
-                            imageInsideModal.src = imgSrc;
-                        });
-
-                        $("#imgModal").modal();
-                        let imageInsideModal = document.getElementById("imageInsideModal");
-                        let imgSrc = siblingImages[index].currentSrc;
-                        imageInsideModal.src = imgSrc;
                     }
                 }
 
-
-
-
-
-
-
-
-
-
                 $("#proximo").click(function() {
-                    currentImg.src = currentImg.src + 1;
+                    index++;
+                    console.log(index);
+                    if (index > 3) {
+                        index = 3;
+                    }
+                    else if (index < 0) {
+                        index = 0;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
                 });
+
+                $("#anterior").click(function() {
+                    index--;
+                    if (index < 0) {
+                        index = 0;
+                    }
+                    else if (index > 3) {
+                        index = 3;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
+                });
+
+                $("#imgModal").modal();
+                let imageInsideModal = document.getElementById("imageInsideModal");
+                let imgSrc = siblingImages[index].currentSrc;
+                imageInsideModal.src = imgSrc;
+
+
 
                /* let imgSrc = currentImg.children[0].currentSrc;
                 console.log(imgSrc)

@@ -317,16 +317,32 @@
 
 .arrow {
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    border-top: 2px solid #000;
-    border-right: 2px solid #000;
+    width: 30px;
+    height: 30px;
+    font-size: 3em;
+    border-top: 10px solid rgb(160, 159, 159);
+    border-right: 10px solid rgb(160, 159, 159);
+    position: fixed;
+
   }
+
+  .arrow:hover {
+        border-top: 10px solid rgb(255, 255, 255);
+        border-right: 10px solid rgb(243, 243, 243);
+        font-weight: bold;
+    }
 
   .arrow-right {
     transform: rotate(45deg);
+    top: 48%;
+    left: 73%;
   }
 
+  .arrow-left {
+    transform: rotate(-135deg);
+    top: 48%;
+    left: 20%;
+  }
 
 @media (min-width: 360px) and (max-width: 655px) {
     body {
