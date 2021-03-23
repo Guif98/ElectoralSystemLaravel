@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/google', function() {
+    return view('layouts.google');
+});
 
 Route::get('/', 'SubProjetoControlador@home')->name('home');
 Route::post('/', 'SubProjetoControlador@votar')->name('votar');
+
 Route::post('/validar', 'SubProjetoControlador@validarEleitor')->name('validarEleitor');
 
 

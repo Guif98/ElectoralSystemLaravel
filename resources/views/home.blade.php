@@ -227,7 +227,7 @@
 
         $("#proximo").click(function() {
                     index++;
-                    if (index > 3) {
+                    if (index > siblingImages.length) {
                         index = 3;
                     }
                     else if (index < 0) {
