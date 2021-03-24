@@ -44,21 +44,8 @@ class SubProjetoControlador extends Controller
         $subProjetos = SubProjetos::where('projeto_id', $projeto_id)->get();
         $categorias = $this->objCategoria->all();
 
-        $data = DB::table('votos')
-                ->leftJoin('subProjetos', 'votos.subProjeto_id', '=', 'subProjetos.id')
-                ->leftJoin('categorias', 'subProjetos.categoria_id', '=', 'categorias.id')
-                ->select(
-                    DB::raw('subProjetos.titulo as titulo'),
-                    DB::raw('count(subProjeto_id) as number'),
-                    DB::raw('categorias.nome as categoria'))
-                ->groupBy('titulo', 'categoria')
-                ->get();
-        $array[] = ['Titulo','Number', 'Categoria'];
-        foreach($data as $key => $value) {
-            $array[++$key] = [$value->titulo, $value->number, $value->categoria];
-        };
-        dd($data);
-        return view('layouts.subprojetos', compact('categorias','subProjetos'))->with('titulo', json_encode($array));
+        
+        return view('layouts.subprojetos', compact('categorias','subProjetos'));
 
     }
 
