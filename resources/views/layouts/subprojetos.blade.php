@@ -23,14 +23,14 @@
 
 <div class="mt-5 container-fluid">
     <div class="m-auto mt-5">
-        <h2 class="text-center">Lista de SubProjetos</h2>
+        <h2 class="text-center">Candidatos</h2>
     </div>
     <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
-            <button class="btn btn-success">Criar SubProjeto</button>
+            <button class="btn btn-success">Criar Candidato</button>
         </a>
         <a class="text-decoration-none" href="{{url("/projetos")}}">
-            <button class="btn btn-danger">Voltar Para Projetos</button>
+            <button class="btn btn-primary">Voltar</button>
         </a>
     </div>
 <table id="xl-table-subprojetos" class="table mt-5 table-hover table-dark table-striped">
@@ -166,33 +166,33 @@
     </tbody>
   </table>
 
-  <table id="little-table-subprojetos" class="table mt-5 mx-auto w-75 table-dark table-hover table-striped">
+  <table id="little-table-subprojetos" class="table mt-5 mx-auto w-100 table-dark table-hover table-striped">
     <thead>
       <tr>
         <th scope="col">Título</th>
-        <th class="w-100 text-center" scope="col" colspan="4">Ações</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($subProjetos as $subProjeto)
         <tr>
-            <td>{{$subProjeto->titulo}}</td>
-            <td>
-                <div class="d-flex flex-column">
+            <td class="w-50">{{$subProjeto->titulo}}</td>
+            <td class="w-100 ">
+                <div class="d-flex flex-wrap">
                     <div class="d-flex flex-row justify-content-center">
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                            <button class="btn btn-outline-primary btn-sm">Editar</button>
+                        <a class="mr-2 mt-2" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
+                            <button class="btn btn-outline-primary btn">Editar</button>
                         </a>
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                            <button class="btn btn-outline-success btn-sm">+Fotos</button>
+                        <a class="mt-2" href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
+                            <button class="btn btn-outline-success btn">+Fotos</button>
                         </a>
                     </div>
                     <div class="d-flex flex-row justify-content-center">
-                        <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                            <button class="btn btn-outline-danger btn-sm ">Excluir</button>
+                        <a class="mr-2 mt-2" href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
+                            <button class="btn btn-outline-danger btn ">Excluir</button>
                         </a>
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
-                            <button class="btn btn-outline-secondary btn-sm">Ver</button>
+                        <a class="mt-2" href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
+                            <button class="btn btn-outline-secondary btn">Ver</button>
                         </a>
                     </div>
 
@@ -217,7 +217,7 @@
                     <div class="slide">
                         <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
                     </div>
-                <div class="modal-body bg-dark">
+                <d iv class="modal-body bg-dark">
                     <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="imgModal">Fechar</button>
 
                     <a id="deleteImg" href="{{url("/subprojetos/$projeto_id/deletar/")}}">

@@ -22,7 +22,7 @@
 @endif
 
 <div class="mx-auto mt-5 mb-5">
-    <h3 class="titulo-sm text-center">Criar SubProjeto para o Projeto</h3>
+    <h3 class="titulo-sm text-center">Criar candidato para o projeto:</h3>
 </div>
 
 @if (isset($errors) && count($errors)>0)

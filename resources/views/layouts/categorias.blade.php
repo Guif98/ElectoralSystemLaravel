@@ -16,14 +16,14 @@
 
 <div class="container m-auto col-lg-auto col-md-auto col-sm-auto mt-5">
     <div class="mx-auto mt-5">
-        <h2 class="text-center">Lista de Categorias</h2>
+        <h2 class="text-center">Categorias</h2>
     </div>
     <div class="mx-auto mt-5 text-center col-lg-12 col-md-10 col-sm-2">
         <a class="text-decoration-none" href="{{url("categorias/$projeto_id/criar")}}">
             <button class="btn btn-success">Criar Categorias</button>
         </a>
         <a class="text-decoration-none" href="{{url('/projetos')}}">
-            <button class="btn btn-secondary">Voltar</button>
+            <button class="btn btn-primary">Voltar</button>
         </a>
     </div>
 <table class="table mt-5 hidden table-hover table-dark">

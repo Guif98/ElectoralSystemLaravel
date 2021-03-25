@@ -1,6 +1,14 @@
 @extends('layouts.template')
 
 @section('content')
+
+    <div class="mx-auto mt-5 text-center">
+        @php $projeto_id = request()->route('projeto_id'); @endphp
+        <a href="{{url("subprojetos/$projeto_id")}}">
+            <button class="btn btn-primary btn-lg">Voltar</button>
+        </a>
+    </div>
+
     <div class="container mt-5 mx-auto mb-5">
         <div>
             <h3><b>Id: </b> {{$subProjeto->id}}</h3>
@@ -26,9 +34,14 @@
                 @php
                     $fotos = $subProjeto->find($subProjeto->id)->relFotos;
                 @endphp
-                @foreach ($fotos as $foto)
-                    <img style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
-                @endforeach
+                <ul class="list-unstyled d-flex flex-wrap justify-content-around">
+                    @foreach ($fotos as $foto)
+                    <li>
+                        <img style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                    </li>
+                    @endforeach
+                </ul>
+
             </div>
 
         </div>

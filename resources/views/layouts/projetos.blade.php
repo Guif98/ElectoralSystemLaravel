@@ -15,7 +15,7 @@
  @endif
 
     <div>
-        <h2 class="text-center mt-3">Lista de projetos</h2>
+        <h2 class="text-center mt-5">Projetos</h2>
     </div>
     <div class="mx-auto mt-5 text-center">
         <a href="{{url('novoProjeto')}}">
