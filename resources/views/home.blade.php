@@ -60,7 +60,7 @@
                                 </a>
                             </div>
 
-                            <div class="{{$s->id}} container d-flex flex-wrap justify-content-around">
+                            <div class="{{$s->id}} image-container container d-flex flex-wrap justify-content-around">
                                 @foreach ($foto as $f)
                                     <ul class="list-unstyled  ">
                                         <li>
@@ -207,6 +207,14 @@
 
 
     <script>
+       let imageContainers = document.querySelectorAll('.image-container');
+        imageContainers.forEach(function(imageContainer){
+            if (imageContainer.childElementCount == 0) {
+                imageContainer.previousElementSibling.childNodes[7].classList.remove('ver_fotos')
+                imageContainer.previousElementSibling.childNodes[7].classList.add('d-none')
+            }
+        });
+
         $(document).ready(function() {
             $(".img").click(function() {
 
@@ -214,7 +222,6 @@
                 let currentImg = document.getElementById(this.id);
                 let parentDiv = currentImg.parentNode.parentNode.parentNode;
                 let siblingImages = parentDiv.getElementsByTagName('img');
-                console.log(siblingImages)
 
                 for (let i=0; i < siblingImages.length; i++) {
                     siblingImages[i].onclick = function(index) {
@@ -230,12 +237,11 @@
 
 
              $("#proximo").click(function () {
-                console.log(index)
 
                     index++;
                     if (index > siblingImages.length - 1 || index >= 3) {
                         index = 3;
-                        imgSrc = siblingImages[3].currentSrc;
+                        imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
                         imageInsideModal.src = imgSrc;
                         return imageInsideModal.src;
                     }
@@ -252,7 +258,6 @@
 
 
                 $("#anterior").click(function() {
-                    console.log(index)
 
                     index--;
                     if (index < 0) {
@@ -322,37 +327,32 @@
             });
         });
 
-        $(".ver_fotos").click(function() {
-            let n = 0;
-            let fotos = this.parentElement.parentElement.children[2].getElementsByTagName('img');
-            console.log(fotos)
-            $("#imgModalSmartphone").modal("show")
-            document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-            $("#next").click(function(){
-                n++;
-                if (n > fotos.length - 1) {
-                    n = fotos.length - 1;
-                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[fotos.length - 1].currentSrc}" style="width: 100%;">`
-                } else {
-                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-                }
-
-            });
-            $("#prev").click(function(){
-                n--;
-                if (n <= 0) {
-                    n = 0
-                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[0].currentSrc}" style="width: 100%;">`
-                } else {
-                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-                }
-
+            $(".ver_fotos").click(function() {
+                let n = 0;
+                let fotos = this.parentElement.parentElement.children[2].getElementsByTagName('img');
+                $("#imgModalSmartphone").modal("show")
                 document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+
+                $("#next").click(function(){
+                     n++;
+                    if (n > fotos.length - 1) {
+                        n = fotos.length - 1;
+                        return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[fotos.length - 1].currentSrc}" style="width: 100%;">`
+                    } else {
+                        return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+                    }
+                });
+
+                $("#prev").click(function(){
+                    n--;
+                    if (n <= 0) {
+                        n = 0
+                        return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[0].currentSrc}" style="width: 100%;">`
+                    } else {
+                        return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+                    }
+                });
             });
-        });
-
-
-
 
         $(document).ready(
             function()
