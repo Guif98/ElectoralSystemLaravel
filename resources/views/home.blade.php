@@ -55,7 +55,7 @@
                                 <h4><b>{{$s->titulo}}</b></h4>
                                 <p>{{$s->descricao}}</p>
                                 <p><b>Integrantes:</b> {{$s->integrantes}}</p>
-                                <a id="ver_fotos" href="#imgModalSmartphone">
+                                <a class="ver_fotos" href="#imgModalSmartphone">
                                     <button type="button" class="btn btn-sm btn-secondary">Ver Fotos</button>
                                 </a>
                             </div>
@@ -109,7 +109,7 @@
             <div class="modal-body">
                 <span id="prev" class="arrow arrow-left" type="button"></span>
                 <span id="next" class="arrow arrow-right" type="button"></span>
-                <div class="slide d-flex flex-row">
+                <div class="slide d-flex flex-row" style="width:100%; height: 300px;">
 
                 </div>
             </div>
@@ -322,7 +322,7 @@
             });
         });
 
-        $("#ver_fotos").click(function() {
+        $(".ver_fotos").click(function() {
             let n = 0;
             let fotos = this.parentElement.parentElement.children[2].getElementsByTagName('img');
             console.log(fotos)
@@ -330,10 +330,23 @@
             document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             $("#next").click(function(){
                 n++;
-                document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+                if (n > fotos.length - 1) {
+                    n = fotos.length - 1;
+                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[fotos.length - 1].currentSrc}" style="width: 100%;">`
+                } else {
+                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+                }
+
             });
             $("#prev").click(function(){
                 n--;
+                if (n <= 0) {
+                    n = 0
+                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[0].currentSrc}" style="width: 100%;">`
+                } else {
+                    return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+                }
+
                 document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             });
         });

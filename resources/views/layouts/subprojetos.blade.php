@@ -10,11 +10,8 @@
  </div>
  @endif
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 45958ebeb7a0df3443f6d75c90bcc0d1a2506eda
  <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
@@ -261,7 +258,7 @@
 
 
 =======
-    
+
 >>>>>>> 45958ebeb7a0df3443f6d75c90bcc0d1a2506eda
     </script>
 

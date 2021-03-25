@@ -311,7 +311,7 @@
     list-style-type: none;
 }
 
-#ver_fotos {
+.ver_fotos {
     display: none;
 }
 
@@ -363,7 +363,7 @@
         height: 600px;
     }
 
-    #ver_fotos {
+    .ver_fotos {
         display: block;
     }
 
