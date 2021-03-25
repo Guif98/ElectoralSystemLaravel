@@ -221,6 +221,7 @@
                 var index = 0;
                 let currentImg = document.getElementById(this.id);
                 let parentDiv = currentImg.parentNode.parentNode.parentNode;
+
                 let siblingImages = parentDiv.getElementsByTagName('img');
 
                 for (let i=0; i < siblingImages.length; i++) {
@@ -237,16 +238,17 @@
 
 
              $("#proximo").click(function () {
-
+                 console.log(siblingImages)
+                    console.log(index)
                     index++;
-                    if (index > siblingImages.length - 1 || index >= 3) {
-                        index = 3;
-                        imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
+                    if (index > siblingImages.length - 1 || index >= 3 ) {
+                        index = 0;
+                        imgSrc = siblingImages[0].currentSrc;
                         imageInsideModal.src = imgSrc;
                         return imageInsideModal.src;
                     }
 
-                    else if (index <= 0) {
+                    else if (index < 0) {
                         index = 0;
                         imgSrc = siblingImages[0].currentSrc;
                         imageInsideModal.src = imgSrc;
