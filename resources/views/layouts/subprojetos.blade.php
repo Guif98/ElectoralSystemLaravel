@@ -10,12 +10,15 @@
  </div>
  @endif
 
- <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
 
 
  <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
+
+    <div>
+
+    </div>
 
 
 <div class="mt-5 container-fluid">
@@ -252,23 +255,6 @@
 
     });
 
-    var analytics = <?php echo $titulo; ?>
-
-
-    google.charts.load("current", {"packages":["corechart"]});
-
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart()
-    {
-    var data = google.visualization.arrayToDataTable(analytics);
-    var options = {
-        title : 'Total de votos em todas as categorias',
-        is3d: true,
-    };
-    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-    chart.draw(data, options);
-    }
 
     </script>
 

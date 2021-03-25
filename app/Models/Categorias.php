@@ -14,7 +14,7 @@ class Categorias extends Model
     protected $fillable = ['nome', 'projeto_id'];
 
     public function relSubProjetos() {
-        return $this->hasOne(\App\Models\SubProjetos::class);
+        return $this->hasOne(\App\Models\SubProjetos::class, 'categoria_id');
     }
 
     public function relProjeto() {
