@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/google', function() {
-    return view('layouts.google');
-});
-
 Route::get('/', 'SubProjetoControlador@home')->name('home');
 Route::post('/', 'SubProjetoControlador@votar')->name('votar');
 

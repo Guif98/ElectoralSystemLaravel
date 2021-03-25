@@ -217,7 +217,7 @@
                     <div class="slide">
                         <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
                     </div>
-                <div class="modal-footer bg-dark">
+                <div class="modal-body bg-dark">
                     <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="imgModal">Fechar</button>
 
                     <a id="deleteImg" href="{{url("/subprojetos/$projeto_id/deletar/")}}">
@@ -254,12 +254,8 @@
 
 
     });
-<<<<<<< HEAD
 
 
-=======
-
->>>>>>> 45958ebeb7a0df3443f6d75c90bcc0d1a2506eda
     </script>
 
 
