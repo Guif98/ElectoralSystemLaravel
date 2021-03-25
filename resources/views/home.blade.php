@@ -12,11 +12,17 @@
     <header class="m-0 p-0" style="z-index: 1">
         @foreach ($projetos as $projeto)
         <div class="projeto-cover d-flex align-items-center justify-content-center">
-            <img src="{{url("/storage/app/fotos/$projeto->capa")}}" style="width: 100%; height: 100%;"  alt="">
+            <img src="{{url("/storage/app/fotos/$projeto->capa")}}" style="width: 100%;" alt="">
         </div>
         @endforeach
+
+        <!-- Alerta para quando não haver eventos ativos -->
+        <div id="evento-alert" class="alert alert-danger d-none text-center" style="font-size: 2em;" role="alert">
+            <p class="mt-3">Não há nenhum evento ativo no momento!</p> 
+        </div>
+
     </header>
-        <section class="home-section mb-5">
+        <section class="home-section mb-5 mt-0">
 
         @foreach ($projetos as $projeto)
             @php
@@ -207,6 +213,15 @@
 
 
     <script>
+        let projectDiv = document.querySelectorAll('.project-div');
+        if (projectDiv.length > 0) {
+            document.getElementById('voto').classList.remove('d-none');
+            document.getElementById('evento-alert').classList.add('d-none');
+        } else {
+            document.getElementById('voto').classList.add('d-none');
+            document.getElementById('evento-alert').classList.remove('d-none');
+        }
+
        let imageContainers = document.querySelectorAll('.image-container');
         imageContainers.forEach(function(imageContainer){
             if (imageContainer.childElementCount == 0) {
@@ -241,7 +256,7 @@
                  console.log(siblingImages)
                     console.log(index)
                     index++;
-                    if (index > siblingImages.length - 1 || index >= 3 ) {
+                    if (index > siblingImages.length - 1 || index > 3 ) {
                         index = 0;
                         imgSrc = siblingImages[0].currentSrc;
                         imageInsideModal.src = imgSrc;
