@@ -104,10 +104,11 @@
 
         </div>
 
-        <button type="button" id="next" class="btn-primary btn">Netx
-        </button>
+
           <div class="modal-content bg-light" >
             <div class="modal-body">
+                <span id="prev" class="arrow arrow-left" type="button"></span>
+                <span id="next" class="arrow arrow-right" type="button"></span>
                 <div class="slide d-flex flex-row">
 
                 </div>
@@ -131,7 +132,7 @@
                     <span id="proximo" class="arrow arrow-right" type="button"></span>
 
                     <div class="slide d-flex flex-row">
-                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%; height:100%;" >
+                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;height: 600px;" >
                     </div>
                 </div>
               </div>
@@ -211,8 +212,10 @@
 
                 var index = 0;
                 let currentImg = document.getElementById(this.id);
-                let parentDiv = currentImg.parentElement.parentElement.parentElement;
+                let parentDiv = currentImg.parentNode.parentNode.parentNode;
                 let siblingImages = parentDiv.getElementsByTagName('img');
+                console.log(siblingImages)
+
                 for (let i=0; i < siblingImages.length; i++) {
                     siblingImages[i].onclick = function(index) {
                         index = i;
@@ -225,29 +228,50 @@
             }
         }
 
-        $("#proximo").click(function() {
+
+             $("#proximo").click(function () {
+                console.log(index)
+
                     index++;
-                    if (index > siblingImages.length) {
+                    if (index > siblingImages.length - 1 || index >= 3) {
                         index = 3;
+                        imgSrc = siblingImages[3].currentSrc;
+                        imageInsideModal.src = imgSrc;
+                        return imageInsideModal.src;
                     }
-                    else if (index < 0) {
+
+                    else if (index <= 0) {
                         index = 0;
+                        imgSrc = siblingImages[0].currentSrc;
+                        imageInsideModal.src = imgSrc;
+                        return imageInsideModal.src;
+                    }
+                    imgSrc = siblingImages[index].currentSrc;
+                    imageInsideModal.src = imgSrc;
+             });
+
+
+                $("#anterior").click(function() {
+                    console.log(index)
+
+                    index--;
+                    if (index < 0) {
+                        index = 0;
+                        imgSrc = siblingImages[0].currentSrc;
+                        imageInsideModal.src = imgSrc;
+                        return imageInsideModal.src;
+                    }
+                    else if (index > siblingImages.length - 1) {
+                        index = siblingImages.length - 1;
+                        imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
+                        imageInsideModal.src = imgSrc;
+                        return imageInsideModal.src;
                     }
                     imgSrc = siblingImages[index].currentSrc;
                     imageInsideModal.src = imgSrc;
                 });
 
-                $("#anterior").click(function() {
-                    index--;
-                    if (index < 0) {
-                        index = 0;
-                    }
-                    else if (index > 3) {
-                        index = 3;
-                    }
-                    imgSrc = siblingImages[index].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                });
+
 
                /* let imgSrc = currentImg.children[0].currentSrc;
                 console.log(imgSrc)
@@ -306,6 +330,10 @@
             document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             $("#next").click(function(){
                 n++;
+                document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+            });
+            $("#prev").click(function(){
+                n--;
                 document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             });
         });
