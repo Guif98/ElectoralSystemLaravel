@@ -3,12 +3,8 @@
 @section('content')
 
 <div class="container mx-auto mt-5">
-    <div class="mx-auto text-center mb-5">
         @php $projeto_id = request()->route('projeto_id'); @endphp
-        <a href="{{url("subprojetos/$projeto_id")}}">
-            <button class="btn btn-primary btn-lg">Voltar</button>
-        </a>
-    </div>
+
 
 
 <form name="formCriar" id="formCriar" action="{{url("/subprojetos/$subProjeto->projeto_id/$subProjeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
@@ -33,6 +29,9 @@
     </div>
 
     <button type="submit" class="btn btn-success input-formCriar">Add Foto</button>
+    <a href="{{url("subprojetos/$projeto_id")}}">
+        <button type="button" class="btn btn-primary btn-lg">Voltar</button>
+    </a>
 </form>
 
 
