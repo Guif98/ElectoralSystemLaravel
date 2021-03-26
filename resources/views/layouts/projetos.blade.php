@@ -29,7 +29,7 @@
         <th scope="col">Data de Início</th>
         <th scope="col">Data do Fim</th>
         <th scope="col">Ativo</th>
-        <th scope="col" colspan="3">Ações</th>
+        <th scope="col" colspan="2">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -47,9 +47,6 @@
                     <a class="text-decoration-none pr-2" href="{{url("categorias/$projeto->id")}}">
                         <button class="btn btn-outline-warning">Categorias</button>
                     </a>
-                    <a class="text-decoration-none pr-2" onclick="return confirm('Deseja realmente excluir esse projeto?')" href="{{url("projetos/delete/$projeto->id")}}">
-                        <button class="btn btn-outline-danger">Excluir</button>
-                    </a>
                 </div>
             </td>
         </tr>
@@ -61,7 +58,7 @@
     <thead>
       <tr>
         <th scope="col">Nome do Projeto</th>
-        <th scope="col" colspan="3">Ações</th>
+        <th scope="col" colspan="2">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -74,9 +71,6 @@
                     </a>
                     <a class="text-decoration-none" href="{{url("categorias/$projeto->id")}}">
                         <button class="btn btn-sm btn-outline-warning">Categorias</button>
-                    </a>
-                    <a class="text-decoration-none" onclick="return confirm('Deseja realmente excluir esse projeto?')" href="{{url("projetos/delete/$projeto->id")}}">
-                        <button class="btn btn-sm btn-outline-danger">Excluir</button>
                     </a>
             </td>
         </tr>
@@ -102,9 +96,6 @@
                     </a>
                     <a class="text-decoration-none mr-2" href="{{url("categorias/$projeto->id")}}">
                         <button class="btn btn-sm btn-outline-warning">Categorias</button>
-                    </a>
-                    <a class="text-decoration-none" onclick="return confirm('Deseja realmente excluir esse projeto?')" href="{{url("projetos/delete/$projeto->id")}}">
-                        <button class="btn btn-sm btn-outline-danger">Remover</button>
                     </a>
                 </div>
 

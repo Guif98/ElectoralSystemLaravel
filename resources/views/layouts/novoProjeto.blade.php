@@ -27,29 +27,50 @@
 @endif
 
     <div class="mb-3 mt-5 input-formCriar">
-      <label for="nome" class="form-label">Nome do Projeto</label>
+      <label for="nome" class="form-label">Nome do Projeto:</label>
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($projeto)) value="{{$projeto->nome ?? ''}}" @endif >
     </div>
     <div class="mb-3 input-formCriar">
-      <label for="dataInicio" class="form-label">Data de início</label>
+      <label for="dataInicio" class="form-label">Data de início:</label>
       <input required type="date" class="form-control" id="dataInicio" name="dataInicio" @if (isset($projeto)) ?? value="{{$projeto->dataInicio}}" : value="" @endif>
     </div>
     <div class="mb-3 input-formCriar">
-        <label for="dataFim" class="form-label">Data do Fim</label>
+        <label for="dataFim" class="form-label">Data do Fim:</label>
         <input required type="date" class="form-control input-formCriar" id="dataFim" name="dataFim" @if (isset($projeto)) ?? value="{{$projeto->dataFim}}" : value="" @endif>
     </div>
-    <label for="capa">Adicionar foto de capa</label>
+    <label for="capa">Adicionar foto de capa:</label>
     <div class="custom-file mb-3" id="capa">
         <input type="file" name="capa" class="custom-file-input" id="capa">
         <label class="custom-file-label" for="capa">Selecionar arquivo</label>
-      </div>
-    <div class="form-check form-switch mb-4 input-formCriar">
-        <input class="form-check-input" value="1" type="checkbox"  class="ativo" id="ativo" name="ativo[]">
-        <label class="form-check-label" for="ativo">Projeto ativo</label>
     </div>
-    <button type="submit" onclick="return confirm('Verifique se o campo Projeto ativo está selecionado')" class="input-formCriar btn btn-outline-success">@if (isset($projeto))Atualizar @else Criar  @endif</button>
-    <a href="{{url('/projetos')}}" class="input-formCriar btn btn-outline-primary">Voltar
-    </a>
+
+    @if (isset($projeto))
+        @if (isset($projeto) && $projeto->ativo == 1)
+            <label for="">Status do Projeto: Ativo</label>
+            <div class="mb-3 input-formCriar">
+                <input type="hidden" name="ativo[]" id="ativo" value="0">
+                <button type="button" class="input-formCriar btn btn-outline-danger">Desativar</button>
+        @else
+            <label for="">Status do Projeto: Desativado</label>
+            <div class="mb-3 input-formCriar">
+            <input type="hidden" name="ativo[]" id="ativo" value="1">
+            <button type="button" class="input-formCriar btn btn-outline-success">Ativar</button>
+        @endif
+            </div>
+    @endif
+
+
+
+    <a href="{{url('/projetos')}}" class="input-formCriar btn btn-outline-primary">Voltar</a>
+    <button type="submit" class="input-formCriar btn btn-outline-success">@if (isset($projeto))Atualizar @else Criar  @endif</button>
   </form>
 </div>
 @endsection
+
+    <script>
+        let ativo = document.getElementById('ativo');
+        ativo.addEventListener('click', function() {
+            ativo.classList.add('btn-outline-danger');
+            ativo.classList.remove('btn-outline-success');
+        });
+    </script>

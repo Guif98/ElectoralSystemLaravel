@@ -8,6 +8,10 @@ use App\Models\Projeto;
 use App\Http\Requests\ProjetoRequest;
 use App\Models\SubProjetos;
 use App\Models\Categorias;
+use DateTime;
+use Illuminate\Support\Facades\Date;
+
+use function PHPUnit\Framework\isNull;
 
 class ProjetoControlador extends Controller
 {
@@ -66,18 +70,33 @@ class ProjetoControlador extends Controller
             $this->objProjeto->capa = $filename;
         }
 
+        dd($request->all());
 
-        if (is_null($request->ativo)) {
-            $this->objProjeto->ativo = 0;
+        if ($this->objProjeto->where('ativo', '1')->count() == 0) {
+            if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
+                $this->objProjeto->ativo = 1;
+                $this->objProjeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
+            }
         }
-        else {
-            $this->objProjeto->ativo = implode("", $request->ativo);
+
+        $projetoAtivo = Projeto::where('ativo' , '1')->first();
+
+        if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
+               if ($request->dataInicio >= $projetoAtivo->dataInicio && $request->dataInicio <= $projetoAtivo->dataFim) {
+                    return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já está em andamento!', 'msg-type' => 'danger']);
+               }
+               else if ($request->dataFim >= $projetoAtivo->dataInicio && $request->dataFim <= $projetoAtivo->dataFim) {
+                    return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já está em andamento!', 'msg-type' => 'danger']);
+               }
+               else {
+                    $this->objProjeto->ativo = 1;
+                    $this->objProjeto->save();
+                    return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
+            }
+        } else {
+            return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já está em andamento!', 'msg-type' => 'danger']);
         }
-        $this->objProjeto->save();
-
-
-        return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
-
     }
 
     /**
@@ -118,6 +137,7 @@ class ProjetoControlador extends Controller
         $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
 
+
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
             $filename = time() . '__' . $capa->getClientOriginalExtension();
@@ -125,12 +145,11 @@ class ProjetoControlador extends Controller
             $projeto->capa = $filename;
         }
 
-        if (is_null($request->ativo)) {
-                $projeto->ativo = 0;
-            }
-        else {
-                $projeto->ativo = implode("", $request->ativo);
-            }
+        if ($projeto->dataInicio <= Date(now()) && $projeto->dataFim >= Date(now())) {
+            $projeto->ativo = 1;
+        } else {
+            $projeto->ativo = 0;
+        }
 
         $projeto->save();
 
@@ -143,10 +162,11 @@ class ProjetoControlador extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    /* public function destroy($id)
     {
         $this->objProjeto->where(['id'=>$id])->delete();
         return redirect()->route('projetos')->with(['message' => 'Projeto excluído com sucesso', 'msg-type' => 'danger']);
-    }
+    }*/
 
 }
