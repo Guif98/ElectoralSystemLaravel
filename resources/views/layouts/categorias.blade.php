@@ -18,7 +18,7 @@
     <div class="mx-auto mt-5">
         <h2 class="text-center">Categorias</h2>
     </div>
-    <div class="mx-auto mt-5 text-center col-lg-12 col-md-10 col-sm-2">
+    <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("categorias/$projeto_id/criar")}}">
             <button class="btn btn-success">Criar Categorias</button>
         </a>
@@ -43,11 +43,11 @@
                 <td>{{$categoria->projeto_id}}</td>
                 <td>
                     <div class="d-inline-flex">
-                        <a class="text-decoration-none" href="{{url("/categorias/$categoria->projeto_id/edit/$categoria->id")}}">
-                            <button class="btn btn-sm btn-outline-primary">Editar</button>
+                        <a class="text-decoration-none mr-2" href="{{url("/categorias/$categoria->projeto_id/edit/$categoria->id")}}">
+                            <button class="btn btn-outline-primary">Editar</button>
                         </a>
                         <a onclick="return confirm('Deseja realmente apagar esta categoria?')" class="text-decoration-none" href="{{url("/categorias/delete/$categoria->id")}}">
-                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                            <button class="btn btn-outline-danger">Excluir</button>
                         </a>
                     </div>
                 </td>
@@ -69,11 +69,11 @@
                 <td>{{$categoria->nome}}</td>
                 <td>
                     <div class="d-inline-flex">
-                        <a class="text-decoration-none" href="{{url("/categorias/$categoria->projeto_id/edit/$categoria->id")}}">
-                            <button class="btn btn-sm btn-outline-primary">Editar</button>
+                        <a class="text-decoration-none mr-2" href="{{url("/categorias/$categoria->projeto_id/edit/$categoria->id")}}">
+                            <button class="btn btn-outline-primary">Editar</button>
                         </a>
                         <a onclick="return confirm('Deseja realmente apagar esta categoria?')" class="text-decoration-none" href="{{url("/categorias/delete/$categoria->id")}}">
-                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                            <button class="btn btn-outline-danger">Excluir</button>
                         </a>
                     </div>
                 </td>
@@ -97,11 +97,11 @@
                 <td>{{$projeto->nome}}</td>
                 <td>
                     <div class="d-inline-flex">
-                        <a class="text-decoration-none" href="{{url("/categorias/$categoria->projeto_id/edit/$categoria->id")}}">
-                            <button class="btn btn-sm btn-outline-primary">Editar</button>
+                        <a class="text-decoration-none mr-1" href="{{url("/categorias/$categoria->projeto_id/edit/$categoria->id")}}">
+                            <button class="btn btn-outline-primary">Editar</button>
                         </a>
                         <a onclick="return confirm('Deseja realmente apagar esta categoria?')" class="text-decoration-none" href="{{url("/categorias/delete/$categoria->id")}}">
-                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                            <button class="btn btn-outline-danger">Excluir</button>
                         </a>
                     </div>
                 </td>
