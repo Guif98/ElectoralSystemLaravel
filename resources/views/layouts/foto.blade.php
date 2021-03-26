@@ -23,7 +23,7 @@
         <input type="file" class="custom-file-input" name="foto[]"  id="foto[]"  multiple/>
     </div>
 
-    <button type="submit" class="btn btn-success input-formCriar">Add Foto</button>
+    <button type="submit" class="btn btn-success input-formCriar">Adicionar Fotos</button>
     <a href="{{url("subprojetos/$projeto_id")}}">
         <button type="button" class="btn btn-primary">Voltar</button>
     </a>

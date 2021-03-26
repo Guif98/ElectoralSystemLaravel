@@ -264,7 +264,7 @@
                     }
 
                     else if (index < 0) {
-                        index = 0;
+                        index = 0;                        
                         imgSrc = siblingImages[0].currentSrc;
                         imageInsideModal.src = imgSrc;
                         return imageInsideModal.src;

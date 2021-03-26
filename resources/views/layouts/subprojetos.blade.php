@@ -62,14 +62,14 @@
             </td>
             <td>
                 <div role="group" class=" btn-group pull-right">
-                    <a href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                        <button class="btn btn-outline-primary btn-sm">Editar</button>
+                    <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
+                        <button class="btn btn-outline-primary">Editar</button>
                     </a>
-                    <a href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                        <button class="btn btn-outline-success btn-sm">+Fotos</button>
+                    <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
+                        <button class="btn btn-outline-success">+Fotos</button>
                     </a>
                     <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                        <button class="btn btn-outline-danger btn-sm">Excluir</button>
+                        <button class="btn btn-outline-danger">Excluir</button>
                     </a>
                 </div>
             </td>
@@ -100,19 +100,19 @@
                 <div class="d-flex flex-column">
                     <div class="d-flex flex-row">
                         <a href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                            <button class="btn btn-outline-primary btn-sm">Editar</button>
+                            <button class="btn btn-outline-primary">Editar</button>
                         </a>
                         <a href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                            <button class="btn btn-outline-success btn-sm">+Fotos</button>
+                            <button class="btn btn-outline-success">+Fotos</button>
                         </a>
                     </div>
 
                     <div class="d-flex flex-row">
                         <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                            <button class="btn btn-outline-danger btn-sm">Excluir</button>
+                            <button class="btn btn-outline-danger">Excluir</button>
                         </a>
                         <a href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
-                            <button class="btn btn-outline-secondary btn-sm">Ver</button>
+                            <button class="btn btn-outline-secondary">Ver</button>
                         </a>
                     </div>
 
@@ -144,19 +144,19 @@
                 <div class="d-flex flex-column">
                     <div class="d-flex flex-row">
                         <a class="flex-fill" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                            <button class="btn btn-outline-primary btn-sm">Editar</button>
+                            <button class="btn btn-outline-primary">Editar</button>
                         </a>
                         <a href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                            <button class="btn btn-outline-success btn-sm">+Fotos</button>
+                            <button class="btn btn-outline-success">+Fotos</button>
                         </a>
                     </div>
 
                     <div class="d-flex flex-row">
                         <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                            <button class="btn btn-outline-danger btn-sm">Excluir</button>
+                            <button class="btn btn-outline-danger">Excluir</button>
                         </a>
                         <a href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
-                            <button class="btn btn-outline-secondary btn-sm">Ver</button>
+                            <button class="btn btn-outline-secondary">Ver</button>
                         </a>
                     </div>
                 </div>
