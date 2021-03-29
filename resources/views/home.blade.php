@@ -199,7 +199,7 @@
                         </div>
                         <div>
                             <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" maxlength="11" class="form-control" id="cpf" onkeypress="return apenasNumeros()" name="cpf">
+                            <input type="text" maxlength="11" class="form-control" required id="cpf" onkeypress="return apenasNumeros()" name="cpf">
                         </div>
                     </div>
                     <div class="modal-footer">

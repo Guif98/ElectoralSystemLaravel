@@ -70,6 +70,7 @@ class SubProjetoControlador extends Controller
             $novoVoto = new Voto();
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
+            $novoVoto->cpf = $request->cpf;
             $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
         }
