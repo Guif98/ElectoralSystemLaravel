@@ -16,9 +16,34 @@
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
 
-    <div>
+@if ($projeto->ativo == 1)
+    <div class="w-100 container mx-auto mt-5 mb-5">
+        <h4 class="text-center">Projetos mais votados</h4>
+        <table class="table mt-5 table-hover table-striped w-100">
+            <thead class="bg-dark text-light">
+                <tr>
+                    <th>TÍTULO</th>
+                    <th>CATEGORIA</th>
+                    <th>QUANTIDADE DE VOTOS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($maisVotados as $item)
+                        <td>{{$item->titulo}}</td>
+                        @foreach ($categorias as $cat)
+                            @if ($item->categoria_id == $cat->id)
+                                <td>{{$cat->nome}}</td>
+                                <td>{{$item->qtdVotos}}</td>
+                            @endif
+                        @endforeach
+                    </tr>
 
+                @endforeach
+            </tbody>
+        </table>
     </div>
+@endif
+
 
 
 <div class="mt-5 container-fluid">

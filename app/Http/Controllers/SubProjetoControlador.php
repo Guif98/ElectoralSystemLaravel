@@ -11,7 +11,9 @@ use App\Models\Projeto;
 use App\Models\Voto;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Cache\RedisTaggedCache;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use LengthException;
 
 use function PHPUnit\Framework\isNull;
 
@@ -41,14 +43,14 @@ class SubProjetoControlador extends Controller
      */
     public function index($projeto_id)
     {
+        $projeto = Projeto::where('id', $projeto_id)->first();
         $subProjetos = SubProjetos::where('projeto_id', $projeto_id)->get();
         $categorias = $this->objCategoria->all();
         $votos = $this->objVoto->all();
 
-
-
-        return view('layouts.subprojetos', compact('categorias','subProjetos', 'votos'));
-
+        $maisVotados = DB::table('votos')->join('subProjetos', 'subProjetos.id', '=', 'votos.subProjeto_id')->select('subProjeto_id', 'titulo', 'categoria_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))->groupBy('subProjeto_id', 'titulo', 'categoria_id')
+        ->orderByRaw('COUNT(*) DESC')->limit(20)->get();
+        return view('layouts.subprojetos', compact('categorias','subProjetos', 'projeto', 'votos', 'maisVotados'));
     }
 
 
@@ -68,7 +70,6 @@ class SubProjetoControlador extends Controller
             $novoVoto = new Voto();
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
-            $novoVoto->cpf = $request->cpf;
             $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
         }

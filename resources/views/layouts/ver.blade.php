@@ -34,10 +34,10 @@
                 @php
                     $fotos = $subProjeto->find($subProjeto->id)->relFotos;
                 @endphp
-                <ul class="list-unstyled d-flex flex-wrap justify-content-around">
+                <ul class="list-unstyled d-flex flex-wrap justify-content-around text-center">
                     @foreach ($fotos as $foto)
-                    <li>
-                        <img style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                    <li class="mt-3">
+                        <img style="width: 98%; height: 400px;" src="{{url("/storage/app/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
                     </li>
                     @endforeach
                 </ul>
