@@ -3,12 +3,6 @@
 
 @section('content')
 
-    @if (session('message'))
-    <div class="text-center m-auto p-3 alert-{{session('msg-type')}}">
-        <p>{{session('message')}}</p>
-    </div>
-    @endif
-
     <header class="m-0 p-0" style="z-index: 1">
         @foreach ($projetos as $projeto)
         <div class="projeto-cover d-flex align-items-center justify-content-center">
@@ -180,6 +174,12 @@
                 </div>
                 <form action="{{route('validarEleitor')}}"  method="POST">
                     <div class="modal-body">
+
+                        @if (session('message'))
+                            <div class="text-center m-auto p-3 alert-{{session('msg-type')}}">
+                                <p>{{session('message')}}</p>
+                            </div>
+                        @endif
 
                         @if (count($errors)>0)
                             <div class="alert-danger text-center m-auto mb-5 mt-5 p-3 rounded">

@@ -70,7 +70,17 @@ class SubProjetoControlador extends Controller
             $novoVoto = new Voto();
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
-            $novoVoto->cpf = $request->cpf;
+
+            if ($request->cpf == '00000000000' || $request->cpf == '11111111111' ||
+            $request->cpf == '22222222222' || $request->cpf == '33333333333' ||
+            $request->cpf == '44444444444' || $request->cpf == '55555555555' ||
+            $request->cpf == '66666666666' || $request->cpf == '77777777777' ||
+            $request->cpf == '88888888888' || $request->cpf == '99999999999') {
+                return redirect()->back()->with(['message' => 'Cpf inválido!',
+                'msg-type' => 'danger']);
+            }
+
+            //$novoVoto->cpf = $request->cpf;
             $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
         }
