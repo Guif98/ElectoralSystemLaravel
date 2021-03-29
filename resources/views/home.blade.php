@@ -18,7 +18,7 @@
 
         <!-- Alerta para quando não haver eventos ativos -->
         <div id="evento-alert" class="alert alert-danger d-none text-center" style="font-size: 2em;" role="alert">
-            <p class="mt-3">Não há nenhum evento ativo no momento!</p> 
+            <p class="mt-3">Não há nenhum evento ativo no momento!</p>
         </div>
 
     </header>
@@ -253,8 +253,6 @@
 
 
              $("#proximo").click(function () {
-                 console.log(siblingImages)
-                    console.log(index)
                     index++;
                     if (index > siblingImages.length - 1 || index > 3 ) {
                         index = 0;
@@ -264,7 +262,7 @@
                     }
 
                     else if (index < 0) {
-                        index = 0;                        
+                        index = 0;
                         imgSrc = siblingImages[0].currentSrc;
                         imageInsideModal.src = imgSrc;
                         return imageInsideModal.src;
@@ -275,15 +273,22 @@
 
 
                 $("#anterior").click(function() {
-
                     index--;
                     if (index < 0) {
-                        index = 0;
-                        imgSrc = siblingImages[0].currentSrc;
-                        imageInsideModal.src = imgSrc;
-                        return imageInsideModal.src;
+                        if (siblingImages.length > 4) {
+                            index = 3;
+                            imgSrc = siblingImages[3].currentSrc;
+                            imageInsideModal.src = imgSrc;
+                            return imageInsideModal.src;
+                        } else {
+                            index = siblingImages.length - 1;
+                            imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
+                            imageInsideModal.src = imgSrc;
+                            return imageInsideModal.src;
+                        }
+
                     }
-                    else if (index > siblingImages.length - 1) {
+                    else if (index > siblingImages.length - 1 || index == 3) {
                         index = siblingImages.length - 1;
                         imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
                         imageInsideModal.src = imgSrc;

@@ -70,7 +70,6 @@ class ProjetoControlador extends Controller
             $this->objProjeto->capa = $filename;
         }
 
-        dd($request->all());
 
         if ($this->objProjeto->where('ativo', '1')->count() == 0) {
             if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
@@ -95,7 +94,7 @@ class ProjetoControlador extends Controller
                     return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
             }
         } else {
-            return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já está em andamento!', 'msg-type' => 'danger']);
+            return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já foi criado para o mesmo período!', 'msg-type' => 'danger']);
         }
     }
 
@@ -137,7 +136,6 @@ class ProjetoControlador extends Controller
         $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
 
-
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
             $filename = time() . '__' . $capa->getClientOriginalExtension();
@@ -148,6 +146,10 @@ class ProjetoControlador extends Controller
         if ($projeto->dataInicio <= Date(now()) && $projeto->dataFim >= Date(now())) {
             $projeto->ativo = 1;
         } else {
+            $projeto->ativo = 0;
+        }
+
+        if ($request->desativar == 1) {
             $projeto->ativo = 0;
         }
 

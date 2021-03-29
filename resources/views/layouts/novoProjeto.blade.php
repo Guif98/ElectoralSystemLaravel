@@ -44,19 +44,14 @@
         <label class="custom-file-label" for="capa">Selecionar arquivo</label>
     </div>
 
-    @if (isset($projeto))
-        @if (isset($projeto) && $projeto->ativo == 1)
-            <label for="">Status do Projeto: Ativo</label>
-            <div class="mb-3 input-formCriar">
-                <input type="hidden" name="ativo[]" id="ativo" value="0">
-                <button type="button" class="input-formCriar btn btn-outline-danger">Desativar</button>
-        @else
-            <label for="">Status do Projeto: Desativado</label>
-            <div class="mb-3 input-formCriar">
-            <input type="hidden" name="ativo[]" id="ativo" value="1">
-            <button type="button" class="input-formCriar btn btn-outline-success">Ativar</button>
-        @endif
-            </div>
+    @if (isset($projeto) && $projeto->ativo == 1)
+        <label for="">Status do Projeto: Ativo</label>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" onclick="return confirm('Uma vez desativado o projeto não pode ser reativado, deseja realmente desativá-lo?')" value="1" name="desativar[]" id="desativar">
+            <label class="form-check-label" for="desativar">
+                Desativar Projeto
+            </label>
+          </div>
     @endif
 
 

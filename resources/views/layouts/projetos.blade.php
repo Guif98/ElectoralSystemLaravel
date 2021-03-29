@@ -38,7 +38,7 @@
             <td class="w-25"><a style="color: aqua" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
             <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>
             <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataFim))}}</td>
-            @if ($projeto->ativo == 1)<td class="w-25">Ativo</td> @else <td class="w-25">Inativo</td>@endif
+            @if ($projeto->ativo == 1)<td class="w-25">Ativo</td> @else <td class="w-25">Desativado</td>@endif
             <td class="w-75">
                 <div class="d-inline-flex justify-content-around">
                     <a class="text-decoration-none pr-2" href="{{url("projetos/$projeto->id/edit")}}">
