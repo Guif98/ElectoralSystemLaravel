@@ -8,14 +8,6 @@ var title = document.querySelector('.title');
     console.log(projeto.id)
 });*/
 
-
-if (selector.childElementCount < 2) {
-    setTimeout(function() {
-        alert('Seu projeto não possui categorias. Crie-as em Página Inicial->Categorias');
-    }, 1000);
-}
-
-
 function apenasNumeros(extra){
 	if(window.event){
 		if((window.event.keyCode <48) || (window.event.keyCode>57)){

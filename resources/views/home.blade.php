@@ -79,10 +79,9 @@
 
                         <!--Fim da div projeto -->
                     @endforeach
-                    <div class="radio project-div">
-                        <h4>Nenhuma das opções acima</p>
+                    <div class="nulo">
+                        Nenhuma das opções
                     </div>
-
                 </div>
 
                 <!--Fim da div categoria-->
@@ -157,7 +156,7 @@
 
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" form="formVotar"  class="btn btn-primary">Confirmar Votos</button>
+                  <button type="submit" form="formVotar" id="votarSubmit" class="btn btn-primary">Confirmar Votos</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </div>
@@ -333,15 +332,30 @@
                 }
             });
 
+
+
             $("#voto").click(function() {
-                let nome =  document.getElementById("nome").value;
-                let sobrenome =  document.getElementById("sobrenome").value;
-                let cpf =  document.getElementById("cpf").value;
-                let projetoVotado = document.querySelectorAll(".selected");
-                let projeto = [];
-                projetoVotado.forEach(function(p) {
-                    projeto.push(p.children[1].firstElementChild.textContent
-                    );
+                if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
+                    let nome =  document.getElementById("nome").value;
+                    let sobrenome =  document.getElementById("sobrenome").value;
+                    let cpf =  document.getElementById("cpf").value;
+                    let projetoVotado = document.querySelectorAll(".selected");
+                    let projeto = [];
+                    projetoVotado.forEach(function(p) {
+                        projeto.push(p.children[1].firstElementChild.textContent
+                        );
+                    });
+                } else {
+                        alert('Você deve inserir suas informações corretamente!')
+                        location.reload();
+                    }
+
+
+                $("#votarSubmit").click(function() {
+                    if (projeto.length == 0) {
+                        alert('Pelo menos um projeto deve ser selecionado!')
+                        location.reload();
+                    }
                 });
 
 
@@ -353,6 +367,8 @@
                 <p><b>Projetos Votados:</b> ${projeto.toString()}</p>
                 `
             });
+
+
         });
 
             $(".ver_fotos").click(function() {
@@ -393,6 +409,15 @@
                 $(this).addClass('selected');
                 $(this).children('input').attr('name', 'voto[]');
                 $(this).children('input').parent().siblings('div').children('input').removeAttr('name');
+            }
+            );
+
+            $(".nulo").click(
+                function(event)
+            {
+                $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark");
+                $(this).parent().find('.radio').removeClass('selected');
+                $(this).siblings('div').children('input').removeAttr('name');
             }
             );
 

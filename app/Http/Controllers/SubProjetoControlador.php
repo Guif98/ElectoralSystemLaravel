@@ -66,6 +66,10 @@ class SubProjetoControlador extends Controller
     }
 
     public function votar(VotoRequest $request) {
+        if (!isset($request->voto)) {
+            return redirect()->back()->with(['message' => 'Deve selecionar no mínimo um projeto!',
+                        'msg-type' => 'danger']);
+        } else {
         foreach ($request->voto as $v) {
             $novoVoto = new Voto();
             $novoVoto->nome = $request->nome;
@@ -105,9 +109,10 @@ class SubProjetoControlador extends Controller
                     } else {
                        $novoVoto->cpf = $cpf;
                     }
+                    }
+
+
                 }
-
-
             }
         }
             $novoVoto->subProjeto_id = $v;
