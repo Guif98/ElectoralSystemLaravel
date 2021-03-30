@@ -71,19 +71,47 @@ class SubProjetoControlador extends Controller
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
 
-            if ($request->cpf == '00000000000' || $request->cpf == '11111111111' ||
-            $request->cpf == '22222222222' || $request->cpf == '33333333333' ||
-            $request->cpf == '44444444444' || $request->cpf == '55555555555' ||
-            $request->cpf == '66666666666' || $request->cpf == '77777777777' ||
-            $request->cpf == '88888888888' || $request->cpf == '99999999999') {
+            // Algoritmo para validar cpf
+            $cpf = $request->cpf;
+
+            if ($cpf == '00000000000' || $cpf == '11111111111' ||
+            $cpf == '22222222222' || $cpf == '33333333333' ||
+            $cpf == '44444444444' || $cpf == '55555555555' ||
+            $cpf == '66666666666' || $cpf == '77777777777' ||
+            $cpf == '88888888888' || $cpf == '99999999999') {
                 return redirect()->back()->with(['message' => 'Cpf inválido!',
                 'msg-type' => 'danger']);
-            }
+            } else {
+                $numbers_to_loop = [9,10];
 
-            //$novoVoto->cpf = $request->cpf;
+                foreach ($numbers_to_loop as $item) {
+                    $sum = 0;
+                    $number_to_multiplicate = $item + 1;
+
+                for ($index = 0; $index < $item; $index++) {
+                    $sum += $cpf[$index] * $number_to_multiplicate;
+                    $number_to_multiplicate--;
+                }
+
+                    $result = (($sum * 10) % 11);
+
+                    if ($result == 10 || $result == 11) {
+                        $result = 0;
+                    }
+
+                    if ($cpf[$item] != $result) {
+                        return redirect()->back()->with(['message' => 'Cpf inválido!',
+                        'msg-type' => 'danger']);
+                    } else {
+                       $novoVoto->cpf = $cpf;
+                    }
+                }
+
+
+            }
+        }
             $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
-        }
 
 
         return redirect()->back()->with(['message' => 'Voto computado com sucesso', 'msg-type' => 'success']);
