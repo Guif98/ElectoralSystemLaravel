@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-      @foreach ($projetos as $projeto)
+      @foreach ($projetos->sortByDesc('ativo') as $projeto)
         <tr>
             <td class="w-25"><a style="color: aqua" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
             <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>

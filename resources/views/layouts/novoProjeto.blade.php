@@ -61,11 +61,3 @@
   </form>
 </div>
 @endsection
-
-    <script>
-        let ativo = document.getElementById('ativo');
-        ativo.addEventListener('click', function() {
-            ativo.classList.add('btn-outline-danger');
-            ativo.classList.remove('btn-outline-success');
-        });
-    </script>

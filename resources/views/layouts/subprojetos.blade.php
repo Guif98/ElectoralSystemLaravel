@@ -18,7 +18,7 @@
 
 @if ($projeto->ativo == 1)
     <div class="w-100 container mx-auto mt-5 mb-5">
-        <h4 class="text-center">Projetos mais votados</h4>
+        <h4 class="text-center">Quantidade de votos:</h4>
         <table class="table mt-5 table-hover table-striped w-100">
             <thead class="bg-dark text-light">
                 <tr>
@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($maisVotados as $item)
+                @foreach ($maisVotados->sortBy('categoria_id') as $item)
                         <td>{{$item->titulo}}</td>
                         @foreach ($categorias as $cat)
                             @if ($item->categoria_id == $cat->id)
@@ -48,7 +48,7 @@
 
 <div class="mt-5 container-fluid">
     <div class="m-auto mt-5">
-        <h2 class="text-center">Candidatos</h2>
+        <h2 class="text-center">Candidatos:</h2>
     </div>
     <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">

@@ -3,20 +3,22 @@
 
 @section('content')
 
-    <header class="m-0 p-0" style="z-index: 1">
-        @foreach ($projetos as $projeto)
-        <div class="projeto-cover d-flex align-items-center justify-content-center">
-            <img src="{{url("/storage/app/fotos/$projeto->capa")}}" style="width: 100%;" alt="">
-        </div>
-        @endforeach
+        <header class="projeto mb-5">
+            @foreach ($projetos as $projeto)
+            <div class="mx-auto">
+                @if (isset($projeto->capa))
+                    <img class="projeto-cover" src="{{url("/storage/app/fotos/$projeto->capa")}}" alt="">
+                @endif
+            </div>
+            @endforeach
 
-        <!-- Alerta para quando não haver eventos ativos -->
-        <div id="evento-alert" class="alert alert-danger d-none text-center" style="font-size: 2em;" role="alert">
-            <p class="mt-3">Não há nenhum evento ativo no momento!</p>
-        </div>
+            <!-- Alerta para quando não haver eventos ativos -->
+            <div id="evento-alert" class="alert alert-danger d-none text-center" style="font-size: 2em;" role="alert">
+                <p class="mt-3">Não há nenhum evento ativo no momento!</p>
+            </div>
 
-    </header>
-        <section class="home-section mb-5 mt-0">
+        </header>
+        <section class="home-section">
 
         @foreach ($projetos as $projeto)
             @php
@@ -24,7 +26,7 @@
             //dd($categorias->where('projeto_id', $projeto->id))->get();
             $cat = $categorias->where('projeto_id', $projeto->id);
             @endphp
-            <h2 class="text-center font-bold pt-5">Projetos do evento: {{$projeto->nome}} </h2>
+            <h2 class="text-center font-bold">Projetos do evento: {{$projeto->nome}} </h2>
 
             @foreach ($cat as $c)
             @php
@@ -49,7 +51,7 @@
                         @method('post')
                         @csrf
 
-                        <div class="radio project-div" onblur="loseIndex();">
+                        <div class="radio project-div">
                             <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
                             <div class="d-flex flex-column">
                                 <h4><b>{{$s->titulo}}</b></h4>
@@ -77,6 +79,10 @@
 
                         <!--Fim da div projeto -->
                     @endforeach
+                    <div class="radio project-div">
+                        <h4>Nenhuma das opções acima</p>
+                    </div>
+
                 </div>
 
                 <!--Fim da div categoria-->
@@ -132,7 +138,7 @@
                     <span id="proximo" class="arrow arrow-right" type="button"></span>
 
                     <div class="slide d-flex flex-row">
-                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;height: 600px;" >
+                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;height: 750px;" >
                     </div>
                 </div>
               </div>

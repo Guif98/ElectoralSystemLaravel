@@ -18,15 +18,12 @@ class ProjetoControlador extends Controller
 
 
     private $objProjeto;
-    private $objSubProjeto;
-    private $objCategoria;
+
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->objProjeto = new Projeto();
-        $this->objSubProjeto = new SubProjetos();
-        $this->objCategoria = new Categorias();
     }
 
     /**
@@ -143,15 +140,15 @@ class ProjetoControlador extends Controller
             $projeto->capa = $filename;
         }
 
-        if ($projeto->dataInicio <= Date(now()) && $projeto->dataFim >= Date(now())) {
-            $projeto->ativo = 1;
-        } else {
-            $projeto->ativo = 0;
+        if (isset($request->desativar)) {
+            if ($request->desativar[0] == '1') {
+                $projeto->ativo = 0;
+            } else {
+                $projeto->ativo = 1;
+            }
         }
 
-        if ($request->desativar == 1) {
-            $projeto->ativo = 0;
-        }
+
 
         $projeto->save();
 
