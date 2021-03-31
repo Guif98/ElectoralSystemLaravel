@@ -308,8 +308,12 @@ main {
     width: 100%;
 }
 
-.project-div {
+.div-color {
     background-color: rgb(194, 194, 194);
+    color: black;
+}
+
+.project-div {
     box-shadow: 0.1em 0.1em 0.1em 0.1em;
     width: 70%;
     padding: 2em;

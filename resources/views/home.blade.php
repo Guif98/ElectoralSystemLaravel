@@ -51,7 +51,7 @@
                         @method('post')
                         @csrf
 
-                        <div class="radio project-div">
+                        <div class="radio project-div div-color">
                             <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
                             <div class="d-flex flex-column">
                                 <h4><b>{{$s->titulo}}</b></h4>
@@ -80,7 +80,7 @@
                         <!--Fim da div projeto -->
                     @endforeach
                     <div class="nulo">
-                        Nenhuma das opções
+                        <h4>Nenhuma das opções</h4>
                     </div>
                 </div>
 
@@ -180,19 +180,27 @@
                 <form action="{{route('validarEleitor')}}"  method="POST">
                     <div class="modal-body">
 
+                    <!--Divs de mensagens e erros dos modais-->
+
                         @if (session('message'))
-                            <div class="text-center m-auto p-3 alert-{{session('msg-type')}}">
+                            <div id="msg-session" class="text-center m-auto p-3 alert-{{session('msg-type')}}">
                                 <p>{{session('message')}}</p>
                             </div>
                         @endif
 
                         @if (count($errors)>0)
-                            <div class="alert-danger text-center m-auto mb-5 mt-5 p-3 rounded">
+                            <div id="msg-error-request" class="alert-danger text-center m-auto mb-5 mt-5 p-3 rounded">
                                 @foreach ($errors->all() as $error)
                                     <p>{{$error}}</p>
                                 @endforeach
                             </div>
                         @endif
+
+                        <div id="mensagem-erro">
+
+                        </div>
+
+                    <!-- Fim das divs de mensagens e erros -->
 
                         <div>
                             <label for="nome" class="form-label">Nome</label>
@@ -236,6 +244,11 @@
         });
 
         $(document).ready(function() {
+            setTimeout(function(){
+                $("#msg-session").fadeOut('fast');
+                $("#msg-error-request").fadeOut('fast');
+             }, 3000 );
+
             $(".img").click(function() {
 
                 var index = 0;
@@ -302,11 +315,8 @@
                     imgSrc = siblingImages[index].currentSrc;
                     imageInsideModal.src = imgSrc;
                 });
-
-
-
                /* let imgSrc = currentImg.children[0].currentSrc;
-                console.log(imgSrc)
+                alerta1sole.loalertagSrc)
 
 
                 imageInsideModal.src = imgSrc;*/
@@ -335,37 +345,42 @@
 
 
             $("#voto").click(function() {
-                if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
+                    let mensagem = document.getElementById("mensagem-erro");
+                    let br = document.createElement('br');
                     let nome =  document.getElementById("nome").value;
                     let sobrenome =  document.getElementById("sobrenome").value;
                     let cpf =  document.getElementById("cpf").value;
                     let projetoVotado = document.querySelectorAll(".selected");
                     let projeto = [];
+
+
+                if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
                     projetoVotado.forEach(function(p) {
                         projeto.push(p.children[1].firstElementChild.textContent
                         );
                     });
+                        if (projeto.length == 0) {
+                            $("#votoModal").modal("show");
+                            mensagem.innerHTML = `
+                            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <strong>Você deve selecionar no mínimo um projeto!</strong>
+                              </div>`
+                        } else {
+                            $("#descricaoModal").modal('show');
+                            document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome}</p>
+                            <p><b>Sobrenome:</b> ${sobrenome}</p>
+                            <p><b>Cpf:</b> ${cpf}</p>
+                            <p><b>Projetos Votados:</b> ${projeto.toString()}</p>
+                            `
+                        }
+
                 } else {
-                        alert('Você deve inserir suas informações corretamente!')
-                        location.reload();
-                    }
-
-
-                $("#votarSubmit").click(function() {
-                    if (projeto.length == 0) {
-                        alert('Pelo menos um projeto deve ser selecionado!')
-                        location.reload();
-                    }
-                });
-
-
-                $("#descricaoModal").modal('show');
-
-                document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome}</p>
-                <p><b>Sobrenome:</b> ${sobrenome}</p>
-                <p><b>Cpf:</b> ${cpf}</p>
-                <p><b>Projetos Votados:</b> ${projeto.toString()}</p>
-                `
+                        $("#votoModal").modal("show");
+                        mensagem.innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            <strong>Você deve preencher suas informações corretamente!</strong>
+                        </div>`
+                }
             });
 
 
@@ -404,7 +419,7 @@
             $(".project-div").click(
                 function(event)
             {
-                $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark");
+                $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");
                 $(this).parent().find('.radio').removeClass('selected');
                 $(this).addClass('selected');
                 $(this).children('input').attr('name', 'voto[]');
