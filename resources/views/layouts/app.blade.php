@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 <body>
+    @if (Auth::check())
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
@@ -72,7 +73,7 @@
                 </div>
             </div>
         </nav>
-
+    @endif
         <main class="m-0 p-0">
             @yield('content')
         </main>
