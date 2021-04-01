@@ -18,12 +18,6 @@ function apenasNumeros(extra){
 	return true;
 }
 
-
-
-
-
-
-
 /*
 function openModal() {
     document.getElementById("imgModal").style.display = "block";

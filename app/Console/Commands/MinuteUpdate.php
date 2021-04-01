@@ -3,9 +3,12 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use App\Models\Projeto;
+
 use DateTime;
 use Illuminate\Support\Facades\Date;
+use PhpParser\Node\Stmt\Foreach_;
 
 class MinuteUpdate extends Command
 {
@@ -21,7 +24,7 @@ class MinuteUpdate extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Este comando irá verificar e desativar o projeto/evento ao passar de seu prazo';
 
     /**
      * Create a new command instance.
@@ -40,13 +43,10 @@ class MinuteUpdate extends Command
      */
     public function handle()
     {
-        $projetos = Projeto::all();
-
-        foreach ($projetos as $projeto) {
-            $p = $projeto->find($projeto->ativo == 1);
-            if (Date(now()) > $p->dataFim) {
-                $p->ativo = 0;
-            }
+        $projeto = Projeto::where('ativo', 1)->first();
+        if (Date(now()) > $projeto->dataFim) {
+            $projeto->ativo = 0;
+            $projeto->save();
         }
     }
 }

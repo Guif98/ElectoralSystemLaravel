@@ -74,7 +74,7 @@ class SubProjetoControlador extends Controller
             $novoVoto = new Voto();
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
-
+            $novoVoto->subProjeto_id = $v;
             // Algoritmo para validar cpf
             $cpf = $request->cpf;
 
@@ -108,16 +108,13 @@ class SubProjetoControlador extends Controller
                         'msg-type' => 'danger']);
                     } else {
                        $novoVoto->cpf = $cpf;
-                    }
-                    }
 
-
+                    }
                 }
             }
-        }
-            $novoVoto->subProjeto_id = $v;
             $novoVoto->save();
-
+        }
+    }
 
         return redirect()->back()->with(['message' => 'Voto computado com sucesso', 'msg-type' => 'success']);
     }
@@ -167,27 +164,7 @@ class SubProjetoControlador extends Controller
     }
 
     public function storeFoto(Request $request,$projeto_id, $id) {
-          /*  $objFoto = new Foto();
-            $arrayFotos = [];
-            if ($request->hasFile('foto')) {
-                foreach ($request->foto as $fotos) {
-                    $filename = $fotos->getClientOriginalName();
-                    $fotos->move('storage/app/fotos', $filename);
-                    $arrayFotos[] = ['filename' => $filename, 'subprojeto_id' => $id];
-
-                    $objFoto->foto = $filename;
-                    $objFoto->subprojeto_id = $id;
-                    if (Foto::where('subprojeto_id', $id)->count() < 4){
-                        $objFoto->save();
-                    }
-                    else {
-                        return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'O limite de imagens para cada projeto
-                        é de quatro imagens!', 'msg-type' => 'danger']);
-                    }
-            }
-        }*/
         $fotos = $request->file('foto');
-        //dd($fotos);
         if(!empty($fotos)):
 
             foreach($fotos as $foto):
