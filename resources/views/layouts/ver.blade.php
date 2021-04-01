@@ -37,7 +37,7 @@
                 <ul class="list-unstyled d-flex flex-wrap justify-content-around text-center">
                     @foreach ($fotos as $foto)
                     <li class="mt-3">
-                        <img style="width: 98%; height: 400px;" src="{{url("/storage/app/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                        <img style="width: 98%; height: 100%;" src="{{url("/storage/app/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
                     </li>
                     @endforeach
                 </ul>

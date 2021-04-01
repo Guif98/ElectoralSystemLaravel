@@ -11,14 +11,23 @@
  @endif
 
 
-
  <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
 
+    <div class="mx-auto mt-5 text-center mb-5">
+        <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
+            <button class="btn btn-success">Criar Candidato</button>
+        </a>
+        <a class="text-decoration-none" href="{{url("/projetos")}}">
+            <button class="btn btn-primary">Voltar</button>
+        </a>
+    </div>
+
+
 @if ($projeto->ativo == 1)
-    <div class="w-100 container mx-auto mt-5 mb-5">
-        <h4 class="text-center">Quantidade de votos:</h4>
+<h4 class="text-center mt-5">Quantidade de votos:</h4>
+    <div class="w-100 container mx-auto mt-5 mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
             <thead class="bg-dark text-light">
                 <tr>
@@ -48,25 +57,18 @@
 
 <div class="mt-5 container-fluid">
     <div class="m-auto mt-5">
-        <h2 class="text-center">Candidatos:</h2>
+        <h4 class="text-center">Candidatos:</h4>
     </div>
-    <div class="mx-auto mt-5 text-center">
-        <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
-            <button class="btn btn-success">Criar Candidato</button>
-        </a>
-        <a class="text-decoration-none" href="{{url("/projetos")}}">
-            <button class="btn btn-primary">Voltar</button>
-        </a>
-    </div>
-<table id="xl-table-subprojetos" class="table mt-5 table-hover table-dark table-striped">
-    <thead>
+
+<table id="xl-table-subprojetos" class="table mt-5 table-hover table table-striped">
+    <thead class="bg-dark text-white">
       <tr>
-        <th scope="col">Título</th>
-        <th scope="col">Categoria</th>
-        <th scope="col" class="w-25">Descricao</th>
-        <th scope="col">Integrantes</th>
-        <th scope="col" class="w-25">Fotos</th>
-        <th scope="col">Ações</th>
+        <th scope="col">TÍTULO</th>
+        <th scope="col">CATEGORIA</th>
+        <th scope="col" class="w-25">DESCRIÇÃO</th>
+        <th scope="col">INTEGRANTES</th>
+        <th scope="col" class="w-25">FOTOS</th>
+        <th scope="col">AÇÕES</th>
       </tr>
     </thead>
     <tbody>
@@ -104,14 +106,14 @@
   </table>
 
 
-  <table id="lg-table-subprojetos" class="table mt-5 table-hover w-75 mx-auto table-dark table-striped">
-    <thead>
+  <table id="lg-table-subprojetos" class="table mt-5 table-hover w-75 mx-auto table table-striped">
+    <thead class="bg-dark text-white">
       <tr>
-        <th scope="col">Título</th>
-        <th scope="col">Categoria</th>
-        <th scope="col">Descricao</th>
-        <th scope="col">Integrantes</th>
-        <th scope="col" colspan="2">Ações</th>
+        <th scope="col">TÍTULO</th>
+        <th scope="col">CATEGORIA</th>
+        <th scope="col">DESCRIÇÃO</th>
+        <th scope="col">INTEGRANTES</th>
+        <th scope="col" colspan="2">AÇÕES</th>
       </tr>
     </thead>
     <tbody>
@@ -149,12 +151,12 @@
   </table>
 
 
-  <table id="medium-table-subprojetos" class="table mt-5 w-50 mx-auto table-dark table-hover table-striped">
-    <thead>
+  <table id="medium-table-subprojetos" class="table mt-5 w-50 mx-auto table table-hover table-striped">
+    <thead class="bg-dark text-white">
       <tr>
-        <th scope="col">Título</th>
-        <th scope="col">Categoria</th>
-        <th scope="col" colspan="4">Ações</th>
+        <th scope="col">TÍTULO</th>
+        <th scope="col">CATEGORIA</th>
+        <th scope="col" colspan="4">AÇÕES</th>
       </tr>
     </thead>
     <tbody>
@@ -191,11 +193,11 @@
     </tbody>
   </table>
 
-  <table id="little-table-subprojetos" class="table mt-5 mx-auto w-100 table-dark table-hover table-striped">
-    <thead>
+  <table id="little-table-subprojetos" class="table mt-5 mx-auto w-100 table table-hover table-striped">
+    <thead class="bg-dark text-white">
       <tr>
-        <th scope="col">Título</th>
-        <th>Ações</th>
+        <th scope="col">TÍTULO</th>
+        <th>AÇÕES</th>
       </tr>
     </thead>
     <tbody>

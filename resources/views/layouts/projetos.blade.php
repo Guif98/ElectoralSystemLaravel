@@ -22,8 +22,8 @@
             <button class="btn btn-success mt-5">Criar Projeto</button>
         </a>
     </div>
-<table id="lg-table-projetos" class=" w-75 mt-5 table table-dark mx-auto">
-    <thead>
+<table id="lg-table-projetos" class=" w-75 mt-5 table table-hover text-dark table-striped mx-auto">
+    <thead class="bg-dark text-light">
       <tr>
         <th scope="col">Nome do Projeto</th>
         <th scope="col">Data de Início</th>
@@ -35,7 +35,7 @@
     <tbody>
       @foreach ($projetos->sortByDesc('ativo') as $projeto)
         <tr>
-            <td class="w-25"><a style="color: aqua" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
+            <td class="w-25"><a style="color: rgb(6, 234, 255)" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
             <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>
             <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataFim))}}</td>
             @if ($projeto->ativo == 1)<td class="w-25">Ativo</td> @else <td class="w-25">Desativado</td>@endif
@@ -45,7 +45,7 @@
                         <button class="btn btn-outline-primary">Editar</button>
                     </a>
                     <a class="text-decoration-none pr-2" href="{{url("categorias/$projeto->id")}}">
-                        <button class="btn btn-outline-warning">Categorias</button>
+                        <button class="btn btn-outline-secondary">Categorias</button>
                     </a>
                 </div>
             </td>

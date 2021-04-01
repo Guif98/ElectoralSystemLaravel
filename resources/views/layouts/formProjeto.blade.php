@@ -43,7 +43,7 @@
     </div>
     <div class="mb-3 input-formCriar">
       <label for="categoria" class="form-label">Categoria</label>
-        <select class="form-control selector" name="categoria_id" id="categoria_id">
+        <select class="form-control selector" name="categoria_id" id="categoria_id" required>
         <option  value="{{$subProjeto->relCategorias->id ?? ''}}">@if (isset($subProjeto)){{$subProjeto->relCategorias->nome}}@else Categoria @endif</option>
         @foreach ($categorias as $categoria)
         <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
@@ -52,11 +52,11 @@
     </div>
     <label for="descricao_div" class="form-label">Descrição</label>
     <div class="input-formCriar" id="descricao_id">
-        <textarea class="mb-3 form-control" id="descricao" name="descricao"  value="">@if (isset($subProjeto)) {{$subProjeto->descricao}} @endif</textarea>
+        <textarea class="mb-3 form-control" id="descricao" name="descricao"  value="" required>@if (isset($subProjeto)) {{$subProjeto->descricao}} @endif</textarea>
     </div>
-    <label for="integrantes_div" class="form-label">Integrantes</label>
+    <label for="integrantes_div" class="form-label" required>Integrantes</label>
     <div class="input-formCriar" id="integrantes_div">
-        <textarea class="mb-3 form-control" id="integrantes" name="integrantes">@if (isset($subProjeto)) {{$subProjeto->integrantes}} @endif</textarea>
+        <textarea class="mb-3 form-control" id="integrantes" name="integrantes" required>@if (isset($subProjeto)) {{$subProjeto->integrantes}} @endif</textarea>
     </div>
     <button type="submit" class="btn btn-success input-formCriar">@if (isset($subProjeto))Atualizar @else Criar  @endif</button>
     <a href="{{url("/subprojetos/$projeto_id")}}" class="btn btn-primary input-formCriar">Voltar

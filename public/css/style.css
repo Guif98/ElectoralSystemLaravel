@@ -294,6 +294,17 @@ main {
 
 }
 
+@media (max-width: 726px) {
+    .voltar-add-foto {
+        margin-top: 2px;
+        width: 100%;
+    }
+
+    .add-foto {
+        width: 100%;
+    }
+}
+
 .title {
     padding-top: 100px;
     margin: 2em;

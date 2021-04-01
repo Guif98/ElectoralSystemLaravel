@@ -10,6 +10,10 @@
     </div>
     @endif
 
+    <div class="text-center mx-auto mt-5">
+        <h4>Adicionar Fotos:</h4>
+    </div>
+
 
 <form name="formCriar" id="formCriar" action="{{url("/subprojetos/$subProjeto->projeto_id/$subProjeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
     @method('POST')
@@ -17,18 +21,21 @@
 
 
 <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
-
-    <div class="mb-3 mt-5 mx-auto input-formCriar">
+<div class="container mx-auto">
+    <div class="mb-3 mt-5 mx-auto">
         <label class="custom-file-label" for="foto">Selecione as fotos (no máximo 4 imagens)</label>
         <input type="file" class="custom-file-input" name="foto[]"  id="foto[]"  multiple/>
     </div>
 
-    <button type="submit" class="btn btn-success input-formCriar">Adicionar Fotos</button>
-    <a href="{{url("subprojetos/$projeto_id")}}">
-        <button type="button" class="btn btn-primary">Voltar</button>
-    </a>
+    <div class="mb-3 mt-2 ml-0 p-0">
+        <button type="submit" class="add-foto btn btn-success ">Adicionar Fotos</button>
+        <a href="{{url("subprojetos/$projeto_id")}}">
+            <button type="button" class="voltar-add-foto btn btn-primary ">Voltar</button>
+        </a>
+    </div>
+
 </form>
-
-
 </div>
+
+
 @endsection
