@@ -47,9 +47,9 @@ class SubProjetoControlador extends Controller
         $subProjetos = SubProjetos::where('projeto_id', $projeto_id)->get();
         $categorias = $this->objCategoria->all();
         $votos = $this->objVoto->all();
-
-        $maisVotados = DB::table('votos')->join('subProjetos', 'subProjetos.id', '=', 'votos.subProjeto_id')->select('subProjeto_id', 'titulo', 'categoria_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))->groupBy('subProjeto_id', 'titulo', 'categoria_id')
+        $maisVotados = DB::table('votos')->join('subProjetos', 'subProjetos.id', '=', 'votos.subProjeto_id')->join('projetos', 'projetos.id', '=', 'votos.projeto_id')->select('subProjeto_id', 'titulo', 'votos.projeto_id as projeto_id', 'categoria_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))->groupBy('subProjeto_id', 'titulo', 'categoria_id', 'projeto_id')
         ->orderByRaw('COUNT(*) DESC')->limit(20)->get();
+
         return view('layouts.subprojetos', compact('categorias','subProjetos', 'projeto', 'votos', 'maisVotados'));
     }
 
@@ -72,6 +72,7 @@ class SubProjetoControlador extends Controller
         } else {
         foreach ($request->voto as $v) {
             $novoVoto = new Voto();
+            $novoVoto->projeto_id = $request->projeto_id;
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
             $novoVoto->subProjeto_id = $v;
@@ -142,6 +143,7 @@ class SubProjetoControlador extends Controller
      */
     public function store(Request $request)
     {
+
         $this->objSubProjeto->titulo = $request->titulo;
         $this->objSubProjeto->projeto_id = $request->projeto_id;
         $this->objSubProjeto->categoria_id = $request->categoria_id;

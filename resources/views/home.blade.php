@@ -178,6 +178,7 @@
 
                 </div>
                 <form action="{{route('validarEleitor')}}"  method="POST">
+                    <input type="hidden" value="{{$projeto->id}}" name="projeto_id">
                     <div class="modal-body">
 
                     <!--Divs de mensagens e erros dos modais-->
@@ -196,7 +197,7 @@
                             </div>
                         @endif
 
-                        <div id="mensagem-erro">
+                        <div id="mensagem-erro" class="text-center">
 
                         </div>
 

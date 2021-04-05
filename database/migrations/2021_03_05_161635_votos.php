@@ -19,7 +19,9 @@ class Votos extends Migration
             $table->string('nome')->nullable('false');
             $table->string('sobrenome')->nullable('false');
             $table->tinyInteger('subProjeto_id')->unsigned();
+            $table->tinyInteger('projeto_id')->unsigned()->nullable('false');
             $table->foreign('subProjeto_id')->references('id')->on('subProjetos')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('projeto_id')->references('id')->on('projetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

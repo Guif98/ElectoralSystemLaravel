@@ -25,24 +25,30 @@
     </div>
 
 
-@if ($projeto->ativo == 1)
+@if ($projeto->ativo == 1 && isset($votos))
 <h4 class="text-center mt-5">Quantidade de votos:</h4>
-    <div class="w-100 container mx-auto mt-5 mb-5 overflow-auto">
+    <div class="w-100 container mx-auto mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
             <thead class="bg-dark text-light">
                 <tr>
                     <th>TÍTULO</th>
                     <th>CATEGORIA</th>
                     <th>QUANTIDADE DE VOTOS</th>
+                    <th>PORCENTAGEM DE VOTOS</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($maisVotados->sortBy('categoria_id') as $item)
+                @foreach ($maisVotados->where('projeto_id', $projeto_id)->sortBy('categoria_id') as $item)
                         <td>{{$item->titulo}}</td>
                         @foreach ($categorias as $cat)
                             @if ($item->categoria_id == $cat->id)
+                                @php
+                                $totalCat = 0;
+                                $totalCat += $item->qtdVotos; @endphp
                                 <td>{{$cat->nome}}</td>
                                 <td>{{$item->qtdVotos}}</td>
+
+                                <td>{{$item->qtdVotos * 100 /$totalCat}}%</td>
                             @endif
                         @endforeach
                     </tr>
@@ -55,180 +61,105 @@
 
 
 
-<div class="mt-5 container-fluid">
-    <div class="m-auto mt-5">
+<div class="mx-auto mt-5 text-center mb-5 flex-container">
+    <div class="mt-5">
         <h4 class="text-center">Candidatos:</h4>
     </div>
 
-<table id="xl-table-subprojetos" class="table mt-5 table-hover table table-striped">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th scope="col">TÍTULO</th>
-        <th scope="col">CATEGORIA</th>
-        <th scope="col" class="w-25">DESCRIÇÃO</th>
-        <th scope="col">INTEGRANTES</th>
-        <th scope="col" class="w-25">FOTOS</th>
-        <th scope="col">AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($subProjetos as $subProjeto)
-      @php
-            $fotos = $subProjeto->find($subProjeto->id)->relFotos;
-      @endphp
-        <tr>
-            <td>{{$subProjeto->titulo}}</td>
-            <td>{{$subProjeto->relCategorias->nome}}</td>
-            <td>{{$subProjeto->descricao}}</td>
-            <td>{{$subProjeto->integrantes}}</td>
-            <td>@foreach ($fotos as $foto)
-                <a href="#imgModal" class="img" id="{{$foto->id}}">
-                    <img style="width: 100px; height: 100px;" src="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
-                </a>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <table id="lg-table-subprojetos" class="table mt-5 table-hover table table-striped">
+            <thead class="bg-dark text-white">
+              <tr>
+                <th scope="col">TÍTULO</th>
+                <th scope="col">CATEGORIA</th>
+                <th scope="col" class="w-25">DESCRIÇÃO</th>
+                <th scope="col">INTEGRANTES</th>
+                <th scope="col" class="w-25">FOTOS</th>
+                <th scope="col">AÇÕES</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($subProjetos as $subProjeto)
+              @php
+                    $fotos = $subProjeto->find($subProjeto->id)->relFotos;
+              @endphp
+                <tr>
+                    <td>{{$subProjeto->titulo}}</td>
+                    <td>{{$subProjeto->relCategorias->nome}}</td>
+                    <td>{{$subProjeto->descricao}}</td>
+                    <td>{{$subProjeto->integrantes}}</td>
+                    <td>@foreach ($fotos as $foto)
+                        <a href="#imgModal" class="img" id="{{$foto->id}}">
+                            <img style="width: 100px; height: 100px;" src="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                        </a>
+                      @endforeach
+                    </td>
+                    <td>
+                        <div role="group" class=" btn-group pull-right">
+                            <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
+                                <button class="btn btn-outline-primary">Editar</button>
+                            </a>
+                            <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
+                                <button class="btn btn-outline-success">+Fotos</button>
+                            </a>
+                            <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
+                                <button class="btn btn-outline-danger">Excluir</button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <table id="medium-table-subprojetos" class="table mt-5 mx-auto table table-hover table-striped">
+            <thead class="bg-dark text-white">
+              <tr>
+                <th scope="col">TÍTULO</th>
+                <th scope="col">CATEGORIA</th>
+                <th scope="col" colspan="4">AÇÕES</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($subProjetos as $subProjeto)
+              @php
+                    $fotos = $subProjeto->find($subProjeto->id)->relFotos;
+              @endphp
+                <tr>
+                    <td>{{$subProjeto->titulo}}</td>
+                    <td>{{$subProjeto->relCategorias->nome}}</td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-row">
+                                <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
+                                    <button class="btn btn-outline-primary">Editar</button>
+                                </a>
+                                <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
+                                    <button class="btn btn-outline-success">+Fotos</button>
+                                </a>
+                            </div>
+
+                            <div class="d-flex flex-row mt-2">
+                                <a class="mr-2" href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
+                                    <button class="btn btn-outline-danger">Excluir</button>
+                                </a>
+                                <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
+                                    <button class="btn btn-outline-secondary">Ver</button>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
               @endforeach
-            </td>
-            <td>
-                <div role="group" class=" btn-group pull-right">
-                    <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                        <button class="btn btn-outline-primary">Editar</button>
-                    </a>
-                    <a class="mr-2" href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                        <button class="btn btn-outline-success">+Fotos</button>
-                    </a>
-                    <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                        <button class="btn btn-outline-danger">Excluir</button>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-  </table>
-
-
-  <table id="lg-table-subprojetos" class="table mt-5 table-hover w-75 mx-auto table table-striped">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th scope="col">TÍTULO</th>
-        <th scope="col">CATEGORIA</th>
-        <th scope="col">DESCRIÇÃO</th>
-        <th scope="col">INTEGRANTES</th>
-        <th scope="col" colspan="2">AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($subProjetos as $subProjeto)
-        <tr>
-            <td>{{$subProjeto->titulo}}</td>
-            <td>{{$subProjeto->relCategorias->nome}}</td>
-            <td>{{$subProjeto->descricao}}</td>
-            <td>{{$subProjeto->integrantes}}</td>
-            <td>
-                <div class="d-flex flex-column">
-                    <div class="d-flex flex-row">
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                            <button class="btn btn-outline-primary">Editar</button>
-                        </a>
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                            <button class="btn btn-outline-success">+Fotos</button>
-                        </a>
-                    </div>
-
-                    <div class="d-flex flex-row">
-                        <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                            <button class="btn btn-outline-danger">Excluir</button>
-                        </a>
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
-                            <button class="btn btn-outline-secondary">Ver</button>
-                        </a>
-                    </div>
-
-                </div>
-            </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
-
-
-  <table id="medium-table-subprojetos" class="table mt-5 w-50 mx-auto table table-hover table-striped">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th scope="col">TÍTULO</th>
-        <th scope="col">CATEGORIA</th>
-        <th scope="col" colspan="4">AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($subProjetos as $subProjeto)
-      @php
-            $fotos = $subProjeto->find($subProjeto->id)->relFotos;
-      @endphp
-        <tr>
-            <td>{{$subProjeto->titulo}}</td>
-            <td>{{$subProjeto->relCategorias->nome}}</td>
-            <td>
-                <div class="d-flex flex-column">
-                    <div class="d-flex flex-row">
-                        <a class="flex-fill" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                            <button class="btn btn-outline-primary">Editar</button>
-                        </a>
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                            <button class="btn btn-outline-success">+Fotos</button>
-                        </a>
-                    </div>
-
-                    <div class="d-flex flex-row">
-                        <a href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                            <button class="btn btn-outline-danger">Excluir</button>
-                        </a>
-                        <a href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
-                            <button class="btn btn-outline-secondary">Ver</button>
-                        </a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
-
-  <table id="little-table-subprojetos" class="table mt-5 mx-auto w-100 table table-hover table-striped">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th scope="col">TÍTULO</th>
-        <th>AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach ($subProjetos as $subProjeto)
-        <tr>
-            <td class="w-50">{{$subProjeto->titulo}}</td>
-            <td class="w-100 ">
-                <div class="d-flex flex-wrap">
-                    <div class="d-flex flex-row justify-content-center">
-                        <a class="mr-2 mt-2" href="{{url("/subprojetos/$subProjeto->projeto_id/edit/$subProjeto->id")}}">
-                            <button class="btn btn-outline-primary btn">Editar</button>
-                        </a>
-                        <a class="mt-2" href="{{url("/subprojetos/$subProjeto->projeto_id/addFoto/$subProjeto->id")}}">
-                            <button class="btn btn-outline-success btn">+Fotos</button>
-                        </a>
-                    </div>
-                    <div class="d-flex flex-row justify-content-center">
-                        <a class="mr-2 mt-2" href="{{url("/subprojetos/$subProjeto->id/delete")}}" onclick="return confirm('Deseja realmente excluir esse projeto?')">
-                            <button class="btn btn-outline-danger btn ">Excluir</button>
-                        </a>
-                        <a class="mt-2" href="{{url("/subprojetos/$subProjeto->projeto_id/ver/$subProjeto->id")}}">
-                            <button class="btn btn-outline-secondary btn">Ver</button>
-                        </a>
-                    </div>
-
-                </div>
-            </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+            </tbody>
+          </table>
+    </div>
+</div>
 
 
 

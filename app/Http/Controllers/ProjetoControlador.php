@@ -91,7 +91,10 @@ class ProjetoControlador extends Controller
                     return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
             }
         } else {
-            return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já foi criado para o mesmo período!', 'msg-type' => 'danger']);
+
+            $this->objProjeto->ativo = 0;
+            $this->objProjeto->save();
+            return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, porém desativado por não estar no período de ativação', 'msg-type' => 'success']);
         }
     }
 
@@ -143,16 +146,28 @@ class ProjetoControlador extends Controller
         if (isset($request->desativar)) {
             if ($request->desativar[0] == '1') {
                 $projeto->ativo = 0;
+                $projeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto desativado com sucesso!', 'msg-type' => 'warning']);
             } else {
                 $projeto->ativo = 1;
             }
         }
 
+        if ($projeto->ativo == 1 && $projeto->dataInicio < Date(now()) &&  $projeto->dataFim < Date(now()) ) {
+            $projeto->ativo = 0;
+        } else if ($projeto->ativo == 1 && $projeto->dataInicio > Date(now()) &&  $projeto->dataFim > Date(now())) {
+            $projeto->ativo = 0;
+        } else if ($projeto->ativo == 1 && $projeto->dataInicio < Date(now()) &&  $projeto->dataFim > Date(now())) {
+            $projeto->ativo = 1;
+        }
 
+        else {
+            $projeto->ativo = 0;
+        }
 
         $projeto->save();
+        return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso!', 'msg-type' => 'warning']);
 
-        return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso', 'msg-type' => 'warning']);
     }
 
     /**

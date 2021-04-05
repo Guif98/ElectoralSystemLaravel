@@ -43,10 +43,20 @@ class MinuteUpdate extends Command
      */
     public function handle()
     {
-        $projeto = Projeto::where('ativo', 1)->first();
-        if (Date(now()) > $projeto->dataFim) {
+        $projeto = Projeto::where('ativo', 0)->first();
+        $projetoAtivo = Projeto::where('ativo', 1)->first();
+
+        if (Date(now()) >= $projeto->dataInicio && Date(now()) < $projeto->dataFim && !isset($projetoAtivo)) {
+            $projeto->ativo = 1;
+            $projeto->save();
+        } else {
             $projeto->ativo = 0;
             $projeto->save();
         }
+
+        /*if (Date(now()) > $projeto->dataFim) {
+            $projeto->ativo = 0;
+            $projeto->save();
+        }*/
     }
 }

@@ -1,3 +1,5 @@
+/** Estilo geral para as blades ***/
+
 body {
     margin: 0;
     padding: 0;
@@ -9,211 +11,43 @@ main {
     background-color: white;
 }
 
-@media (max-width: 575.98px) {
+/** Media Queries para as tabelas na blade subprojetos.php **/
 
-    #lg-table-projetos {
-        display: none;
-    }
-
-    #tiny-table-projetos {
-        display: none;
-    }
-
-    #little-table-projetos .buttons {
-        display: inline-flex;
-    }
-
-    #lg-table-subprojetos {
-        display: none;
-    }
+@media (min-width: 990px) {
 
     #xl-table-subprojetos {
         display: none;
     }
 
+    #lg-table-subprojetos {
+        display: block;
+    }
+
+    #little-table-subprojetos {
+        display: none;
+    }
+
     #medium-table-subprojetos {
         display: none;
     }
 
-    .tabela {
-        width: 300px;
-        margin: auto;
-    }
-
-    .hidden {
-        display: none;
-    }
-
-    .little-table {
-        display: none;
-    }
-
-    .input-formCriar {
-        width: 210px;
-    }
-
-
-    .titulo-sm {
-        font: 1.5em sans-serif;
-        font-weight: bold;
-    }
-
-    .medium-table {
-        display: none;
-    }
 }
 
-
-@media (min-width: 576px) {
-
-    #lg-table-projetos {
-        display: none;
-    }
-
-    #tiny-table-projetos {
-        display: none;
-    }
-
-    #little-table-projetos {
-        display: none;
-    }
+@media (max-width: 990px) {
 
     #lg-table-subprojetos {
         display: none;
     }
 
-    #xl-table-subprojetos {
-        display: none;
-    }
-
-    #little-table-subprojetos {
-        display: none;
-    }
-
     #medium-table-subprojetos {
-        display: none;
-    }
-
-    .little-table {
-        display: none;
-    }
-
-    .medium-table {
-        display: none;
-    }
-
-    .buttons {
-        display: inline-flex;
-    }
-
-    #little-table-subprojetos {
-        display: none;
-    }
-
-    #medium-table-subprojetos {
-        display: none;
-    }
- }
-
- @media (min-width: 370px) and (max-width: 576px) {
-    #medium-table-subprojetos {
-        display: none;
-    }
-
-    #little-table-subprojetos {
         display: block;
-    }
-
-    .medium-table {
-        display: block;
-    }
-    .little-table {
-        display: none;
-    }
-    .hidden {
-        display: none;
-    }
-
-    .buttons {
-        display: inline-flex;
-    }
-}
-
-
-@media (max-width: 629px) {
-
-    #little-table-subprojetos {
-        display: block;
-    }
-
-    #medium-table-subprojetos {
-        display: none;
-    }
-
-    #lg-table-subprojetos {
-        display: none;
-    }
-
-    #xl-table-subprojetos {
-        display: none;
-    }
-}
-
-@media (min-width: 800px) and (max-width: 1024px) {
-
-    #lg-table-subprojetos {
-        display: block;
-    }
-
-    #xl-table-subprojetos {
-        display: none;
-    }
-
-    #little-table-subprojetos {
-        display: none;
-    }
-
-    #medium-table-subprojetos {
-        display: none;
     }
 
 }
 
-@media (min-width: 863px) {
+/** Media Queries para as tabelas da blade projetos.php **/
 
-    #xl-table-subprojetos {
-        display: block;
-    }
-
-    #lg-table-subprojetos {
-        display: none;
-    }
-
-    #little-table-subprojetos {
-        display: none;
-    }
-
-    #medium-table-subprojetos {
-        display: none;
-    }
-
-}
-
-@media (min-width: 602px) and (max-width: 850px) {
-    #little-table-projetos {
-        display: block;
-    }
-
-    #lg-table-projetos {
-        display:none;
-    }
-
-    #tiny-table-projetos {
-        display: none;
-    }
-}
-
-@media (min-width: 850px) {
+@media (min-width: 856px) {
     #little-table-projetos {
         display: none;
     }
@@ -221,62 +55,38 @@ main {
     #lg-table-projetos {
         display:block;
     }
-
-    #tiny-table-projetos {
-        display: none;
-    }
 }
 
-@media (max-width: 601px) {
-
+@media (max-width: 856px) {
     #little-table-projetos {
-        display: none;
+        display: block;
     }
 
     #lg-table-projetos {
-        display:none
-    }
-
-    #tiny-table-projetos {
-        display: block;
+        display:none;
     }
 }
 
-/** Tabela subprojeto tamanho médio **/
 
-@media (min-width: 621px) and (max-width: 800px) {
-    #xl-table-subprojetos {
-        display: none;
-    }
+/** Media Queries para a blade categorias.php **/
 
-    #lg-table-subprojetos {
-        display: none;
-    }
-
-    #little-table-subprojetos {
-        display: none;
-    }
-
-    #medium-table-subprojetos {
+@media (max-width: 617px) {
+    #md-table-categorias {
         display: block;
+    }
+
+    #lg-table-categorias {
+        display: none;
     }
 }
 
-@media (max-width: 463px) {
-    #xl-table-subprojetos {
+@media (min-width: 617px) {
+    #md-table-categorias {
         display: none;
     }
 
-    #lg-table-subprojetos {
-        display: none;
-    }
-
-    #little-table-subprojetos {
+    #lg-table-categorias {
         display: block;
-    }
-
-    #medium-table-subprojetos {
-        display: none;
     }
 }
 
