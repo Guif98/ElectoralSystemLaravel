@@ -360,6 +360,8 @@
                         projeto.push(p.children[1].firstElementChild.textContent
                         );
                     });
+
+                    console.log(projeto);
                         if (projeto.length == 0) {
                             $("#votoModal").modal("show");
                             mensagem.innerHTML = `
@@ -434,9 +436,10 @@
                 if ($(this).siblings().length <= 4) {
                     if ($(this).siblings('div').hasClass("bg-primary")) {
                         let winner = $(this).siblings('div').siblings()[3];
-                        $(winner).addClass("bg-dark").addClass("text-light");
+                        $(winner).addClass("bg-dark").addClass("text-light").addClass('selected');
+                        $(winner).children('input').attr('name', 'voto[]');
                     }
-                    $(this).children()[0].textContent = 'Por não haver outro candidato concorrente, este projeto venceu esta categoria';
+                    $(this).children()[0].textContent = 'Por não haver outro candidato concorrente, este projeto venceu esta categoria.';
                     $(this).removeClass("nulo").addClass("winner");
                 }
             })

@@ -6,10 +6,10 @@
 
 <div class="container mt-5 mx-auto">
 @if (isset($categoria))
-<form name="formEdit" id="formEdit" action="{{url("categorias/$categoria->projeto_id/$categoria->id")}}" class="m-auto col-6" method="POST">
+<form name="formEdit" id="formEdit" action="{{url("categorias/$categoria->projeto_id/$categoria->id")}}" class="col-md-12 col-sm-8" method="POST">
     @method('PATCH')
 @else
-<form name="formCriar" id="formCriar" action="{{url('/categorias/criar')}}" class="m-auto col-6" method="POST">
+<form name="formCriar" id="formCriar" action="{{url('/categorias/criar')}}" class="col-md-12 col-sm-8" method="POST">
     @method('POST')
 @endif
 @csrf

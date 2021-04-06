@@ -115,6 +115,14 @@ main {
     }
 }
 
+#votoModal {
+    top: 120px;
+}
+
+.input-formCriar {
+    width: 98%;
+}
+
 .title {
     padding-top: 100px;
     margin: 2em;
