@@ -153,6 +153,16 @@ main {
     cursor: pointer;
 }
 
+.winner {
+    background-color: rgb(194, 194, 194);
+    box-shadow: 0.1em 0.1em 0.1em 0.1em;
+    width: 70%;
+    padding: 2em;
+    margin: 2em auto;
+    border-radius: 0.8em;
+    cursor: pointer;
+}
+
 .flex-c {
     display: flex;
     flex-flow: row wrap;

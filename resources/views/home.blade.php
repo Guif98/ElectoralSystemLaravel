@@ -428,9 +428,24 @@
             }
             );
 
+
+            $(".nulo").each(function() {
+
+                if ($(this).siblings().length <= 4) {
+                    if ($(this).siblings('div').hasClass("bg-primary")) {
+                        let winner = $(this).siblings('div').siblings()[3];
+                        $(winner).addClass("bg-dark").addClass("text-light");
+                    }
+                    $(this).children()[0].textContent = 'Por não haver outro candidato concorrente, este projeto venceu esta categoria';
+                    $(this).removeClass("nulo").addClass("winner");
+                }
+            })
+
+
             $(".nulo").click(
                 function(event)
             {
+
                 $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark");
                 $(this).parent().find('.radio').removeClass('selected');
                 $(this).siblings('div').children('input').removeAttr('name');
