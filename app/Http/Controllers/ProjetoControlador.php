@@ -153,21 +153,17 @@ class ProjetoControlador extends Controller
             }
         }
 
-        if ($projeto->ativo == 1 && $projeto->dataInicio < Date(now()) &&  $projeto->dataFim < Date(now()) ) {
+        if ($projeto->ativo == 1 && $projeto->dataFim < Date(now())) {
             $projeto->ativo = 0;
-        } else if ($projeto->ativo == 1 && $projeto->dataInicio > Date(now()) &&  $projeto->dataFim > Date(now())) {
+        } else if ($projeto->ativo == 1  && $projeto->dataInicio > Date(now())) {
             $projeto->ativo = 0;
-        } else if ($projeto->ativo == 1 && $projeto->dataInicio < Date(now()) &&  $projeto->dataFim > Date(now())) {
+        } else if ($projeto->ativo == 1 && $projeto->dataInicio <= Date(now()) &&  $projeto->dataFim >= Date(now())) {
             $projeto->ativo = 1;
         }
 
-        else {
-            $projeto->ativo = 0;
-        }
 
         $projeto->save();
         return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso!', 'msg-type' => 'warning']);
-
     }
 
     /**

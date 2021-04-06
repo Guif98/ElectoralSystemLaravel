@@ -8,7 +8,7 @@
  <div class="text-center m-auto p-3 alert-{{session('msg-type')}}">
     <p>{{session('message')}}</p>
  </div>
- @endif
+@endif
 
 
  <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
@@ -38,19 +38,27 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($maisVotados->where('projeto_id', $projeto_id)->sortBy('categoria_id') as $item)
-                        <td>{{$item->titulo}}</td>
-                        @foreach ($categorias as $cat)
-                            @if ($item->categoria_id == $cat->id)
-                                @php
-                                $totalCat = 0;
-                                $totalCat += $item->qtdVotos; @endphp
-                                <td>{{$cat->nome}}</td>
-                                <td>{{$item->qtdVotos}}</td>
 
-                                <td>{{$item->qtdVotos * 100 /$totalCat}}%</td>
-                            @endif
-                        @endforeach
+                @foreach ($maisVotados->where('projeto_id', $projeto_id)->sortBy('categoria_id') as $item)
+
+                    <td>{{$item->titulo}}</td>
+                    @foreach ($categorias as $cat)
+                        @if ($item->categoria_id == $cat->id)
+                            <td>{{$cat->nome}}</td>
+                            <td>{{$item->qtdVotos}}</td>
+
+                            @php
+                                $candidatoCat = $maisVotados->where('categoria_id', $item->categoria_id);
+                                $totalCat = 0;
+                            @endphp
+
+                            @foreach ($candidatoCat as $candidato)
+                                @php $totalCat = $totalCat + $candidato->qtdVotos; @endphp
+                            @endforeach
+
+                            <td>{{round($item->qtdVotos * 100 / $totalCat)}}%</td>
+                        @endif
+                    @endforeach
                     </tr>
 
                 @endforeach
