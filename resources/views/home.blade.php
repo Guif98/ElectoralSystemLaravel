@@ -38,7 +38,7 @@
             <!--Início da div categoria -->
 
                 <div class="categoria">
-                    <div class="bg-primary p-4 mt-4 w-75 mx-auto rounded">
+                    <div class="bg-primary p-4 mt-4 mx-auto rounded col-xl-9 col-lg-9">
                         <h4 class="text-center text-light">{{$c->nome}}</h4>
                     </div>
                     @foreach ($sub as $s)

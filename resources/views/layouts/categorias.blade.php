@@ -20,10 +20,10 @@
     </div>
     <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("categorias/$projeto_id/criar")}}">
-            <button class="btn btn-success">Criar Categorias</button>
+            <button class="btn btn-success col-lg-auto col-sm-auto">Criar Categorias</button>
         </a>
         <a class="text-decoration-none" href="{{url('/projetos')}}">
-            <button class="btn btn-primary">Voltar</button>
+            <button class="btn btn-primary col-lg-auto col-sm-auto mt-lg-auto mt-2">Voltar</button>
         </a>
     </div>
     <div class="row justify-content-center">

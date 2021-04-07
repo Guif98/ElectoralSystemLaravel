@@ -17,10 +17,10 @@
 
     <div class="mx-auto mt-5 text-center mb-5">
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
-            <button class="btn btn-success">Criar Candidato</button>
+            <button class="btn btn-success col-lg-auto col-sm-auto p-2">Novo Candidato</button>
         </a>
         <a class="text-decoration-none" href="{{url("/projetos")}}">
-            <button class="btn btn-primary">Voltar</button>
+            <button class="btn btn-primary col-lg-auto col-sm-auto mt-lg-auto mt-3 p-2">Voltar</button>
         </a>
     </div>
 

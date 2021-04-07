@@ -43,20 +43,24 @@ class MinuteUpdate extends Command
      */
     public function handle()
     {
-        $projeto = Projeto::where('ativo', 0)->first();
-        $projetoAtivo = Projeto::where('ativo', 1)->first();
+        $desativados = Projeto::where('ativo', 0)->get();
 
-        if (Date(now()) >= $projeto->dataInicio && Date(now()) <= $projeto->dataFim && !isset($projetoAtivo)) {
-            $projeto->ativo = 1;
-            $projeto->save();
-        } else {
-            $projeto->ativo = 0;
-            $projeto->save();
+        foreach($desativados as $desativado) {
+            $desativado->dataInicio = date_diff(date_create($desativado->dataInicio), date_create(Date(now())));
+            if ($desativado->dataInicio->invert == 1) {
+                $desativado->ativo = 1;
+                $desativado->save();
+                return -1;
+            }
+            $desativado->dataFim = date_diff(date_create(Date(now())), date_create($desativado->dataFim));
+            if ($desativado->dataFim->invert == 1) {
+                $desativado->ativo = 1;
+                $desativado->save();
+                return 1;
+            }
+
+            return 0;
         }
 
-        /*if (Date(now()) > $projeto->dataFim) {
-            $projeto->ativo = 0;
-            $projeto->save();
-        }*/
     }
 }

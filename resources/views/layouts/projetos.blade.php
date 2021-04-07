@@ -19,7 +19,7 @@
     </div>
     <div class="mx-auto mt-5 text-center">
         <a href="{{url('novoProjeto')}}">
-            <button class="btn btn-success mt-5">Criar Projeto</button>
+            <button class="btn btn-success mt-5 col-lg-auto col-sm-auto p-2">Novo Projeto</button>
         </a>
     </div>
     <div class="row justify-content-center">

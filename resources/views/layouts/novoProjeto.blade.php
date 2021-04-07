@@ -6,16 +6,16 @@
 
 <div class="mt-5 mx-auto">
 @if (isset($projeto))
-<form name="formEdit" id="formEdit" action="{{url("projetos/$projeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
+<form name="formEdit" id="formEdit" action="{{url("projetos/$projeto->id")}}" class="col-lg-8 mx-auto col-sm-8" method="POST" enctype="multipart/form-data">
     @method('patch')
 @else
-<form name="formCriar" id="formCriar" action="{{url('novoProjeto')}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
+<form name="formCriar" id="formCriar" action="{{url('novoProjeto')}}" class="col-lg-8 mx-auto col-sm-8" method="POST" enctype="multipart/form-data">
     @method('POST')
 @endif
 @csrf
 
 <div class="mx-auto mt-5 mb-5">
-    <h2 class="text-center titulo-sm">@if (isset($projeto))Editar Projeto @else Criar Projeto @endif</h2>
+    <h2 class="text-center titulo-sm">@if (isset($projeto))Editar Projeto: @else Novo Projeto: @endif</h2>
 </div>
 
 @if (count($errors)>0)
@@ -26,17 +26,17 @@
 </div>
 @endif
 
-    <div class="mb-3 mt-5 input-formCriar">
+    <div class="mb-3 mt-5">
       <label for="nome" class="form-label">Nome do Projeto:</label>
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($projeto)) value="{{$projeto->nome ?? ''}}" @endif >
     </div>
-    <div class="mb-3 input-formCriar">
+    <div class="mb-3">
       <label for="dataInicio" class="form-label">Data de início:</label>
       <input required type="date" class="form-control" id="dataInicio" name="dataInicio" @if (isset($projeto)) ?? value="{{$projeto->dataInicio}}" : value="" @endif>
     </div>
-    <div class="mb-3 input-formCriar">
+    <div class="mb-3">
         <label for="dataFim" class="form-label">Data do Fim:</label>
-        <input required type="date" class="form-control input-formCriar" id="dataFim" name="dataFim" @if (isset($projeto)) ?? value="{{$projeto->dataFim}}" : value="" @endif>
+        <input required type="date" class="form-control" id="dataFim" name="dataFim" @if (isset($projeto)) ?? value="{{$projeto->dataFim}}" : value="" @endif>
     </div>
     <label for="capa">Adicionar foto de capa:</label>
     <div class="custom-file mb-3" id="capa">
@@ -56,8 +56,8 @@
 
 
 
-    <a href="{{url('/projetos')}}" class="input-formCriar btn btn-outline-primary">Voltar</a>
-    <button type="submit" class="input-formCriar btn btn-outline-success">@if (isset($projeto))Atualizar @else Criar  @endif</button>
+    <a href="{{url('/projetos')}}" class="btn btn-outline-primary col-lg-8 col-sm-auto">Voltar</a>
+    <button type="submit" class="btn btn-outline-success col-lg-8 col-sm-auto mt-lg-auto mt-2">@if (isset($projeto))Atualizar @else Criar  @endif</button>
   </form>
 </div>
 @endsection
