@@ -25,7 +25,7 @@
     </div>
 
 
-@if ($projeto->ativo == 1 && isset($votos))
+@if ($projeto->ativo == 1 && $votos->count() > 0))
 <h4 class="text-center mt-5">QUANTIDADE DE VOTOS:</h4>
     <div class="w-100 container mx-auto mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
@@ -75,7 +75,7 @@
     </div>
 
 <div class="row justify-content-center">
-    <div class="col-auto">
+    <div class="col-11">
         <table id="lg-table-subprojetos" class="table mt-5 table-hover table table-striped">
             <thead class="bg-dark text-white">
               <tr>

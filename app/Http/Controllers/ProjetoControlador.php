@@ -67,34 +67,38 @@ class ProjetoControlador extends Controller
             $this->objProjeto->capa = $filename;
         }
 
-
         if ($this->objProjeto->where('ativo', '1')->count() == 0) {
-            if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
-                $this->objProjeto->ativo = 1;
-                $this->objProjeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
-            }
-        }
-
-        $projetoAtivo = Projeto::where('ativo' , '1')->first();
-
-        if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
-               if ($request->dataInicio >= $projetoAtivo->dataInicio && $request->dataInicio <= $projetoAtivo->dataFim) {
-                    return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já está em andamento!', 'msg-type' => 'danger']);
-               }
-               else if ($request->dataFim >= $projetoAtivo->dataInicio && $request->dataFim <= $projetoAtivo->dataFim) {
-                    return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o evento, um evento já está em andamento!', 'msg-type' => 'danger']);
-               }
-               else {
+                if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
                     $this->objProjeto->ativo = 1;
                     $this->objProjeto->save();
                     return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
-            }
-        } else {
-
-            $this->objProjeto->ativo = 0;
-            $this->objProjeto->save();
-            return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, porém desativado por não estar no período de ativação', 'msg-type' => 'success']);
+                }
+            } else {
+                $projetos = Projeto::all();
+                foreach ($projetos as $p) {
+                    if ($this->objProjeto->dataInicio >= $p->dataInicio && $this->objProjeto->dataFim <= $p->dataFim) {
+                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+                    }
+                    else if ($this->objProjeto->dataInicio <= $p->dataInicio && $this->objProjeto->dataFim >= $p->dataInicio && $this->objProjeto->dataFim <= $p->dataFim) {
+                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+                    }
+                    else if ($this->objProjeto->dataInicio >= $p->dataInicio && $this->objProjeto->dataInicio <= $p->dataFim) {
+                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+                    }
+                    else if ($this->objProjeto->dataInicio <= $p->dataInicio && $this->objProjeto->dataFim >= $p->dataInicio) {
+                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+                    }
+                    else if ($this->objProjeto->dataInicio > $p->dataInicio) {
+                        $this->objProjeto->ativo = 0;
+                        $this->objProjeto->save();
+                        return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, porém desativado por se tratar de um projeto futuro!', 'msg-type' => 'success']);
+                    }
+                    else {
+                        $this->objProjeto->ativo = 1;
+                        $this->objProjeto->save();
+                        return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
+                    }
+                }
         }
     }
 
@@ -137,6 +141,12 @@ class ProjetoControlador extends Controller
         $projeto->dataFim = $request->dataFim;
 
         $projetos = Projeto::all();
+        $projetoAtivo = Projeto::where('ativo' , '1')->first();
+
+
+        if ($projetoAtivo->count() > 1) {
+            return redirect()->route('projetos')->with(['message' => 'É necessário desativar o evento ativo para iniciar este evento', 'msg-type' => 'danger']);
+        }
 
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
@@ -171,6 +181,9 @@ class ProjetoControlador extends Controller
                 return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
             }
             else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim && $p != $projetos->find($id)) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
+            else if ($p->dataInicio <= $projeto->dataInicio && $p->dataFim <= $projeto->dataFim) {
                 return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
             }
         }
