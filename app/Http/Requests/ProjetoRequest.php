@@ -25,8 +25,8 @@ class ProjetoRequest extends FormRequest
     {
         return [
             'nome' => 'required|string',
-            'dataInicio' => 'required|date|before:dataFim',
-            'dataFim' => 'required|date|',
+            'dataInicio' => 'required|date|before:dataFim|unique:projetos,dataInicio,'.$this->id,
+            'dataFim' => 'required|date|unique:projetos,dataFim,'.$this->id,
             'ativo' => 'unique:projetos,ativo,0'
         ];
     }

@@ -165,7 +165,7 @@
 
 
 
-          <!-- Modal para votos -->
+          <!-- Modal para preencher informacoes -->
 
           <div class="modal fade" id="votoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="votoModal" aria-hidden="true">
             <div class="modal-dialog">

@@ -136,6 +136,8 @@ class ProjetoControlador extends Controller
         $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
 
+        $projetos = Projeto::all();
+
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
             $filename = time() . '__' . $capa->getClientOriginalExtension();
@@ -159,6 +161,18 @@ class ProjetoControlador extends Controller
             $projeto->ativo = 0;
         } else if ($projeto->ativo == 1 && $projeto->dataInicio <= Date(now()) &&  $projeto->dataFim >= Date(now())) {
             $projeto->ativo = 1;
+        }
+
+        foreach ($projetos as $p) {
+            if ($projeto->dataInicio >= $p->dataInicio && $p->dataFim >= $projeto->dataFim) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->dataInicio <= $p->dataInicio && $projeto->dataFim >= $p->dataInicio && $projeto->dataFim <= $p->dataFim) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
         }
 
 

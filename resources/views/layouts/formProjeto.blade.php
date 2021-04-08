@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="container input-formCriar">
+<div class="container">
 
 
 @if (isset($subProjeto))
