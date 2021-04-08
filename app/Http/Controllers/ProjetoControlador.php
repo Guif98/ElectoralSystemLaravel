@@ -164,13 +164,13 @@ class ProjetoControlador extends Controller
         }
 
         foreach ($projetos as $p) {
-            if ($projeto->dataInicio >= $p->dataInicio && $p->dataFim >= $projeto->dataFim) {
+            if ($projeto->dataInicio >= $p->dataInicio && $p->dataFim >= $projeto->dataFim && $p != $projetos->find($id)) {
                 return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
             }
-            else if ($projeto->dataInicio <= $p->dataInicio && $projeto->dataFim >= $p->dataInicio && $projeto->dataFim <= $p->dataFim) {
+            else if ($projeto->dataInicio <= $p->dataInicio && $projeto->dataFim >= $p->dataInicio && $projeto->dataFim <= $p->dataFim && $p != $projetos->find($id)) {
                 return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
             }
-            else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim) {
+            else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim && $p != $projetos->find($id)) {
                 return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
             }
         }
