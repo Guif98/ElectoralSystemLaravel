@@ -15,7 +15,7 @@
 @csrf
 
 <div class="mx-auto mt-5 mb-5">
-    <h2 class="text-center titulo-sm">@if (isset($projeto))Editar Projeto: @else Novo Projeto: @endif</h2>
+    <h2 class="text-center titulo-sm">@if (isset($projeto))EDITAR PROJETO / EVENTO: @else NOVO PROJETO / EVENTO: @endif</h2>
 </div>
 
 @if (count($errors)>0)

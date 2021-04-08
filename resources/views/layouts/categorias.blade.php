@@ -16,7 +16,7 @@
 
 <div class="container-fluid mt-5">
     <div class="mx-auto mt-5">
-        <h2 class="text-center">Categorias</h2>
+        <h2 class="text-center">CATEGORIAS:</h2>
     </div>
     <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("categorias/$projeto_id/criar")}}">

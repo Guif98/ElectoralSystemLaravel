@@ -26,7 +26,7 @@
 
 
 @if ($projeto->ativo == 1 && isset($votos))
-<h4 class="text-center mt-5">Quantidade de votos:</h4>
+<h4 class="text-center mt-5">QUANTIDADE DE VOTOS:</h4>
     <div class="w-100 container mx-auto mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
             <thead class="bg-dark text-light">
@@ -71,7 +71,7 @@
 
 <div class="mx-auto mt-5 text-center mb-5 flex-container">
     <div class="mt-5">
-        <h4 class="text-center">Candidatos:</h4>
+        <h4 class="text-center">CANDIDATOS:</h4>
     </div>
 
 <div class="row justify-content-center">

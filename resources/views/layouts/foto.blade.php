@@ -11,11 +11,11 @@
     @endif
 
     <div class="text-center mx-auto mt-5">
-        <h4>Adicionar Fotos:</h4>
+        <h4>ADICIONAR FOTOS:</h4>
     </div>
 
 
-<form name="formCriar" id="formCriar" action="{{url("/subprojetos/$subProjeto->projeto_id/$subProjeto->id")}}" class="m-auto col-6" method="POST" enctype="multipart/form-data">
+<form name="formCriar" id="formCriar" action="{{url("/subprojetos/$subProjeto->projeto_id/$subProjeto->id")}}" class="col-lg-8 mx-auto col-sm-8" method="POST" enctype="multipart/form-data">
     @method('POST')
     @csrf
 

@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="container">
+<div class="container mb-3">
 
 
 @if (isset($subProjeto))
@@ -21,7 +21,7 @@
 @endif
 
 <div class="mx-auto mt-5 mb-5">
-    <h3 class="titulo-sm text-center">Novo Candidato:</h3>
+    <h3 class="titulo-sm text-center">@if (isset($subProjeto)) EDITAR CANDIDATO: @else NOVO CANDIDATO: @endif</h3>
 </div>
 
 @if (isset($errors) && count($errors)>0)
