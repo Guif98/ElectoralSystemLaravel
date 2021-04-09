@@ -13,10 +13,12 @@
             @endforeach
 
             <!-- Alerta para quando não haver candidatos para o evento -->
-            <div id="evento-alert" class="alert alert-danger d-none text-center" style="font-size: 2em;" role="alert">
-                <p class="mt-3">Não há nenhum candidato para votos no momento!</p>
-            </div>
-
+                <div id="evento-alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <h4 class="nenhum-candidato-mensagem">Não há nenhum candidato para ser votado no momento!</h4>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
         </header>
         <section class="home-section">
 
@@ -92,7 +94,7 @@
 
         <footer>
             <div class="p-2 mt-5 mx-auto text-center">
-                    <button type="button" id="voto" class="btn btn-success btn-lg">VOTAR</button>
+                    <button type="button" id="voto" class="btn d-none btn-success btn-lg">VOTAR</button>
             </div>
         </footer>
     </section>

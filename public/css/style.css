@@ -119,6 +119,17 @@ main {
     top: 80px;
 }
 
+#evento-alert {
+    padding: 200px;
+    text-align: center;
+}
+
+.nenhum-candidato-mensagem {
+    font-size: 2em;
+    font-weight: bold;
+
+}
+
 .title {
     padding-top: 100px;
     margin: 2em;

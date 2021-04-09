@@ -3,11 +3,6 @@ let selector = document.querySelector('.selector');
 let projeto = document.querySelector('.project-div');
 var title = document.querySelector('.title');
 
-
-/*projeto.addEventListener('click', function(){
-    console.log(projeto.id)
-});*/
-
 function apenasNumeros(extra){
 	if(window.event){
 		if((window.event.keyCode <48) || (window.event.keyCode>57)){
@@ -21,32 +16,34 @@ function apenasNumeros(extra){
 /*Código JQuery para a view home**/
 
 let projectDiv = document.querySelectorAll('.project-div');
+
+/**Condição para verificar se os candidatos estão setados e com isso disponibilizar as respectivas funcoes */
 if (projectDiv.length > 0) {
-    document.getElementById('voto').classList.remove('d-none');
-    document.getElementById('evento-alert').classList.add('d-none');
-    setTimeout(function() {
-        $("#votoModal").modal("show");
-    }, 100);
-} else {
-    document.getElementById('voto').classList.add('d-none');
-    document.getElementById('evento-alert').classList.remove('d-none');
-    $("#votoModal").modal("hide");
-}
 
-let imageContainers = document.querySelectorAll('.image-container');
-imageContainers.forEach(function(imageContainer){
-    if (imageContainer.childElementCount == 0) {
-        imageContainer.previousElementSibling.childNodes[7].classList.remove('ver_fotos')
-        imageContainer.previousElementSibling.childNodes[7].classList.add('d-none')
-    }
-});
+        document.getElementById('voto').classList.remove('d-none');
+        document.getElementById('evento-alert').classList.add('d-none');
+        setTimeout(function() {
+            $("#votoModal").modal("show");
+        }, 100);
 
-$(document).ready(function() {
+        $("#votoModal").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        let imageContainers = document.querySelectorAll('.image-container');
+        imageContainers.forEach(function(imageContainer){
+            if (imageContainer.childElementCount == 0) {
+                imageContainer.previousElementSibling.childNodes[7].classList.remove('ver_fotos')
+                imageContainer.previousElementSibling.childNodes[7].classList.add('d-none')
+            }
+        });
     setTimeout(function(){
         $("#msg-session").fadeOut('fast');
         $("#msg-error-request").fadeOut('fast');
      }, 3000 );
 
+    /**Evento ativado quando o usuario clickar em alguma imagem na versao desktop */
     $(".img").click(function() {
 
         var index = 0;
@@ -64,10 +61,10 @@ $(document).ready(function() {
         let imgSrc = siblingImages[index].currentSrc;
         imageInsideModal.src = imgSrc;
 
+        }
     }
-}
 
-
+    /**Evento ativado quando o usuario clickar na seta para frente na versao desktop */
      $("#proximo").click(function () {
             index++;
             if (index > siblingImages.length - 1 || index > 3 ) {
@@ -87,7 +84,7 @@ $(document).ready(function() {
             imageInsideModal.src = imgSrc;
      });
 
-
+     /**Evento ativado quando o usuario clickar na seta para tras na versao desktop */
         $("#anterior").click(function() {
             index--;
             if (index < 0) {
@@ -113,21 +110,11 @@ $(document).ready(function() {
             imgSrc = siblingImages[index].currentSrc;
             imageInsideModal.src = imgSrc;
         });
-       /* let imgSrc = currentImg.children[0].currentSrc;
-        alerta1sole.loalertagSrc)
-
-
-        imageInsideModal.src = imgSrc;*/
-
-
     });
 
-
-        $("#votoModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-
+    /**Evento para quando o usuario preencher corretamente suas informacoes e confirmar no
+     * modal inicial
+     */
     $("#confirmar").click(function() {
         if (document.getElementById("nome").value) {
             if (document.getElementById("sobrenome").value) {
@@ -139,7 +126,7 @@ $(document).ready(function() {
     });
 
 
-
+    /**Evento que e ativado quando o botao votar receber o click */
     $("#voto").click(function() {
             let mensagem = document.getElementById("mensagem-erro");
             let br = document.createElement('br');
@@ -149,15 +136,15 @@ $(document).ready(function() {
             let projetoVotado = document.querySelectorAll(".selected");
             let projeto = [];
 
-
+        /**Condicao que verifica se o usuario setou seu nome e suas informacoes */
         if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
             projetoVotado.forEach(function(p) {
                 projeto.push(p.children[1].firstElementChild.textContent
                 );
             });
 
-            console.log(projeto);
-                if (projeto.length == 0) {
+            /**Alert para verificar se o usuario selecionou um candidato/projeto */
+            if (projeto.length == 0) {
                     $("#votoModal").modal("show");
                     mensagem.innerHTML = `
                     <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
@@ -172,6 +159,7 @@ $(document).ready(function() {
                     `
                 }
 
+        /**Alert para quando o usuario nao preencher suas informacoes*/
         } else {
                 $("#votoModal").modal("show");
                 mensagem.innerHTML = `
@@ -181,14 +169,15 @@ $(document).ready(function() {
         }
     });
 
-
-});
+    /**Funcao para quando o botao Ver Fotos, presente na versao mobile, receber o click */
 
     $(".ver_fotos").click(function() {
         let n = 0;
         let fotos = this.parentElement.parentElement.children[2].getElementsByTagName('img');
         $("#imgModalSmartphone").modal("show")
         document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
+
+        /**Evento para quando a seta para frente receber o click na versao mobile */
 
         $("#next").click(function(){
              n++;
@@ -199,6 +188,8 @@ $(document).ready(function() {
                 return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
             }
         });
+
+        /**Evento para quando a seta para tras receber o click na versao mobile*/
 
         $("#prev").click(function(){
             n--;
@@ -211,9 +202,8 @@ $(document).ready(function() {
         });
     });
 
-$(document).ready(
-    function()
-    {
+    /**Evento para quando um candidato recebe o click */
+
     $(".project-div").click(
         function(event)
     {
@@ -225,6 +215,9 @@ $(document).ready(
     }
     );
 
+    /**Funcao foreach para verificar se o nulo possui apenas um sibling, caso tenha este sibling
+     * sera selecionado
+     */
 
     $(".nulo").each(function() {
         if ($(this).siblings().length <= 4) {
@@ -242,6 +235,7 @@ $(document).ready(
         }
     })
 
+    /** Evento para quando o nulo receber o click*/
 
     $(".nulo").click(
         function(event)
@@ -253,15 +247,10 @@ $(document).ready(
     }
     );
 
-});
+/**Else para quando os candidatos não forem setados*/
 
-/*
-function openModal() {
-    document.getElementById("imgModal").style.display = "block";
+} else {
+    document.getElementById('voto').classList.add('d-none');
+    document.getElementById('evento-alert').classList.remove('d-none');
+    $("#votoModal").modal("hide");
 }
-
-function closeModal() {
-    document.getElementById("imgModal").style.display = "none";
-}
-
-*/

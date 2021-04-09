@@ -18,6 +18,7 @@ class Projeto extends Migration
             $table->string('nome')->nullable();
             $table->string('capa')->nullable();
             $table->boolean('ativo')->default(0);
+            $table->boolean('desativado_permanentemente')->default(0);
             $table->date('dataInicio')->nullable()->date_format('d/m/Y');
             $table->date('dataFim')->nullable()->date_format('d/m/Y');
             $table->timestamps();

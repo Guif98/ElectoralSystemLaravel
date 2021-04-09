@@ -49,10 +49,11 @@ class MinuteUpdate extends Command
             $dataFinal = strtotime($projeto->dataFim)-time();
             $dataInicial = strtotime($projeto->dataInicio)-time();
             $periodoVotacao = $dataFinal - $dataInicial;
-            $hoje = strtotime(Date(now())) - time();
+            $hoje = strtotime(Date(today())) - time();
             $periodoAtual = $hoje - $dataInicial;
 
-            if ($periodoAtual >= $periodoVotacao || $periodoAtual < $dataInicial) {
+
+            if ($periodoAtual > $periodoVotacao || $periodoAtual < $dataInicial) {
                 $projeto->ativo = 0;
                 $projeto->save();
             }

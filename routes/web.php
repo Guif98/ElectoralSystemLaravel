@@ -22,9 +22,9 @@ Route::post('/validar', 'SubProjetoControlador@validarEleitor')->name('validarEl
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/projetos', 'ProjetoControlador@index')->name('projetos');
-    Route::post('/novoProjeto', 'ProjetoControlador@store');
+    Route::post('/novoProjeto', 'ProjetoControlador@store')->name('novoProjeto');
     Route::get('/novoProjeto', 'ProjetoControlador@create');
-    Route::get('projetos/{id}/edit', 'ProjetoControlador@edit');
+    Route::get('projetos/{id}/edit', 'ProjetoControlador@edit')->name('editarProjeto');
     Route::patch('projetos/{id}','ProjetoControlador@update');
     //Route::get('projetos/delete/{id}', 'ProjetoControlador@destroy');
 

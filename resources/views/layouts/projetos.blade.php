@@ -24,6 +24,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
+        @if (isset($projetos) && $projetos->count() > 0)
             <table id="lg-table-projetos" class="mt-5 table table-hover text-dark table-striped table-responsive">
                 <thead class="bg-dark text-light">
                   <tr>
@@ -55,12 +56,14 @@
                   @endforeach
                 </tbody>
               </table>
+            @endif
         </div>
 
     </div>
 
     <div class="row justify-content-center">
         <div class="col-auto">
+        @if (isset($projetos) && $projetos->count() > 0)
             <table id="little-table-projetos" class="mt-5 table table-hover text-dark table-striped table-responsive">
                 <thead class="bg-dark text-light">
                   <tr>
@@ -84,6 +87,7 @@
                   @endforeach
                 </tbody>
               </table>
+            @endif
         </div>
     </div>
 

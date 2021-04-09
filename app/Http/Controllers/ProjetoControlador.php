@@ -10,6 +10,7 @@ use App\Models\SubProjetos;
 use App\Models\Categorias;
 use DateTime;
 use Illuminate\Support\Facades\Date;
+use phpDocumentor\Reflection\Types\This;
 
 use function PHPUnit\Framework\isNull;
 
@@ -60,6 +61,8 @@ class ProjetoControlador extends Controller
         $this->objProjeto->dataInicio = $request->dataInicio;
         $this->objProjeto->dataFim = $request->dataFim;
 
+        $hoje = Date('Y-m-d', strtotime(today()));
+
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
             $filename = time() . '__' . $capa->getClientOriginalExtension();
@@ -67,38 +70,34 @@ class ProjetoControlador extends Controller
             $this->objProjeto->capa = $filename;
         }
 
+       // dd($this->objProjeto->dataInicio);
+
         if ($this->objProjeto->where('ativo', '1')->count() == 0) {
-                if ($request->dataInicio <= Date(now()) && $request->dataFim >= Date(now())) {
-                    $this->objProjeto->ativo = 1;
-                    $this->objProjeto->save();
-                    return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
-                }
-            } else {
-                $projetos = Projeto::all();
-                foreach ($projetos as $p) {
-                    if ($this->objProjeto->dataInicio >= $p->dataInicio && $this->objProjeto->dataFim <= $p->dataFim) {
-                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-                    }
-                    else if ($this->objProjeto->dataInicio <= $p->dataInicio && $this->objProjeto->dataFim >= $p->dataInicio && $this->objProjeto->dataFim <= $p->dataFim) {
-                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-                    }
-                    else if ($this->objProjeto->dataInicio >= $p->dataInicio && $this->objProjeto->dataInicio <= $p->dataFim) {
-                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-                    }
-                    else if ($this->objProjeto->dataInicio <= $p->dataInicio && $this->objProjeto->dataFim >= $p->dataInicio) {
-                        return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-                    }
-                    else if ($this->objProjeto->dataInicio > $p->dataInicio) {
-                        $this->objProjeto->ativo = 0;
-                        $this->objProjeto->save();
-                        return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, porém desativado por se tratar de um projeto futuro!', 'msg-type' => 'success']);
-                    }
-                    else {
-                        $this->objProjeto->ativo = 1;
-                        $this->objProjeto->save();
-                        return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
-                    }
-                }
+            if ($this->objProjeto->dataInicio < $hoje) {
+                return redirect()->route('projetos')->with(['message' => 'Não é possível criar um projeto para uma data passada!', 'msg-type' => 'danger']);
+            }
+            else if ($request->dataInicio == $hoje && $request->dataFim >= $hoje) {
+                $this->objProjeto->ativo = 1;
+                $this->objProjeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
+            }
+            else if ($request->dataInicio > $hoje && $request->dataFim > $hoje) {
+                $this->objProjeto->ativo = 0;
+                $this->objProjeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, o projeto será ativado em sua data de início!', 'msg-type' => 'success']);
+            }
+        } else {
+            if ($this->objProjeto->dataInicio < $hoje) {
+                return redirect()->route('projetos')->with(['message' => 'Não é possível criar um projeto para uma data passada!', 'msg-type' => 'danger']);
+            }
+            else if ($request->dataInicio == $hoje && $request->dataFim >= $hoje) {
+                return redirect()->route('projetos')->with(['message' => 'Já há um projeto ativo para esta data!', 'msg-type' => 'danger']);
+            }
+            else if ($request->dataInicio > $hoje && $request->dataFim > $hoje) {
+                $this->objProjeto->ativo = 0;
+                $this->objProjeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, o projeto será ativado em sua data de início!', 'msg-type' => 'success']);
+            }
         }
     }
 
@@ -137,16 +136,29 @@ class ProjetoControlador extends Controller
 
         $projeto = $this->objProjeto->where(['id'=>$id])->first();
         $projeto->nome = $request->nome;
-        $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
 
-        $projetos = Projeto::all();
-        $projetoAtivo = Projeto::where('ativo' , '1')->first();
+        $hoje = Date('Y-m-d', strtotime(today()));
+        $projetoAtivo = Projeto::where('ativo', 1)->get();
 
 
-        if ($projetoAtivo->count() > 1) {
-            return redirect()->route('projetos')->with(['message' => 'É necessário desativar o evento ativo para iniciar este evento', 'msg-type' => 'danger']);
+        if ($projeto->ativo == 1 && $projeto->dataInicio != $request->dataInicio) {
+            return redirect()->route('projetos')->with(['message' => 'Não é possível alterar a data de início de um projeto ativo', 'msg-type' => 'danger']);
         }
+        else if ($projeto->ativo == 0 &&  $projeto->dataInicio < $hoje){
+            return redirect()->route('projetos')->with(['message' => 'Não é possível alterar um projeto passado', 'msg-type' => 'danger']);
+        }
+        else if ($projeto->ativo == 0 && $request->dataInicio > $hoje && $request->dataInicio >= $projetoAtivo->first()->dataInicio && $request->dataInicio <= $projetoAtivo->first()->dataFim) {
+            $projeto->dataInicio = $request->dataInicio;
+            $projeto->dataFim = $request->dataFim;
+        }
+        else if ($projeto->ativo == 0 && $request->dataInicio < $hoje) {
+            return redirect()->route('projetos')->with(['message' => 'Não é possível alterar a data de início para uma data passada!', 'msg-type' => 'danger']);
+        }
+        else if ($projeto->ativo == 0 && $projeto->dataInicio > $hoje && $request->dataInicio == $hoje && isset($projetoAtivo) && $projetoAtivo->count() > 0) {
+            return redirect()->route('projetos')->with(['message' => 'Não é possível alterar a data de início para a data atual, pois um projeto nessa data já se encontra ativo!', 'msg-type' => 'danger']);
+        }
+
 
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
@@ -160,37 +172,40 @@ class ProjetoControlador extends Controller
                 $projeto->ativo = 0;
                 $projeto->save();
                 return redirect()->route('projetos')->with(['message' => 'Projeto desativado com sucesso!', 'msg-type' => 'warning']);
-            } else {
-                $projeto->ativo = 1;
             }
         }
-
-        if ($projeto->ativo == 1 && $projeto->dataFim < Date(now())) {
-            $projeto->ativo = 0;
-        } else if ($projeto->ativo == 1  && $projeto->dataInicio > Date(now())) {
-            $projeto->ativo = 0;
-        } else if ($projeto->ativo == 1 && $projeto->dataInicio <= Date(now()) &&  $projeto->dataFim >= Date(now())) {
-            $projeto->ativo = 1;
-        }
-
-        foreach ($projetos as $p) {
-            if ($projeto->dataInicio >= $p->dataInicio && $p->dataFim >= $projeto->dataFim && $p != $projetos->find($id)) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->dataInicio <= $p->dataInicio && $projeto->dataFim >= $p->dataInicio && $projeto->dataFim <= $p->dataFim && $p != $projetos->find($id)) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim && $p != $projetos->find($id)) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-            else if ($p->dataInicio <= $projeto->dataInicio && $p->dataFim <= $projeto->dataFim) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-        }
-
 
         $projeto->save();
-        return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso!', 'msg-type' => 'warning']);
+        return redirect()->route('projetos')->with(['message' => 'Atualizado com sucesso', 'msg-type' => 'warning']);
+
+        /*if ($projeto->ativo == 1 && $projeto->dataFim < $hoje) {
+            $projeto->ativo = 0;
+        } else if ($projeto->ativo == 1  && $projeto->dataInicio > $hoje) {
+            $projeto->ativo = 0;
+        } else if ($projeto->ativo == 1 && $projeto->dataInicio <= $hoje &&  $projeto->dataFim >= $hoje) {
+            $projeto->ativo = 1;
+        }  else if ($projeto->ativo == 0 && $projeto->dataInicio <= $hoje &&  $projeto->dataFim >= $hoje) {
+            $projeto->ativo = 1;
+        }*/
+
+
+        /*foreach ($projetos as $p) {
+            if ($projeto->dataInicio >= $p->dataInicio && $p->dataFim >= $projeto->dataInicio && $p != $projeto) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->dataInicio <= $p->dataInicio && $projeto->dataFim >= $p->dataInicio && $p != $projeto) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim && $p != $projeto) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            }
+            else if ($p->dataInicio <= $projeto->dataInicio && $p->dataInicio <= $projeto->dataFim  && $p != $projeto) {
+                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
+            } else {
+                $projeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso!', 'msg-type' => 'warning']);
+            }
+        }*/
     }
 
     /**
