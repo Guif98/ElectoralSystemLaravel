@@ -13,15 +13,27 @@ function apenasNumeros(extra){
 	return true;
 }
 
+
 /*Código JQuery para a view home**/
 
 let projectDiv = document.querySelectorAll('.project-div');
 
 /**Condição para verificar se os candidatos estão setados e com isso disponibilizar as respectivas funcoes */
+
+let categorias = document.querySelectorAll('.categoria');
+
+    categorias.forEach(function(categoria) {
+        if (categoria.childNodes.length <= 5) {
+            categoria.classList.add('d-none');
+        }
+    });
+
+
 if (projectDiv.length > 0) {
 
         document.getElementById('voto').classList.remove('d-none');
         document.getElementById('evento-alert').classList.add('d-none');
+        $(".titulo-projeto").removeClass('d-none');
         setTimeout(function() {
             $("#votoModal").modal("show");
         }, 100);
@@ -252,5 +264,8 @@ if (projectDiv.length > 0) {
 } else {
     document.getElementById('voto').classList.add('d-none');
     document.getElementById('evento-alert').classList.remove('d-none');
+    $(".categoria").addClass('d-none');
+    $(".titulo-projeto").removeClass('d-block');
     $("#votoModal").modal("hide");
+    $("#ver_resultado_div").removeClass('d-none');
 }

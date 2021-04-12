@@ -25,7 +25,7 @@
     </div>
 
 
-@if ($projeto->ativo == 1 && $votos->count() > 0))
+@if ($projeto->ativo == 1 && $votos->where('projeto_id', $projeto_id)->count() > 0))
 <h4 class="text-center mt-5">QUANTIDADE DE VOTOS:</h4>
     <div class="w-100 container mx-auto mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
@@ -68,8 +68,8 @@
 @endif
 
 
-
-<div class="mx-auto mt-5 text-center mb-5 flex-container">
+@if ($subProjetos->where('projeto_id', $projeto_id)->count() > 0)
+<div class="mx-auto mt-5 text-center mb-5">
     <div class="mt-5">
         <h4 class="text-center">CANDIDATOS:</h4>
     </div>
@@ -122,7 +122,8 @@
           </table>
     </div>
 </div>
-
+</div>
+@endif
 <div class="row justify-content-center">
     <div class="col-auto">
         <table id="medium-table-subprojetos" class="table mt-5 mx-auto table table-hover table-striped">
@@ -171,7 +172,6 @@
 
 
 
-</div>
 
 
 

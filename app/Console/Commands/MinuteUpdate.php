@@ -43,7 +43,15 @@ class MinuteUpdate extends Command
      */
     public function handle()
     {
-        $projetos = Projeto::all();
+        $projetos = Projeto::where('ativo', 0)->get();
+        $projetoAtivo = Projeto::where('ativo', 1)->get();
+
+        foreach ($projetoAtivo as $pAtivo) {
+            if ($pAtivo->desativado_permanentemente == 1) {
+                $pAtivo->ativo = 0;
+                $pAtivo->save();
+            }
+        }
 
         foreach($projetos as $projeto) {
             $dataFinal = strtotime($projeto->dataFim)-time();
@@ -57,12 +65,18 @@ class MinuteUpdate extends Command
                 $projeto->ativo = 0;
                 $projeto->save();
             }
-
-            else {
+            else if ($projeto->desativado_permanentemente == 1) {
+                $projeto->ativo = 0;
+                $projeto->save();
+            }
+            else if ($projetoAtivo->count() == 0 && $periodoAtual <= $periodoVotacao){
                 $projeto->ativo = 1;
                 $projeto->save();
             }
-
+            else if ($projetoAtivo->count() == 0 && $periodoAtual <= $periodoVotacao && $projeto->desativado_permanentemente == 0) {
+                $projeto->ativo = 1;
+                $projeto->save();
+            }
 /*            $votacaoPeriodo = date_diff(date_create($projeto->dataFim), date_create($projeto->dataInicio));
             $votacaoForaPeriodo = date_diff(date_create(Date(now())), date_create($projeto->dataInicio));*/
 

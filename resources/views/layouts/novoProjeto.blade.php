@@ -38,6 +38,10 @@
         <label for="dataFim" class="form-label">Data do Fim:</label>
         <input required type="date" class="form-control" id="dataFim" name="dataFim" @if (isset($projeto)) ?? value="{{$projeto->dataFim}}" : value="" @endif>
     </div>
+    <div class="mb-3">
+        <label for="dataResultado" class="form-label">Data que o resultado será divulgado:</label>
+        <input required type="date" class="form-control" id="dataResultado" name="dataResultado" @if (isset($projeto)) ?? value="{{$projeto->dataResultado}}" : value="" @endif>
+    </div>
     <label for="capa">Adicionar foto de capa:</label>
     <div class="custom-file mb-3" id="capa">
         <input type="file" name="capa" class="custom-file-input" id="capa">

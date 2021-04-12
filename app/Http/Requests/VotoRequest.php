@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Projeto as ModelsProjeto;
 use Illuminate\Foundation\Http\FormRequest;
+use Projeto;
 
 class VotoRequest extends FormRequest
 {

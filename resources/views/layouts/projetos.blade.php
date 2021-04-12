@@ -23,7 +23,7 @@
         </a>
     </div>
     <div class="row justify-content-center">
-        <div class="col-auto">
+        <div class="col-lg-10">
         @if (isset($projetos) && $projetos->count() > 0)
             <table id="lg-table-projetos" class="mt-5 table table-hover text-dark table-striped table-responsive">
                 <thead class="bg-dark text-light">
@@ -31,6 +31,7 @@
                     <th scope="col">PROJETO</th>
                     <th scope="col">DATA INICIAL</th>
                     <th scope="col">DATA FINAL</th>
+                    <th scope="col">DATA DO RESULTADO</th>
                     <th scope="col">ATIVO</th>
                     <th scope="col" colspan="2">AÇÕES</th>
                   </tr>
@@ -41,6 +42,7 @@
                         <td class="w-25"><a style="color: rgb(6, 234, 255)" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
                         <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>
                         <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataFim))}}</td>
+                        <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataResultado))}}</td>
                         @if ($projeto->ativo == 1)<td class="w-25">Ativo</td> @else <td class="w-25">Desativado</td>@endif
                         <td class="w-75">
                             <div class="d-inline-flex justify-content-around">

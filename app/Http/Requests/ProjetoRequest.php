@@ -25,8 +25,9 @@ class ProjetoRequest extends FormRequest
     {
         return [
             'nome' => 'required|string',
-            'dataInicio' => 'required|date|before:dataFim|unique:projetos,dataInicio,'.$this->id,
-            'dataFim' => 'required|date|unique:projetos,dataFim,'.$this->id,
+            'dataInicio' => 'required|date|before:dataFim',
+            'dataFim' => 'required|date|before:dataResultado',
+            'dataResultado' => 'required|date',
             'ativo' => 'unique:projetos,ativo,0'
         ];
     }
@@ -35,7 +36,8 @@ class ProjetoRequest extends FormRequest
         return [
             'nome.required' => 'O campo nome é obrigatório',
             'dataInicio.required' => 'O campo Data de início é obrigatório',
-            'dataFim.required' => 'O campo Data de Fim é obrigatório'
+            'dataFim.required' => 'O campo Data de Fim é obrigatório',
+            'dataResultado.required' => 'O campo Data de resultado é obrigatório'
         ];
     }
 }

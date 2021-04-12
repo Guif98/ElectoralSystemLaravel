@@ -6,7 +6,7 @@
         <header class="projeto mb-5">
             @foreach ($projetos as $projeto)
             <div class="mx-auto">
-                @if (isset($projeto->capa))
+                @if (isset($projeto->capa) && $subProjetos->count() > 0)
                     <img class="projeto-cover" src="{{url("/storage/app/fotos/$projeto->capa")}}" alt="">
                 @endif
             </div>
@@ -21,6 +21,11 @@
                 </div>
         </header>
         <section class="home-section">
+            <div id="ver_resultado_div" class="mx-auto text-center d-none">
+                <a class="ver_resultado" href="{{route('resultados')}}">
+                    <button class="btn btn-primary btn-lg">Ver resultados da votação</button>
+                </a>
+            </div>
 
         @foreach ($projetos as $projeto)
             @php
@@ -28,7 +33,7 @@
             //dd($categorias->where('projeto_id', $projeto->id))->get();
             $cat = $categorias->where('projeto_id', $projeto->id);
             @endphp
-            <h2 class="text-center font-bold">Projetos do evento: {{$projeto->nome}} </h2>
+            <h2 class="titulo-projeto text-center font-bold d-none">Projetos do evento: {{$projeto->nome}} </h2>
 
             @foreach ($cat as $c)
             @php
@@ -91,7 +96,6 @@
             @endforeach
 
         @endforeach
-
         <footer>
             <div class="p-2 mt-5 mx-auto text-center">
                     <button type="button" id="voto" class="btn d-none btn-success btn-lg">VOTAR</button>

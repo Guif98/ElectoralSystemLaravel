@@ -9,6 +9,7 @@ use App\Http\Requests\ProjetoRequest;
 use App\Models\SubProjetos;
 use App\Models\Categorias;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Date;
 use phpDocumentor\Reflection\Types\This;
 
@@ -23,7 +24,6 @@ class ProjetoControlador extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->objProjeto = new Projeto();
     }
 
@@ -60,6 +60,7 @@ class ProjetoControlador extends Controller
         $this->objProjeto->nome = $request->nome;
         $this->objProjeto->dataInicio = $request->dataInicio;
         $this->objProjeto->dataFim = $request->dataFim;
+        $this->objProjeto->dataResultado = $request->dataResultado;
 
         $hoje = Date('Y-m-d', strtotime(today()));
 
@@ -107,9 +108,21 @@ class ProjetoControlador extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function resultado()
     {
-        //
+        $hoje = Date('Y-m-d', strtotime(today()));
+        $projetos = Projeto::where('ativo', 0)->where('dataResultado' ,'<=', $hoje)->get();
+        return view('resultados', compact('projetos'));
+    }
+
+    public function resultadoView($id)
+    {
+        $projeto = $this->objProjeto->find($id);
+        $categorias = Categorias::where('projeto_id', $id)->get();
+        $vencedor = DB::table('subProjetos')->join('votos', 'votos.subProjeto_id' , '=', 'subProjetos.id')
+        ->select('titulo', 'categoria_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))
+        ->groupBy('titulo', 'categoria_id')->get();
+        return view('resultadoView', compact('projeto', 'categorias', 'vencedor'));
     }
 
     /**
@@ -133,10 +146,11 @@ class ProjetoControlador extends Controller
      */
     public function update(ProjetoRequest $request, $id)
     {
-
         $projeto = $this->objProjeto->where(['id'=>$id])->first();
         $projeto->nome = $request->nome;
+        $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
+        $projeto->dataResultado = $request->dataResultado;
 
         $hoje = Date('Y-m-d', strtotime(today()));
         $projetoAtivo = Projeto::where('ativo', 1)->get();
@@ -170,6 +184,7 @@ class ProjetoControlador extends Controller
         if (isset($request->desativar)) {
             if ($request->desativar[0] == '1') {
                 $projeto->ativo = 0;
+                $projeto->desativado_permanentemente = 1;
                 $projeto->save();
                 return redirect()->route('projetos')->with(['message' => 'Projeto desativado com sucesso!', 'msg-type' => 'warning']);
             }
