@@ -13,7 +13,7 @@
             @endforeach
 
             <!-- Alerta para quando não haver candidatos para o evento -->
-                <div id="evento-alert" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div id="evento-alert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
                     <h4 class="nenhum-candidato-mensagem">Não há nenhum candidato para ser votado no momento!</h4>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
@@ -21,12 +21,13 @@
                 </div>
         </header>
         <section class="home-section">
+            @if ($projetos->where('ativo', 0)->count() > 0)
             <div id="ver_resultado_div" class="mx-auto text-center d-none">
                 <a class="ver_resultado" href="{{route('resultados')}}">
                     <button class="btn btn-primary btn-lg">Ver resultados da votação</button>
                 </a>
             </div>
-
+            @endif
         @foreach ($projetos as $projeto)
             @php
             //dd($projeto->id)
@@ -43,8 +44,12 @@
 
 
             <!--Início da div categoria -->
-
+            <form id="formVotar" action="{{url("/")}}" method="post">
+                @method('post')
+                @csrf
                 <div class="categoria">
+                    <input type="hidden" id="{{$c->id}}" value="{{$c->id}}">
+
                     <div class="bg-primary p-4 mt-4 mx-auto rounded col-xl-9 col-lg-9">
                         <h4 class="text-center text-light">{{$c->nome}}</h4>
                     </div>
@@ -54,9 +59,7 @@
                     @endphp
 
                     <!-- Div projeto -->
-                    <form id="formVotar" action="{{url("/")}}" method="post">
-                        @method('post')
-                        @csrf
+
 
                         <div class="radio project-div div-color">
                             <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">

@@ -14,6 +14,7 @@ use Illuminate\Cache\RedisTaggedCache;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use LengthException;
+use PhpParser\Node\Expr\Cast\Array_;
 
 use function PHPUnit\Framework\isNull;
 
@@ -47,7 +48,7 @@ class SubProjetoControlador extends Controller
         $subProjetos = SubProjetos::where('projeto_id', $projeto_id)->get();
         $categorias = $this->objCategoria->all();
         $votos = $this->objVoto->all();
-        $maisVotados = DB::table('votos')->join('subProjetos', 'subProjetos.id', '=', 'votos.subProjeto_id')->join('projetos', 'projetos.id', '=', 'votos.projeto_id')->select('subProjeto_id', 'titulo', 'votos.projeto_id as projeto_id', 'categoria_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))->groupBy('subProjeto_id', 'titulo', 'categoria_id', 'projeto_id')
+        $maisVotados = DB::table('votos')->join('subProjetos', 'subProjetos.id', '=', 'votos.subProjeto_id')->join('projetos', 'projetos.id', '=', 'votos.projeto_id')->select('subProjeto_id', 'votos.categoria_id', 'titulo', 'votos.projeto_id as projeto_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))->groupBy('subProjeto_id', 'categoria_id',  'titulo', 'projeto_id')
         ->orderByRaw('COUNT(*) DESC')->limit(20)->get();
 
         return view('layouts.subprojetos', compact('categorias','subProjetos', 'projeto', 'votos', 'maisVotados'));
@@ -66,17 +67,35 @@ class SubProjetoControlador extends Controller
     }
 
     public function votar(VotoRequest $request) {
+
         if (!isset($request->voto)) {
             return redirect()->back()->with(['message' => 'Deve selecionar no mínimo um projeto!',
                         'msg-type' => 'danger']);
         } else {
+        $position = 0;
         foreach ($request->voto as $v) {
             $novoVoto = new Voto();
             $novoVoto->projeto_id = $request->projeto_id;
             $novoVoto->nome = $request->nome;
             $novoVoto->sobrenome = $request->sobrenome;
             $novoVoto->subProjeto_id = $v;
+            $novoVoto->categoria_id = $request->selecionada[$position];
+
             // Algoritmo para validar cpf
+
+
+            $cpfs = $this->objVoto->all();
+
+            foreach ($cpfs as $item) {
+                if ($item->cpf == $request->cpf && $item->categoria_id == $novoVoto->categoria_id) {
+                    $categ = Categorias::where('id', $item->categoria_id)->first();
+                    return redirect()->back()->with(['message' => 'Este CPF já está sendo utilizado na categoria: '
+                    . $categ->nome . ''
+                    , 'msg-type' => 'danger']);
+                }
+            }
+
+
             $cpf = $request->cpf;
 
             if ($cpf == '00000000000' || $cpf == '11111111111' ||
@@ -113,6 +132,7 @@ class SubProjetoControlador extends Controller
                     }
                 }
             }
+            $position++;
             $novoVoto->save();
         }
     }

@@ -28,7 +28,7 @@ class VotoRequest extends FormRequest
         return [
             'nome' => 'required|string',
             'sobrenome' => 'required|string',
-            'cpf' => 'required|unique:votos,cpf|size:11'
+            'cpf' => 'required|size:11'
         ];
     }
 

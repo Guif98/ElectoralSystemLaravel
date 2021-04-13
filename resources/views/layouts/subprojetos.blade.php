@@ -40,7 +40,6 @@
             <tbody>
 
                 @foreach ($maisVotados->where('projeto_id', $projeto_id)->sortBy('categoria_id') as $item)
-
                     <td>{{$item->titulo}}</td>
                     @foreach ($categorias as $cat)
                         @if ($item->categoria_id == $cat->id)

@@ -22,17 +22,18 @@ let projectDiv = document.querySelectorAll('.project-div');
 
 let categorias = document.querySelectorAll('.categoria');
 
+
     categorias.forEach(function(categoria) {
-        if (categoria.childNodes.length <= 5) {
+        if (categoria.childElementCount <= 3) {
             categoria.classList.add('d-none');
         }
     });
 
 
+
 if (projectDiv.length > 0) {
 
         document.getElementById('voto').classList.remove('d-none');
-        document.getElementById('evento-alert').classList.add('d-none');
         $(".titulo-projeto").removeClass('d-none');
         setTimeout(function() {
             $("#votoModal").modal("show");
@@ -141,12 +142,13 @@ if (projectDiv.length > 0) {
     /**Evento que e ativado quando o botao votar receber o click */
     $("#voto").click(function() {
             let mensagem = document.getElementById("mensagem-erro");
-            let br = document.createElement('br');
             let nome =  document.getElementById("nome").value;
             let sobrenome =  document.getElementById("sobrenome").value;
             let cpf =  document.getElementById("cpf").value;
             let projetoVotado = document.querySelectorAll(".selected");
             let projeto = [];
+
+
 
         /**Condicao que verifica se o usuario setou seu nome e suas informacoes */
         if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
@@ -219,6 +221,8 @@ if (projectDiv.length > 0) {
     $(".project-div").click(
         function(event)
     {
+        $(this).parent().find('.radio').parent().children('input').attr('name', 'selecionada[]');
+        $(this).parent().find('.radio').parent().addClass('selecionada');
         $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");
         $(this).parent().find('.radio').removeClass('selected');
         $(this).addClass('selected');
@@ -232,27 +236,28 @@ if (projectDiv.length > 0) {
      */
 
     $(".nulo").each(function() {
-        if ($(this).siblings().length <= 4) {
-            if ($(this).siblings('div').hasClass("bg-primary")) {
-                let winner = $(this).siblings('div').siblings()[3];
-                $(winner).addClass("bg-dark").addClass("text-light").addClass('selected');
-                $(winner).children('input').attr('name', 'voto[]');
-            } else if ($(this).siblings('div').hasClass("radio")) {
-                let winner = $(this).siblings('div')[0];
-                $(winner).addClass("bg-dark").addClass("text-light").addClass('selected');
-                $(winner).children('input').attr('name', 'voto[]');
+
+        if ($(this).siblings().length <= 3) {
+
+            if ($(this).siblings('div').hasClass("radio")) {
+                let winner = $(this).siblings('div')[1];
+
+                $(this).text('');
+                $(this).append('<h5>Por não haver outro candidato concorrente, este projeto venceu esta categoria.</h5>');
+                $(this).removeClass("nulo").addClass("winner");
             }
-            $(this).children()[0].textContent = 'Por não haver outro candidato concorrente, este projeto venceu esta categoria.';
-            $(this).removeClass("nulo").addClass("winner");
         }
-    })
+
+        }
+    )
 
     /** Evento para quando o nulo receber o click*/
 
     $(".nulo").click(
         function(event)
     {
-
+        $(this).parent().removeClass('selecionada');
+        $(this).parent().children('input').removeAttr('name');
         $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark");
         $(this).parent().find('.radio').removeClass('selected');
         $(this).siblings('div').children('input').removeAttr('name');

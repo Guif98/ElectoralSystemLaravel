@@ -21,4 +21,8 @@ class Categorias extends Model
         return $this->hasOne(\App\Models\Projeto::class);
     }
 
+    public function relVoto() {
+        return $this->hasMany(\App\Models\Voto::class);
+    }
+
 }
