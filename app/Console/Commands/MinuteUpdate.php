@@ -43,11 +43,23 @@ class MinuteUpdate extends Command
      */
     public function handle()
     {
+        $hoje = strtotime(Date(today())) - time();
         $projetos = Projeto::where('ativo', 0)->get();
         $projetoAtivo = Projeto::where('ativo', 1)->get();
 
         foreach ($projetoAtivo as $pAtivo) {
+            $dataFinalAtivo = strtotime($pAtivo->dataFim)-time();
+            $dataInicialAtivo = strtotime($pAtivo->dataInicio)-time();
+            $periodoVotacaoAtivo = $dataFinalAtivo - $dataInicialAtivo;
+            $periodoAtualAtivo = $hoje - $dataInicialAtivo;
+
+
             if ($pAtivo->desativado_permanentemente == 1) {
+                $pAtivo->ativo = 0;
+                $pAtivo->save();
+            }
+            else if ($periodoVotacaoAtivo < $periodoAtualAtivo) {
+                $pAtivo->desativado_permanentemente = 1;
                 $pAtivo->ativo = 0;
                 $pAtivo->save();
             }
@@ -57,7 +69,6 @@ class MinuteUpdate extends Command
             $dataFinal = strtotime($projeto->dataFim)-time();
             $dataInicial = strtotime($projeto->dataInicio)-time();
             $periodoVotacao = $dataFinal - $dataInicial;
-            $hoje = strtotime(Date(today())) - time();
             $periodoAtual = $hoje - $dataInicial;
 
 

@@ -74,16 +74,30 @@ if (projectDiv.length > 0) {
         let imgSrc = siblingImages[index].currentSrc;
         imageInsideModal.src = imgSrc;
 
+        $(".modal-content").width(imageInsideModal.naturalWidth);
+        $(".modal-content").height(imageInsideModal.naturalHeight);
         }
     }
 
     /**Evento ativado quando o usuario clickar na seta para frente na versao desktop */
      $("#proximo").click(function () {
-            index++;
+        index++;
+        $("#imgModal").addClass("d-none");
+        $("#modalLoad").show();
+        setTimeout(function() {
+            $("#modalLoad").hide();
+            $("#imgModal").removeClass("d-none");
+        }, 1000);
+
+
+
+
             if (index > siblingImages.length - 1 || index > 3 ) {
                 index = 0;
                 imgSrc = siblingImages[0].currentSrc;
                 imageInsideModal.src = imgSrc;
+                $(".modal-content").width(imageInsideModal.naturalWidth);
+                $(".modal-content").height(imageInsideModal.naturalHeight);
                 return imageInsideModal.src;
             }
 
@@ -91,10 +105,14 @@ if (projectDiv.length > 0) {
                 index = 0;
                 imgSrc = siblingImages[0].currentSrc;
                 imageInsideModal.src = imgSrc;
+                $(".modal-content").width(imageInsideModal.naturalWidth);
+                $(".modal-content").height(imageInsideModal.naturalHeight);
                 return imageInsideModal.src;
             }
             imgSrc = siblingImages[index].currentSrc;
             imageInsideModal.src = imgSrc;
+             $(".modal-content").width(imageInsideModal.naturalWidth);
+        $(".modal-content").height(imageInsideModal.naturalHeight);
      });
 
      /**Evento ativado quando o usuario clickar na seta para tras na versao desktop */
@@ -105,11 +123,15 @@ if (projectDiv.length > 0) {
                     index = 3;
                     imgSrc = siblingImages[3].currentSrc;
                     imageInsideModal.src = imgSrc;
+                    $(".modal-content").width(imageInsideModal.naturalWidth);
+                    $(".modal-content").height(imageInsideModal.naturalHeight);
                     return imageInsideModal.src;
                 } else {
                     index = siblingImages.length - 1;
                     imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
                     imageInsideModal.src = imgSrc;
+                    $(".modal-content").width(imageInsideModal.naturalWidth);
+                    $(".modal-content").height(imageInsideModal.naturalHeight);
                     return imageInsideModal.src;
                 }
 
@@ -118,10 +140,14 @@ if (projectDiv.length > 0) {
                 index = siblingImages.length - 1;
                 imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
                 imageInsideModal.src = imgSrc;
+                $(".modal-content").width(imageInsideModal.naturalWidth);
+                $(".modal-content").height(imageInsideModal.naturalHeight);
                 return imageInsideModal.src;
             }
             imgSrc = siblingImages[index].currentSrc;
             imageInsideModal.src = imgSrc;
+            $(".modal-content").width(imageInsideModal.naturalWidth);
+            $(".modal-content").height(imageInsideModal.naturalHeight);
         });
     });
 

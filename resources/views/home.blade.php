@@ -134,23 +134,26 @@
 
         <!-- Modal para imagens Desktop -->
 
-        <div id="imgModal" class="modal">
-            <div style="top: 10%; left: 10%;">
+        <div id="imgModal" class="modal mx-auto">
+            <div class="m-2">
                 <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="text-light" style="font-size: 4em;">&times;</span>
                 </button>
             </div>
-              <div class="modal-content bg-light" style="width: 60%; margin: 5% auto;" >
-                <div class="modal-body">
+            <div class="modal-content mx-auto mt-5 mb-5 p-2" style="max-height: 96%; max-width: 96%;">
                     <span id="anterior" class="arrow arrow-left" type="button"></span>
                     <span id="proximo" class="arrow arrow-right" type="button"></span>
+                    <img id="imageInsideModal" src="" alt="modal-image" style="overflow: hidden">
+            </div>
+        </div>
 
-                    <div class="slide d-flex flex-row">
-                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;height: 750px;" >
-                    </div>
-                </div>
-              </div>
-          </div>
+
+
+        <div id="modalLoad" class="modal mx-auto">
+            <div class="modal-load-body mx-auto  w-50 p-5 bg-dark text-center">
+                <img id="load-gif" src="{{url('/storage/app/fotos/loading.gif')}}" alt="modal-gif" width="auto">
+            </div>
+        </div>
 
 
           <!-- Modal para confirmar submit -->
