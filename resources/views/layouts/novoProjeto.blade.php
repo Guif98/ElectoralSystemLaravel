@@ -6,10 +6,10 @@
 
 <div class="mt-5 mx-auto">
 @if (isset($projeto))
-<form name="formEdit" id="formEdit" action="{{url("projetos/$projeto->id")}}" class="col-lg-8 mx-auto col-sm-8" method="POST" enctype="multipart/form-data">
+<form name="formEdit" id="formEdit" action="{{url("projetos/$projeto->id")}}" class="col-lg-8 mx-auto col-sm-8 mb-5" method="POST" enctype="multipart/form-data">
     @method('patch')
 @else
-<form name="formCriar" id="formCriar" action="{{url('novoProjeto')}}" class="col-lg-8 mx-auto col-sm-8" method="POST" enctype="multipart/form-data">
+<form name="formCriar" id="formCriar" action="{{url('novoProjeto')}}" class="col-lg-8 mx-auto col-sm-8 mb-5" method="POST" enctype="multipart/form-data">
     @method('POST')
 @endif
 @csrf

@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/novoProjeto', 'ProjetoControlador@create');
     Route::get('projetos/{id}/edit', 'ProjetoControlador@edit')->name('editarProjeto');
     Route::patch('projetos/{id}','ProjetoControlador@update');
-    //Route::get('projetos/delete/{id}', 'ProjetoControlador@destroy');
+    Route::get('projetos/delete/{id}', 'ProjetoControlador@destroy');
 
     Route::get('/subprojetos/{projeto_id}', 'SubProjetoControlador@index')->name('subprojetos');
     Route::get('/subprojetos/{projeto_id}/formProjeto', 'SubProjetoControlador@create');

@@ -103,31 +103,7 @@
         </footer>
     </section>
 
-
-    <!-- Modal para imagens SmartPhone -->
-
-
-    <div id="imgModalSmartphone" class="modal">
-        <div style="top: 10%; left: 10%;">
-            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" class="text-light" style="font-size: 2em;">&times;</span>
-            </button>
-
-        </div>
-
-
-          <div class="modal-content bg-light" >
-            <div class="modal-body">
-                <span id="prev" class="arrow arrow-left" type="button"></span>
-                <span id="next" class="arrow arrow-right" type="button"></span>
-                <div class="slide d-flex flex-row" style="width:100%; height: 300px;">
-
-                </div>
-            </div>
-          </div>
-      </div>
-
-          <!-- Modal para confirmar submit -->
+        <!-- Confirmar submit -->
 
           <div class="modal" id="descricaoModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

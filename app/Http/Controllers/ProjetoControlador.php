@@ -230,10 +230,10 @@ class ProjetoControlador extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    /* public function destroy($id)
+    public function destroy($id)
     {
         $this->objProjeto->where(['id'=>$id])->delete();
         return redirect()->route('projetos')->with(['message' => 'Projeto excluído com sucesso', 'msg-type' => 'danger']);
-    }*/
+    }
 
 }

@@ -33,7 +33,7 @@
                     <th scope="col">DATA FINAL</th>
                     <th scope="col">DATA DO RESULTADO</th>
                     <th scope="col">ATIVO</th>
-                    <th scope="col" colspan="2">AÇÕES</th>
+                    <th scope="col" colspan="3">AÇÕES</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -51,6 +51,9 @@
                                 </a>
                                 <a class="text-decoration-none pr-2" href="{{url("categorias/$projeto->id")}}">
                                     <button class="btn btn-outline-secondary">Categorias</button>
+                                </a>
+                                <a class="text-decoration-none pr-2" onclick="return confirm('Deseja realmente excluir esse projeto/evento?')" href="{{url("projetos/delete/$projeto->id")}}">
+                                    <button class="btn btn-outline-danger">Excluir</button>
                                 </a>
                             </div>
                         </td>
@@ -70,19 +73,22 @@
                 <thead class="bg-dark text-light">
                   <tr>
                     <th scope="col">PROJETO</th>
-                    <th scope="col" colspan="2">AÇÕES</th>
+                    <th scope="col" colspan="3">AÇÕES</th>
                   </tr>
                 </thead>
                 <tbody>
                   @foreach ($projetos as $projeto)
                     <tr>
                         <td><a style="color: aqua" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
-                        <td class="p-2 buttons">
+                        <td class="buttons">
                                 <a class="text-decoration-none mr-2" href="{{url("projetos/$projeto->id/edit")}}">
                                     <button class="btn btn-outline-primary">Editar</button>
                                 </a>
                                 <a class="text-decoration-none" href="{{url("categorias/$projeto->id")}}">
                                     <button class="btn btn-outline-secondary">Categorias</button>
+                                </a>
+                                <a class="text-decoration-none pr-2" onclick="return confirm('Deseja realmente excluir esse projeto/evento?')" href="{{url("projetos/delete/$projeto->id")}}">
+                                    <button class="btn btn-outline-danger">Excluir</button>
                                 </a>
                         </td>
                     </tr>
