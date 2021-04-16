@@ -67,17 +67,14 @@
                                 <h4><b>{{$s->titulo}}</b></h4>
                                 <p>{{$s->descricao}}</p>
                                 <p><b>Integrantes:</b> {{$s->integrantes}}</p>
-                                <a class="ver_fotos" href="#imgModalSmartphone">
-                                    <button type="button" class="btn btn-sm btn-secondary">Ver Fotos</button>
-                                </a>
                             </div>
 
                             <div class="{{$s->id}} image-container container d-flex flex-wrap justify-content-around">
                                 @foreach ($foto as $f)
                                     <ul class="list-unstyled  ">
                                         <li>
-                                            <a href="#imgModal" class="img" id="{{$f->id}}">
-                                                <img class="imgProjeto" style="width: 200px; height: 200px;" src="{{url("/storage/app/fotos/$f->foto")}}"  alt="image">
+                                            <a href="{{url("/storage/app/fotos/$f->foto")}}" rel="lightbox[{{$f->subprojeto_id}}]" data-lightbox="lightbox[{{$f->subprojeto_id}}]"  id="{{$f->id}}">
+                                                <img class="imgProjeto" src="{{url("/storage/app/fotos/$f->foto")}}"  alt="image">
                                             </a>
                                         </li>
                                     </ul>
@@ -129,32 +126,6 @@
             </div>
           </div>
       </div>
-
-
-
-        <!-- Modal para imagens Desktop -->
-
-        <div id="imgModal" class="modal mx-auto">
-            <div class="m-2">
-                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="text-light" style="font-size: 4em;">&times;</span>
-                </button>
-            </div>
-            <div class="modal-content mx-auto mt-5 mb-5 p-2" style="max-height: 96%; max-width: 96%;">
-                    <span id="anterior" class="arrow arrow-left" type="button"></span>
-                    <span id="proximo" class="arrow arrow-right" type="button"></span>
-                    <img id="imageInsideModal" src="" alt="modal-image" style="overflow: hidden">
-            </div>
-        </div>
-
-
-
-        <div id="modalLoad" class="modal mx-auto">
-            <div class="modal-load-body mx-auto  w-50 p-5 bg-dark text-center">
-                <img id="load-gif" src="{{url('/storage/app/fotos/loading.gif')}}" alt="modal-gif" width="auto">
-            </div>
-        </div>
-
 
           <!-- Modal para confirmar submit -->
 

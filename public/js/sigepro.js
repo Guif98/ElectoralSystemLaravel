@@ -51,109 +51,14 @@ if (projectDiv.length > 0) {
                 imageContainer.previousElementSibling.childNodes[7].classList.add('d-none')
             }
         });
+
+
     setTimeout(function(){
         $("#msg-session").fadeOut('fast');
         $("#msg-error-request").fadeOut('fast');
      }, 3000 );
 
-    /**Evento ativado quando o usuario clickar em alguma imagem na versao desktop */
-    $(".img").click(function() {
 
-        var index = 0;
-        let currentImg = document.getElementById(this.id);
-        let parentDiv = currentImg.parentNode.parentNode.parentNode;
-
-        let siblingImages = parentDiv.getElementsByTagName('img');
-
-        for (let i=0; i < siblingImages.length; i++) {
-            siblingImages[i].onclick = function(index) {
-                index = i;
-
-        $("#imgModal").modal();
-        let imageInsideModal = document.getElementById("imageInsideModal");
-        let imgSrc = siblingImages[index].currentSrc;
-        imageInsideModal.src = imgSrc;
-
-        $(".modal-content").width(imageInsideModal.naturalWidth);
-        $(".modal-content").height(imageInsideModal.naturalHeight);
-        }
-    }
-
-    /**Evento ativado quando o usuario clickar na seta para frente na versao desktop */
-     $("#proximo").click(function () {
-        index++;
-        $("#imgModal").addClass("d-none");
-        $("#modalLoad").show();
-        setTimeout(function() {
-            $("#modalLoad").hide();
-            $("#imgModal").removeClass("d-none");
-        }, 1000);
-
-
-
-
-            if (index > siblingImages.length - 1 || index > 3 ) {
-                index = 0;
-                imgSrc = siblingImages[0].currentSrc;
-                imageInsideModal.src = imgSrc;
-                $(".modal-content").width(imageInsideModal.naturalWidth);
-                $(".modal-content").height(imageInsideModal.naturalHeight);
-                return imageInsideModal.src;
-            }
-
-            else if (index < 0) {
-                index = 0;
-                imgSrc = siblingImages[0].currentSrc;
-                imageInsideModal.src = imgSrc;
-                $(".modal-content").width(imageInsideModal.naturalWidth);
-                $(".modal-content").height(imageInsideModal.naturalHeight);
-                return imageInsideModal.src;
-            }
-            imgSrc = siblingImages[index].currentSrc;
-            imageInsideModal.src = imgSrc;
-             $(".modal-content").width(imageInsideModal.naturalWidth);
-        $(".modal-content").height(imageInsideModal.naturalHeight);
-     });
-
-     /**Evento ativado quando o usuario clickar na seta para tras na versao desktop */
-        $("#anterior").click(function() {
-            index--;
-            if (index < 0) {
-                if (siblingImages.length > 4) {
-                    index = 3;
-                    imgSrc = siblingImages[3].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                    $(".modal-content").width(imageInsideModal.naturalWidth);
-                    $(".modal-content").height(imageInsideModal.naturalHeight);
-                    return imageInsideModal.src;
-                } else {
-                    index = siblingImages.length - 1;
-                    imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
-                    imageInsideModal.src = imgSrc;
-                    $(".modal-content").width(imageInsideModal.naturalWidth);
-                    $(".modal-content").height(imageInsideModal.naturalHeight);
-                    return imageInsideModal.src;
-                }
-
-            }
-            else if (index > siblingImages.length - 1 || index == 3) {
-                index = siblingImages.length - 1;
-                imgSrc = siblingImages[siblingImages.length - 1].currentSrc;
-                imageInsideModal.src = imgSrc;
-                $(".modal-content").width(imageInsideModal.naturalWidth);
-                $(".modal-content").height(imageInsideModal.naturalHeight);
-                return imageInsideModal.src;
-            }
-            imgSrc = siblingImages[index].currentSrc;
-            imageInsideModal.src = imgSrc;
-            $(".modal-content").width(imageInsideModal.naturalWidth);
-            $(".modal-content").height(imageInsideModal.naturalHeight);
-        });
-    });
-
-    /**Evento para quando o usuario preencher corretamente suas informacoes e confirmar no
-     * modal inicial
-     */
     $("#confirmar").click(function() {
         if (document.getElementById("nome").value) {
             if (document.getElementById("sobrenome").value) {
