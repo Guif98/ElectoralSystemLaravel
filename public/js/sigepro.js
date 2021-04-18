@@ -18,6 +18,8 @@ function apenasNumeros(extra){
 
 let projectDiv = document.querySelectorAll('.project-div');
 
+console.log(projectDiv)
+
 /**Condição para verificar se os candidatos estão setados e com isso disponibilizar as respectivas funcoes */
 
 let categorias = document.querySelectorAll('.categoria');
@@ -43,15 +45,6 @@ if (projectDiv.length > 0) {
             backdrop: 'static',
             keyboard: false
         });
-
-        let imageContainers = document.querySelectorAll('.image-container');
-        imageContainers.forEach(function(imageContainer){
-            if (imageContainer.childElementCount == 0) {
-                imageContainer.previousElementSibling.childNodes[7].classList.remove('ver_fotos')
-                imageContainer.previousElementSibling.childNodes[7].classList.add('d-none')
-            }
-        });
-
 
     setTimeout(function(){
         $("#msg-session").fadeOut('fast');

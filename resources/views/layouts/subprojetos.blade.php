@@ -25,7 +25,7 @@
     </div>
 
 
-@if ($projeto->ativo == 1 && $votos->where('projeto_id', $projeto_id)->count() > 0))
+@if (isset($projeto) && $projeto->ativo == 1 && $votos->where('projeto_id', $projeto_id)->count() > 0))
 <h4 class="text-center mt-5">QUANTIDADE DE VOTOS:</h4>
     <div class="w-100 container mx-auto mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
@@ -182,10 +182,10 @@
                     <div class="slide">
                         <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
                     </div>
-                <d iv class="modal-body bg-dark">
+                <div class="modal-body bg-dark">
                     <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="imgModal">Fechar</button>
 
-                    <a id="deleteImg" href="{{url("/subprojetos/$projeto_id/deletar/")}}">
+                    <a onclick="return confirm('Deseja realmente excluir esta imagem?')" id="deleteImg" href="{{url("/subprojetos/$projeto_id/deletar/")}}">
                         <button class="btn btn-danger">Excluir</button>
                     </a>
                 </div>
