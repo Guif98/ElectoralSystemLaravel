@@ -74,7 +74,7 @@
     </div>
 
 <div class="row justify-content-center">
-    <div class="col-11">
+    <div class="col-xl-auto">
         <table id="lg-table-subprojetos" class="table mt-5 table-hover table table-striped">
             <thead class="bg-dark text-white">
               <tr>

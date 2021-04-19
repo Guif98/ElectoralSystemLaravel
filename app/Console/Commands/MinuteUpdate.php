@@ -65,7 +65,7 @@ class MinuteUpdate extends Command
             $dataInicial = Carbon::createFromFormat('Y-m-d', $projeto->dataInicio)->startOfDay()->toDateTimeString();
             $dataResultado = Carbon::createFromFormat('Y-m-d', $projeto->dataResultado)->startOfDay()->toDateTimeString();
 
-            if ($dataResultado >= $hoje) {
+            if ($dataResultado <= $hoje) {
                 $projeto->exibirResultado = 1;
                 $projeto->save();
             }

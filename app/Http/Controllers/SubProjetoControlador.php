@@ -60,10 +60,11 @@ class SubProjetoControlador extends Controller
     public function home()
     {
         $projetos = $this->objProjeto->where('ativo', 1)->get();
+        $projetosFinalizados = $this->objProjeto->where('exibirResultado', 1)->get();
         $subProjetos = $this->objSubProjeto->all();
         $categorias = $this->objCategoria->all();
         $fotos = $this->objFoto->all();
-        return view('home', compact('projetos','subProjetos', 'categorias', 'fotos'));
+        return view('home', compact('projetos','subProjetos', 'categorias', 'fotos', 'projetosFinalizados'));
     }
 
     public function votar(VotoRequest $request) {

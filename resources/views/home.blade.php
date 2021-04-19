@@ -18,7 +18,7 @@
                 </div>
         </header>
         <section class="home-section">
-            @if ($projetos->where('ativo', 0)->count() >= 0)
+            @if ($projetosFinalizados->count() > 0)
             <div id="ver_resultado_div" class="mx-auto text-center d-none">
                 <a class="ver_resultado" href="{{route('resultados')}}">
                     <button class="btn btn-primary btn-lg">Ver resultados da votação</button>

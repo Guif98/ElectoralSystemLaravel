@@ -22,15 +22,23 @@
                 @foreach ($categorias as $cat)
                 <tr>
                     <td scope="col">{{$cat->nome}}</td>
-                    @foreach ($maisVotados as $maisVotado)
-                        @if($maisVotado->categoria_id == $cat->id)
-                            @php
-                                $vencedor = $maisVotado
-                            @endphp
-                        @endif
+
+                    @foreach ($maisVotados->sortBy('qtdVotos') as $item)
+                        @php
+                         $count = 0;
+                         $vencedor = $maisVotados->where('categoria_id', $cat->id)->first();
+                        @endphp
                     @endforeach
-                    <td scope="col">{{$vencedor->titulo}}</td>
-                    <td scope="col">{{$vencedor->qtdVotos}}</td>
+                    
+                    @foreach ($maisVotados->where('categoria_id', $cat->id) as $itemCategoria)
+                        @php
+                            $count += $itemCategoria->qtdVotos
+                        @endphp
+                    @endforeach
+
+                    <td>{{$vencedor->titulo}}</td>
+                    <td>{{$vencedor->qtdVotos}}</td>
+                    <td>{{$vencedor->qtdVotos * 100 / $count}}%</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -63,7 +71,7 @@
                 @foreach ($candidatosCategoria as $cand)
                         @php $votosPorCategoria += $cand->qtdVotos; @endphp
                 @endforeach
-                <td>{{round($item->qtdVotos * 100 / $votosPorCategoria)}}% dos votos</td>
+                <td>{{round($item->qtdVotos * 100 / $votosPorCategoria)}}%</td>
             </tr>
             @endif
             @endforeach

@@ -15,16 +15,8 @@ main {
 
 @media (min-width: 990px) {
 
-    #xl-table-subprojetos {
-        display: none;
-    }
-
     #lg-table-subprojetos {
         display: block;
-    }
-
-    #little-table-subprojetos {
-        display: none;
     }
 
     #medium-table-subprojetos {
