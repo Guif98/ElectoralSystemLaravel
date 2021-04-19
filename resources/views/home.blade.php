@@ -15,13 +15,10 @@
             <!-- Alerta para quando não haver candidatos para o evento -->
                 <div id="evento-alert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
                     <h4 class="nenhum-candidato-mensagem">Não há nenhum candidato para ser votado no momento!</h4>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
                 </div>
         </header>
         <section class="home-section">
-            @if ($projetos->where('ativo', 0)->count() > 0)
+            @if ($projetos->where('ativo', 0)->count() >= 0)
             <div id="ver_resultado_div" class="mx-auto text-center d-none">
                 <a class="ver_resultado" href="{{route('resultados')}}">
                     <button class="btn btn-primary btn-lg">Ver resultados da votação</button>

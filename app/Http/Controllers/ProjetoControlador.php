@@ -110,8 +110,7 @@ class ProjetoControlador extends Controller
      */
     public function resultado()
     {
-        $hoje = Date('Y-m-d', strtotime(today()));
-        $projetos = Projeto::where('ativo', 0)->where('dataResultado' ,'<=', $hoje)->get();
+        $projetos = Projeto::where('exibirResultado', 1)->get();
         return view('resultados', compact('projetos'));
     }
 
@@ -119,10 +118,10 @@ class ProjetoControlador extends Controller
     {
         $projeto = $this->objProjeto->find($id);
         $categorias = Categorias::where('projeto_id', $id)->get();
-        $vencedor = DB::table('subProjetos')->join('votos', 'votos.subProjeto_id' , '=', 'subProjetos.id')
-        ->select('titulo', 'categoria_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))
-        ->groupBy('titulo', 'categoria_id')->get();
-        return view('resultadoView', compact('projeto', 'categorias', 'vencedor'));
+        $subprojetos = SubProjetos::where('projeto_id', $id)->get();
+        $maisVotados = DB::table('votos')->join('subProjetos', 'subProjetos.id', '=', 'votos.subProjeto_id')->join('projetos', 'projetos.id', '=', 'votos.projeto_id')->select('subProjeto_id', 'votos.categoria_id', 'titulo', 'votos.projeto_id as projeto_id', DB::raw('COUNT(subProjeto_id) as qtdVotos'))->groupBy('subProjeto_id', 'categoria_id',  'titulo', 'projeto_id')
+        ->orderByRaw('COUNT(*) DESC')->limit(20)->get();
+        return view('resultadoView', compact('projeto', 'categorias', 'maisVotados', 'subprojetos'));
     }
 
     /**
