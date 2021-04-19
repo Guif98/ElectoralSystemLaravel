@@ -38,7 +38,7 @@
 
                     <td>{{$vencedor->titulo}}</td>
                     <td>{{$vencedor->qtdVotos}}</td>
-                    <td>{{$vencedor->qtdVotos * 100 / $count}}%</td>
+                    <td>{{round($vencedor->qtdVotos * 100 / $count)}}%</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -56,7 +56,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($maisVotados->sortBy('categoria_id') as $item)
+            @foreach ($maisVotados->where('projeto_id', $projeto->id)->sortBy('categoria_id') as $item)
             @if ($item->qtdVotos > 0)
 
             <tr>
