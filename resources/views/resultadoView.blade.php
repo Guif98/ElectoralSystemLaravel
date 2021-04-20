@@ -19,28 +19,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categorias as $cat)
+    @foreach ($categorias as $categoria)
+        @php
+            $count = 0;
+        @endphp
+
+        @foreach ($maisVotados->where('categoria_id', $categoria->id) as $votoPorCategoria)
+                @php
+                    $count += $votoPorCategoria->qtdVotos;
+                @endphp
+        @endforeach
+
+
+        @foreach ($maisVotados->where('categoria_id', $categoria->id)->sortByDesc('qtdVotos') as $item)
+
+            @if($loop->first)
                 <tr>
-                    <td scope="col">{{$cat->nome}}</td>
 
-                    @foreach ($maisVotados->sortBy('qtdVotos') as $item)
-                        @php
-                         $count = 0;
-                         $vencedor = $maisVotados->where('categoria_id', $cat->id)->first();
-                        @endphp
-                    @endforeach
-                    
-                    @foreach ($maisVotados->where('categoria_id', $cat->id) as $itemCategoria)
-                        @php
-                            $count += $itemCategoria->qtdVotos
-                        @endphp
-                    @endforeach
-
-                    <td>{{$vencedor->titulo}}</td>
-                    <td>{{$vencedor->qtdVotos}}</td>
-                    <td>{{round($vencedor->qtdVotos * 100 / $count)}}%</td>
+                    <td scope="col">{{$item->categoria_id}}</td>
+                    <td>{{$item->titulo}}</td>
+                    <td>{{$item->qtdVotos}}</td>
+                    <td>{{round($item->qtdVotos * 100 / $count)}}%</td>
                 </tr>
-                @endforeach
+                @endif
+        @endforeach
+    @endforeach
             </tbody>
         </table>
 
@@ -56,12 +59,13 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($categorias as $cat)
+            @endforeach
             @foreach ($maisVotados->where('projeto_id', $projeto->id)->sortBy('categoria_id') as $item)
             @if ($item->qtdVotos > 0)
-
             <tr>
                 <td scope="col"> {{$item->titulo}}</td>
-                <td scope="col">{{$cat->nome}}</td>
+                <td scope="col">{{$cat->where('id', $item->categoria_id)->first()->nome}}</td>
                 <td scope="col">{{$item->qtdVotos}}</td>
                 @php
                     $candidatosCategoria = $maisVotados->where('categoria_id', $item->categoria_id);
