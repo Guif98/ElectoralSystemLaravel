@@ -36,7 +36,7 @@
             @if($loop->first)
                 <tr>
 
-                    <td scope="col">{{$item->categoria_id}}</td>
+                    <td scope="col">{{$categoria->where('id', $item->categoria_id)->first()->nome}}</td>
                     <td>{{$item->titulo}}</td>
                     <td>{{$item->qtdVotos}}</td>
                     <td>{{round($item->qtdVotos * 100 / $count)}}%</td>
