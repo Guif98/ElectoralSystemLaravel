@@ -14,7 +14,7 @@
 
             <!-- Alerta para quando não haver candidatos para o evento -->
                 <div id="evento-alert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
-                    <h4 class="nenhum-candidato-mensagem">Não há nenhum candidato para ser votado no momento!</h4>
+                    <p>Não há nenhum candidato para ser votado no momento!</p>
                 </div>
         </header>
         <section class="home-section">

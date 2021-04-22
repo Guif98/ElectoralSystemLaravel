@@ -6,10 +6,10 @@
         <button class="btn btn-primary">Voltar</button>
     </a>
 </div>
-<div class="container mx-auto">
+<div class="container-fluid ml-md-auto col-xl-10 col-sm-8  overflow-auto p-2">
     <h4 class="mt-5 mb-5 text-center text-uppercase">VENCEDORES DO EVENTO {{$projeto->nome}}:</h4>
 
-    <table class="table table-striped table-hover mt-5">
+    <table class="table table-striped mx-auto table-hover mt-5">
             <thead class="bg-dark text-light">
                 <tr>
                     <th>NOME DA CATEGORIA</th>
@@ -46,6 +46,9 @@
     @endforeach
             </tbody>
         </table>
+</div>
+
+<div class="container ml-sm-2 ml-md-auto col-xl-10 col-sm-8 p-2 overflow-auto">
 
     <h4 class="mt-5 mb-5 text-center text-uppercase">RESULTADO GERAL DO EVENTO {{$projeto->nome}}:</h4>
 
