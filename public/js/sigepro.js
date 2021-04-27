@@ -17,9 +17,6 @@ function apenasNumeros(extra){
 /*Código JQuery para a view home**/
 
 let projectDiv = document.querySelectorAll('.project-div');
-
-console.log(projectDiv)
-
 /**Condição para verificar se os candidatos estão setados e com isso disponibilizar as respectivas funcoes */
 
 let categorias = document.querySelectorAll('.categoria');
@@ -72,6 +69,7 @@ if (projectDiv.length > 0) {
             let projetoVotado = document.querySelectorAll(".selected");
             let projeto = [];
 
+            console.log(nome);
 
 
         /**Condicao que verifica se o usuario setou seu nome e suas informacoes */
@@ -105,39 +103,6 @@ if (projectDiv.length > 0) {
                     <strong>Você deve preencher suas informações corretamente!</strong>
                 </div>`
         }
-    });
-
-    /**Funcao para quando o botao Ver Fotos, presente na versao mobile, receber o click */
-
-    $(".ver_fotos").click(function() {
-        let n = 0;
-        let fotos = this.parentElement.parentElement.children[2].getElementsByTagName('img');
-        $("#imgModalSmartphone").modal("show")
-        document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-
-        /**Evento para quando a seta para frente receber o click na versao mobile */
-
-        $("#next").click(function(){
-             n++;
-            if (n > fotos.length - 1) {
-                n = fotos.length - 1;
-                return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[fotos.length - 1].currentSrc}" style="width: 100%;">`
-            } else {
-                return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-            }
-        });
-
-        /**Evento para quando a seta para tras receber o click na versao mobile*/
-
-        $("#prev").click(function(){
-            n--;
-            if (n <= 0) {
-                n = 0
-                return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[0].currentSrc}" style="width: 100%;">`
-            } else {
-                return document.querySelector('.slide').innerHTML = `<img class="smartPhoneModal" src="${fotos[n].currentSrc}" style="width: 100%;">`
-            }
-        });
     });
 
     /**Evento para quando um candidato recebe o click */

@@ -18,7 +18,6 @@ Route::get('/', 'SubProjetoControlador@home')->name('home');
 Route::get('/resultados', 'ProjetoControlador@resultado')->name('resultados');
 Route::get('/resultados/{id}', 'ProjetoControlador@resultadoView')->name('resultadoView');
 Route::post('/', 'SubProjetoControlador@votar')->name('votar');
-Route::post('/validar', 'SubProjetoControlador@validarEleitor')->name('validarEleitor');
 
 
 Route::group(['middleware' => 'auth'], function() {

@@ -68,7 +68,7 @@ class SubProjetoControlador extends Controller
     }
 
     public function votar(VotoRequest $request) {
-
+        dd($request->all());
         if (!isset($request->voto)) {
             return redirect()->back()->with(['message' => 'Deve selecionar no mínimo um projeto!',
                         'msg-type' => 'danger']);
