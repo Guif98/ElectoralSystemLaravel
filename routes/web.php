@@ -49,6 +49,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 });
 
+Route::get('/home/admin', [
+    'as' => 'login',
+    'uses' => 'Auth\LoginController@showLoginForm'
+]);
+
+Route::post('login', [
+    'as' => '',
+    'uses' => 'Auth\LoginController@login'
+]);
+
+
 
 Auth::routes([
     'register' => false,

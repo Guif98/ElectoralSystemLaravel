@@ -15,7 +15,7 @@
 @csrf
 
 <div class="text-center">
-    <h2 class="titulo-sm">@if (isset($categoria))Editar Categoria @else Criar Categoria @endif</h2>
+    <h2 class="titulo-sm">@if (isset($categoria))EDITAR @else CRIAR @endif CATEGORIA:</h2>
 </div>
 
 @if (count($errors)>0)
@@ -34,7 +34,7 @@
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($categoria)) value="{{$categoria->nome ?? ''}}" @endif >
     </div>
     <button type="submit" class="btn btn-success col-lg-2 col-sm-auto">@if (isset($categoria))Atualizar @else Criar  @endif</button>
-    <a href="{{url("categorias/$projeto_id")}}" class="btn btn-primary col-lg-2 col-sm-auto mt-lg-auto mt-2">Voltar
+    <a href="{{url("categorias/$projeto_id")}}" class="btn btn-primary col-lg-2 col-sm-auto mt-sm-auto mt-3">Voltar
     </a>
   </form>
 </div>

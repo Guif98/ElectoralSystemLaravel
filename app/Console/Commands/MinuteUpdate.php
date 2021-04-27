@@ -63,13 +63,6 @@ class MinuteUpdate extends Command
         foreach($projetos as $projeto) {
             $dataFinal = Carbon::createFromFormat('Y-m-d', $projeto->dataFim)->endOfDay()->toDateTimeString();
             $dataInicial = Carbon::createFromFormat('Y-m-d', $projeto->dataInicio)->startOfDay()->toDateTimeString();
-            $dataResultado = Carbon::createFromFormat('Y-m-d', $projeto->dataResultado)->startOfDay()->toDateTimeString();
-
-            if ($dataResultado <= $hoje) {
-                $projeto->exibirResultado = 1;
-                $projeto->save();
-            }
-
 
             if ($hoje > $dataFinal || $hoje < $dataInicial) {
                 $projeto->ativo = 0;
@@ -89,10 +82,15 @@ class MinuteUpdate extends Command
             }
         }
 
+        foreach($projetos as $projeto) {
+            $dataResultado = Carbon::createFromFormat('Y-m-d', $projeto->dataResultado)->startOfDay()->toDateTimeString();
 
+            if ($dataResultado <= $hoje) {
+                $projeto->desativado_permanentemente = 1;
+                $projeto->exibirResultado = 1;
+                $projeto->save();
+            }
+        }
 
-        /*if ($projetoAtivo->dataResultado >= $hoje) {
-
-        }*/
     }
 }

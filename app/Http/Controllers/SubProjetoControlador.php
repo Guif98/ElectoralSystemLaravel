@@ -9,14 +9,7 @@ use App\Models\Foto;
 use App\Models\SubProjetos;
 use App\Models\Projeto;
 use App\Models\Voto;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Cache\RedisTaggedCache;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
-use LengthException;
-use PhpParser\Node\Expr\Cast\Array_;
-
-use function PHPUnit\Framework\isNull;
 
 class SubProjetoControlador extends Controller
 {

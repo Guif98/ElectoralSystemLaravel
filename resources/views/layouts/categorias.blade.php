@@ -25,7 +25,7 @@
             <button class="btn btn-success col-lg-auto col-sm-auto">Criar Categorias</button>
         </a>
         <a class="text-decoration-none" href="{{url('/projetos')}}">
-            <button class="btn btn-primary col-lg-auto col-sm-auto mt-lg-auto mt-2">Voltar</button>
+            <button class="btn btn-primary col-lg-auto col-sm-auto mt-sm-auto mt-3">Voltar</button>
         </a>
     </div>
 @if ($categorias->count() > 0)

@@ -15,17 +15,17 @@
     @php $projeto_id = request()->route('projeto_id'); @endphp
 
 
-    <div class="mx-auto mt-5 text-center mb-5">
+    <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
             <button class="btn btn-success col-lg-auto col-sm-auto p-2">Novo Candidato</button>
         </a>
         <a class="text-decoration-none" href="{{url("/projetos")}}">
-            <button class="btn btn-primary col-lg-auto col-sm-auto mt-lg-auto mt-3 p-2">Voltar</button>
+            <button class="btn btn-primary col-lg-auto col-sm-auto p-2 mt-sm-auto mt-3">Voltar</button>
         </a>
     </div>
 
 
-@if (isset($projeto) && $projeto->ativo == 1 && $votos->where('projeto_id', $projeto_id)->count() > 0))
+@if (isset($projeto) && $projeto->ativo == 1 && $votos->where('projeto_id', $projeto_id)->count() > 0)
 <h4 class="text-center mt-5">QUANTIDADE DE VOTOS:</h4>
     <div class="w-100 container mx-auto mb-5 overflow-auto">
         <table class="table mt-5 table-hover table-striped w-100">
@@ -40,6 +40,7 @@
             <tbody>
 
                 @foreach ($maisVotados->where('projeto_id', $projeto_id)->sortBy('categoria_id') as $item)
+                    <tr>
                     <td>{{$item->titulo}}</td>
                     @foreach ($categorias as $cat)
                         @if ($item->categoria_id == $cat->id)
