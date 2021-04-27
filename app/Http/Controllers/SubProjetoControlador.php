@@ -67,10 +67,6 @@ class SubProjetoControlador extends Controller
         return view('home', compact('projetos','subProjetos', 'categorias', 'fotos', 'projetosFinalizados'));
     }
 
-    public function validarEleitor(Request $request) {
-        dd($request->all());
-    }
-
     public function votar(VotoRequest $request) {
         if (!isset($request->voto)) {
             return redirect()->back()->with(['message' => 'Deve selecionar no mínimo um projeto!',

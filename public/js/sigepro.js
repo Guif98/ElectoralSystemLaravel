@@ -109,7 +109,6 @@ if (projectDiv.length > 0) {
     $(".project-div").click(
         function(event)
     {
-
         $(this).parent().find('.radio').parent().children('input').attr('name', 'selecionada[]');
         $(this).parent().find('.radio').parent().addClass('selecionada');
         $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");

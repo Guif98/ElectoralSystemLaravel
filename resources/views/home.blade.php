@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-
+<form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar">
+    @csrf
+    @method('POST')
         <header class="projeto mb-5">
             @foreach ($projetos as $projeto)
             <div class="mx-auto">
@@ -41,9 +43,7 @@
 
             <!--Início da div categoria -->
 
-            <form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar">
-                @csrf
-                @method('POST')
+
                 <div class="categoria">
                     <input type="hidden" name="" value="{{$c->id}}">
 
@@ -88,7 +88,6 @@
                     </div>
                 </div>
                 <!--Fim da div categoria-->
-           </form>
             @endforeach
 
         @endforeach
@@ -175,4 +174,5 @@
               </div>
             </div>
           </div>
+        </form>
 @endsection
