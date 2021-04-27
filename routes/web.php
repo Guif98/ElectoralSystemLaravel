@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'SubProjetoControlador@home')->name('home');
+Route::get('/home', 'SubProjetoControlador@home')->name('home');
 Route::get('/resultados', 'ProjetoControlador@resultado')->name('resultados');
 Route::get('/resultados/{id}', 'ProjetoControlador@resultadoView')->name('resultadoView');
-Route::post('/', 'SubProjetoControlador@votar')->name('votar');
+//Route::post('/home', 'SubProjetoControlador@votar')->name('votar');
+
+Route::post('/home', 'SubProjetoControlador@validarEleitor')->name('votar');
+
 
 
 Route::group(['middleware' => 'auth'], function() {

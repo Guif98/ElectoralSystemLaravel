@@ -69,8 +69,6 @@ if (projectDiv.length > 0) {
             let projetoVotado = document.querySelectorAll(".selected");
             let projeto = [];
 
-            console.log(nome);
-
 
         /**Condicao que verifica se o usuario setou seu nome e suas informacoes */
         if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
@@ -78,6 +76,7 @@ if (projectDiv.length > 0) {
                 projeto.push(p.children[1].firstElementChild.textContent
                 );
             });
+
 
             /**Alert para verificar se o usuario selecionou um candidato/projeto */
             if (projeto.length == 0) {
@@ -110,6 +109,7 @@ if (projectDiv.length > 0) {
     $(".project-div").click(
         function(event)
     {
+
         $(this).parent().find('.radio').parent().children('input').attr('name', 'selecionada[]');
         $(this).parent().find('.radio').parent().addClass('selecionada');
         $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");

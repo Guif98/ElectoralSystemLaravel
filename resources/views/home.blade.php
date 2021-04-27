@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
 
         <header class="projeto mb-5">
@@ -41,11 +40,12 @@
 
 
             <!--Início da div categoria -->
-            <form id="formVotar" role="form" action="{{route('votar')}}" method="POST">
+
+            <form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar">
                 @csrf
                 @method('POST')
                 <div class="categoria">
-                    <input type="hidden" id="{{$c->id}}" value="{{$c->id}}">
+                    <input type="hidden" name="" value="{{$c->id}}">
 
                     <div class="bg-primary p-4 mt-4 mx-auto rounded col-xl-9 col-lg-9">
                         <h4 class="text-center text-light">{{$c->nome}}</h4>
@@ -135,20 +135,20 @@
                   </div>
 
               <!-- Fim das divs de mensagens e erros -->
-
                   <div>
                       <label for="nome" class="form-label">Nome</label>
-                      <input type="text" class="form-control" name="nome" id="nome">
+                      <input form="formVotar" type="text" class="form-control" name="nome" id="nome">
                   </div>
                   <div>
                       <label for="sobrenome" class="form-label">Sobrenome</label>
-                      <input type="text" class="form-control" name="sobrenome" id="sobrenome">
+                      <input form="formVotar" type="text" class="form-control" name="sobrenome" id="sobrenome">
                   </div>
                   <div>
                       <label for="cpf" class="form-label">CPF</label>
-                      <input type="text" maxlength="11" class="form-control" required id="cpf" onkeypress="return apenasNumeros()" name="cpf">
+                      <input form="formVotar" type="text" maxlength="11" class="form-control" required id="cpf" onkeypress="return apenasNumeros()" name="cpf">
                   </div>
               </div>
+
               <div class="modal-footer">
                   <button type="button" id="confirmar" class="btn btn-primary">Confirmar</button>
               </div>
@@ -169,7 +169,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" form="formVotar" id="votarSubmit" class="btn btn-primary">Confirmar Votos</button>
+                    <button type="submit" class="btn btn-primary" form="formVotar">Confirmar Votos</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </div>
