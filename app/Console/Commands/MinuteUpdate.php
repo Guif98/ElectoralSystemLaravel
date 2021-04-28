@@ -3,12 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use App\Models\Projeto;
 use Carbon\Carbon;
-use DateTime;
-use Illuminate\Support\Facades\Date;
-use PhpParser\Node\Stmt\Foreach_;
+
 
 class MinuteUpdate extends Command
 {
@@ -24,7 +21,7 @@ class MinuteUpdate extends Command
      *
      * @var string
      */
-    protected $description = 'Este comando irá verificar e desativar o projeto/evento ao passar de seu prazo';
+    protected $description = 'Este comando irá verificar e desativar todos os projetos/eventos a cada 30 minutos ao passar de seu prazo';
 
     /**
      * Create a new command instance.

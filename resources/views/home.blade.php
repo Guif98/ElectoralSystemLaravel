@@ -8,7 +8,7 @@
             @foreach ($projetos as $projeto)
             <div class="mx-auto">
                 @if (isset($projeto->capa) && $subProjetos->count() > 0)
-                    <img class="projeto-cover" src="{{url("/storage/app/fotos/$projeto->capa")}}" alt="">
+                    <img class="projeto-cover" src="{{url("/storage/fotos/$projeto->capa")}}" alt="">
                 @endif
             </div>
             @endforeach
@@ -70,8 +70,8 @@
                                 @foreach ($foto as $f)
                                     <ul class="list-unstyled  ">
                                         <li>
-                                            <a href="{{url("/storage/app/fotos/$f->foto")}}" rel="lightbox[{{$f->subprojeto_id}}]" data-lightbox="lightbox[{{$f->subprojeto_id}}]"  id="{{$f->id}}">
-                                                <img class="imgProjeto" src="{{url("/storage/app/fotos/$f->foto")}}"  alt="image">
+                                            <a href="{{url("/storage/fotos/$f->foto")}}" rel="lightbox[{{$f->subprojeto_id}}]" data-lightbox="lightbox[{{$f->subprojeto_id}}]"  id="{{$f->id}}">
+                                                <img class="imgProjeto" src="{{url("/storage/fotos/$f->foto")}}"  alt="image">
                                             </a>
                                         </li>
                                     </ul>

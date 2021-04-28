@@ -1,8 +1,8 @@
 <?php
 
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
+
 Route::get('/home', 'SubProjetoControlador@home')->name('home');
 Route::get('/resultados', 'ProjetoControlador@resultado')->name('resultados');
 Route::get('/resultados/{id}', 'ProjetoControlador@resultadoView')->name('resultadoView');

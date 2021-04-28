@@ -99,7 +99,7 @@
                     <td>{{$subProjeto->integrantes}}</td>
                     <td>@foreach ($fotos as $foto)
                         <a href="#imgModal" class="img" id="{{$foto->id}}">
-                            <img style="width: 100px; height: 100px;" src="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                            <img style="width: 100px; height: 100px;" src="{{url("/storage/fotos/$foto->foto")}}" alt="image">
                         </a>
                       @endforeach
                     </td>

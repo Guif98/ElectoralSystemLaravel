@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 use App\Models\Projeto;
 use App\Http\Requests\ProjetoRequest;
 use App\Models\SubProjetos;
 use App\Models\Categorias;
-use DateTime;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Date;
-use phpDocumentor\Reflection\Types\This;
 
-use function PHPUnit\Framework\isNull;
+
 
 class ProjetoControlador extends Controller
 {
