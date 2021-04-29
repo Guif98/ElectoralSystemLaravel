@@ -21,7 +21,7 @@
 @endif
 
 <div class="mx-auto mt-5 mb-5">
-    <h3 class="titulo-sm text-center">@if (isset($subProjeto)) EDITAR CANDIDATO: @else NOVO CANDIDATO: @endif</h3>
+    <h3 class="titulo-sm text-center">@if (isset($subProjeto)) EDITAR PROJETO: @else NOVO PROJETO: @endif</h3>
 </div>
 
 @if (isset($errors) && count($errors)>0)

@@ -185,6 +185,15 @@ class ProjetoControlador extends Controller
             }
         }
 
+        foreach ($projetoAtivo as $ativo) {
+            if ($ativo->dataInicio > $hoje) {
+                $projeto->ativo = 0;
+                $projeto->desativado_permanentemente = 0;
+                $projeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Projeto desativado com sucesso!', 'msg-type' => 'warning']);
+            }
+        }
+
         $projeto->save();
         return redirect()->route('projetos')->with(['message' => 'Atualizado com sucesso', 'msg-type' => 'warning']);
 

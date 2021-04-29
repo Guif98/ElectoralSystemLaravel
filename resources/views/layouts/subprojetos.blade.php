@@ -17,7 +17,7 @@
 
     <div class="mx-auto mt-5 text-center">
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
-            <button class="btn btn-success col-lg-auto col-sm-auto p-2">Novo Candidato</button>
+            <button class="btn btn-success col-lg-auto col-sm-auto p-2">Novo Projeto</button>
         </a>
         <a class="text-decoration-none" href="{{url("/projetos")}}">
             <button class="btn btn-primary col-lg-auto col-sm-auto p-2 mt-sm-auto mt-3">Voltar</button>
@@ -71,7 +71,7 @@
 @if ($subProjetos->where('projeto_id', $projeto_id)->count() > 0)
 <div class="mx-auto mt-5 text-center mb-5">
     <div class="mt-5">
-        <h4 class="text-center">CANDIDATOS:</h4>
+        <h4 class="text-center">PROJETOS:</h4>
     </div>
 
 <div class="row justify-content-center">

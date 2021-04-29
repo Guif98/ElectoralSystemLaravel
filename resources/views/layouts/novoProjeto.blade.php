@@ -15,7 +15,7 @@
 @csrf
 
 <div class="mx-auto mt-5 mb-5">
-    <h2 class="text-center titulo-sm">@if (isset($projeto))EDITAR PROJETO / EVENTO: @else NOVO PROJETO / EVENTO: @endif</h2>
+    <h2 class="text-center titulo-sm">@if (isset($projeto))EDITAR EVENTO: @else NOVO EVENTO: @endif</h2>
 </div>
 
 @if (count($errors)>0)
@@ -27,7 +27,7 @@
 @endif
 
     <div class="mb-3 mt-5">
-      <label for="nome" class="form-label">Nome do Projeto:</label>
+      <label for="nome" class="form-label">Nome do Evento:</label>
       <input required type="text" class="form-control" id="nome" name="nome" @if(isset($projeto)) value="{{$projeto->nome ?? ''}}" @endif >
     </div>
     <div class="mb-3">
@@ -51,9 +51,9 @@
     @if (isset($projeto) && $projeto->ativo == 1)
         <label for="">Status do Projeto: Ativo</label>
         <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" onclick="return confirm('Uma vez desativado o projeto não pode ser reativado, deseja realmente desativá-lo?')" value="1" name="desativar[]" id="desativar">
+            <input class="form-check-input" type="checkbox" onclick="return confirm('Uma vez desativado o evento não pode ser reativado, deseja realmente desativá-lo?')" value="1" name="desativar[]" id="desativar">
             <label class="form-check-label" for="desativar">
-                Desativar Projeto
+                Desativar Evento
             </label>
           </div>
     @endif

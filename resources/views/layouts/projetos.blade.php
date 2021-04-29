@@ -15,11 +15,11 @@
  @endif
 
     <div>
-        <h2 class="text-center mt-5">PROJETOS / EVENTOS:</h2>
+        <h2 class="text-center mt-5">EVENTOS:</h2>
     </div>
     <div class="mx-auto mt-5 text-center">
         <a href="{{url('novoProjeto')}}">
-            <button class="btn btn-success mt-5 col-lg-auto col-sm-auto p-2">Novo Projeto</button>
+            <button class="btn btn-success mt-5 col-lg-auto col-sm-auto p-2">Novo Evento</button>
         </a>
     </div>
     <div class="row justify-content-center">
