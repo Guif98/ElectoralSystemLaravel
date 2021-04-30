@@ -45,13 +45,14 @@ class MinuteUpdate extends Command
         $projetoAtivo = Projeto::where('ativo', 1)->get();
 
         foreach ($projetoAtivo as $pAtivo) {
-            $dataFinalAtivo =  Carbon::createFromFormat('Y-m-d', $pAtivo->dataFim)->endOfDay()->toDateTimeString();
+            $dataFim =  Carbon::createFromFormat('Y-m-d', $pAtivo->dataFim)->endOfDay()->toDateTimeString();
+
             if ($pAtivo->desativado_permanentemente == 1) {
                 $pAtivo->ativo = 0;
                 $pAtivo->save();
             }
-            else if ($dataFinalAtivo < $hoje) {
-                $pAtivo->desativado_permanentemente = 1;
+            else if ($dataFim < $hoje) {
+                $pAtivo->desativado_permanentemente = 0;
                 $pAtivo->ativo = 0;
                 $pAtivo->save();
             }
@@ -60,6 +61,8 @@ class MinuteUpdate extends Command
         foreach($projetos as $projeto) {
             $dataFinal = Carbon::createFromFormat('Y-m-d', $projeto->dataFim)->endOfDay()->toDateTimeString();
             $dataInicial = Carbon::createFromFormat('Y-m-d', $projeto->dataInicio)->startOfDay()->toDateTimeString();
+            $dataResultado = Carbon::createFromFormat('Y-m-d', $projeto->dataResultado)->startOfDay()->toDateTimeString();
+
 
             if ($hoje > $dataFinal || $hoje < $dataInicial) {
                 $projeto->ativo = 0;
@@ -73,6 +76,12 @@ class MinuteUpdate extends Command
                 $projeto->ativo = 1;
                 $projeto->save();
             }
+            else if ($projeto->dataResultado <= $hoje) {
+                $projeto->ativo = 0;
+                $projeto->desativado_permanentemente = 1;
+                $projeto->save();
+            }
+
             else if ($projetoAtivo->count() == 0 && $hoje <= $dataFinal && $projeto->desativado_permanentemente == 0) {
                 $projeto->ativo = 1;
                 $projeto->save();
@@ -80,7 +89,6 @@ class MinuteUpdate extends Command
         }
 
         foreach($projetos as $projeto) {
-            $dataResultado = Carbon::createFromFormat('Y-m-d', $projeto->dataResultado)->startOfDay()->toDateTimeString();
 
             if ($dataResultado <= $hoje) {
                 $projeto->desativado_permanentemente = 1;

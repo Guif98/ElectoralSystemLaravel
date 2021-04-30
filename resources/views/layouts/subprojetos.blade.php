@@ -16,9 +16,11 @@
 
 
     <div class="mx-auto mt-5 text-center">
+        @if ($projeto->ativo == 0)
         <a class="text-decoration-none" href="{{url("subprojetos/$projeto_id/formProjeto")}}">
             <button class="btn btn-success col-lg-auto col-sm-auto p-2">Novo Projeto</button>
         </a>
+        @endif
         <a class="text-decoration-none" href="{{url("/projetos")}}">
             <button class="btn btn-primary col-lg-auto col-sm-auto p-2 mt-sm-auto mt-3">Voltar</button>
         </a>

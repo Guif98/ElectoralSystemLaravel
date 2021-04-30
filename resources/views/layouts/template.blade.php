@@ -20,16 +20,30 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-              <ul class="navbar-nav ml-auto">
-                <div class="navbar-nav">
-                    <li class="nav-item"><a class="nav-item nav-link" href="{{route('home')}}">Ir para votos<span class="sr-only">(Página atual)</span></a></li>
-                    <li class="nav-item"><a class="nav-item nav-link" href="{{route('logout')}}">Sair</a></li>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{route('home')}}">{{__('Ir para votos')}}</a>
+                    <a class="dropdown-item" href="{{route('projetos')}}">{{__('Ir para projetos')}}</a>
+                    <a class="dropdown-item" href="{{route('resultados')}}">{{__('Ir para resultados')}}</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                        {{ __('Sair') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
-            </ul>
+            </li>
+        </ul>
 
-        </div>
       </nav>
       @yield('content')
       <script src="{{url('js/app.js')}}"></script>

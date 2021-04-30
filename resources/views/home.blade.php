@@ -8,7 +8,7 @@
             @foreach ($projetos as $projeto)
             <div class="mx-auto">
                 @if (isset($projeto->capa) && $subProjetos->count() > 0)
-                    <img class="projeto-cover" src="{{url("/storage/fotos/$projeto->capa")}}" alt="">
+                    <img class="projeto-cover" src="{{url("storage/fotos/$projeto->capa")}}" alt="">
                 @endif
             </div>
             @endforeach
