@@ -31,18 +31,36 @@
                 <a class="navbar-brand" href="{{url('/')}}">
                     {{ config('app.name', 'SIGEPRO') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+
+                <div class="collapse ml-auto col-12" id="navbarSupportedContent">
+                    <div class="bg-dark p-4">
+                        <ul class="list-unstyled">
+                            <li class="p-3">
+                                <a class="text-light" href="{{route('home')}}">{{__('Ir para votos')}}</a>
+                            </li>
+                            <li class="p-3">
+                                <a class="text-light" href="{{route('projetos')}}">{{__('Ir para projetos')}}</a>
+                            </li>
+                            <li class="p-3">
+                                <a class="text-light" href="{{route('resultados')}}">{{__('Ir para resultados')}}</a>
+                            </li>
+                            <li class="p-3">
+                                <a class="text-light" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                    {{ __('Sair') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto d-none d-md-block d-lg-block d-xl-block">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

@@ -14,32 +14,66 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm container-fluid">
+
         <a class="navbar-brand" href="{{ url('/projetos') }}">
             {{ config('app.name', 'SIGEPRO') }}
         </a>
 
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                    {{ Auth::user()->name }}
-                </a>
 
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{route('home')}}">{{__('Ir para votos')}}</a>
-                    <a class="dropdown-item" href="{{route('projetos')}}">{{__('Ir para projetos')}}</a>
-                    <a class="dropdown-item" href="{{route('resultados')}}">{{__('Ir para resultados')}}</a>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                        {{ __('Sair') }}
+        <div class="collapse ml-auto col-12" id="navbarSupportedContent">
+            <div class="bg-dark p-4">
+                <ul class="list-unstyled">
+                    <li class="p-3">
+                        <a class="text-light" href="{{route('home')}}">{{__('Ir para votos')}}</a>
+                    </li>
+                    <li class="p-3">
+                        <a class="text-light" href="{{route('projetos')}}">{{__('Ir para projetos')}}</a>
+                    </li>
+                    <li class="p-3">
+                        <a class="text-light" href="{{route('resultados')}}">{{__('Ir para resultados')}}</a>
+                    </li>
+                    <li class="p-3">
+                        <a class="text-light" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            {{ __('Sair') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+            <ul class="navbar-nav ml-auto d-none d-lg-block d-xl-block">
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
                     </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </li>
-        </ul>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{route('home')}}">{{__('Ir para votos')}}</a>
+                        <a class="dropdown-item" href="{{route('projetos')}}">{{__('Ir para projetos')}}</a>
+                        <a class="dropdown-item" href="{{route('resultados')}}">{{__('Ir para resultados')}}</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                            {{ __('Sair') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+
+
+        <div class="ml-auto d-lg-none d-xl-none">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
 
       </nav>
       @yield('content')
