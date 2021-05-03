@@ -173,7 +173,7 @@ class ProjetoControlador extends Controller
 
 
             if ($projeto->ativo == 0 && $dataInicio > $hoje && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo) {
-                return redirect()->route('projetos')->with(['message' => 'Um projeto já está em andamento para esta data', 'msg-type' => 'danger']);
+                return redirect()->route('projetos')->with(['message' => 'Um evento já está ativo durante este período', 'msg-type' => 'danger']);
             }
             else if ($projeto->ativo == 0 && $dataInicio > $hoje) {
                 $projeto->ativo = 0;
@@ -189,12 +189,12 @@ class ProjetoControlador extends Controller
             else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim <= $dataFimProjetoAtivo) {
                 $projeto->ativo = 0;
                 $projeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo acontece neste período.', 'msg-type' => 'danger']);
+                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo ocorre durante este período.', 'msg-type' => 'danger']);
             }
             else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo && $dataFim > $dataFimProjetoAtivo) {
                 $projeto->ativo = 0;
                 $projeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo acontece neste período.', 'msg-type' => 'danger']);
+                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo ocorre durante este período.', 'msg-type' => 'danger']);
             }
         } else {
             if ($hoje >= $dataInicio && $hoje <= $dataFim) {
