@@ -153,11 +153,12 @@ class ProjetoControlador extends Controller
      */
     public function update(ProjetoRequest $request, $id)
     {
-        $projeto = $this->objProjeto->where(['id'=>$id])->first();
+        $projeto = $this->objProjeto->find($id);
         $projeto->nome = $request->nome;
         $projeto->dataInicio = $request->dataInicio;
         $projeto->dataFim = $request->dataFim;
         $projeto->dataResultado = $request->dataResultado;
+
 
         $dataInicio = Carbon::createFromFormat('Y-m-d', $projeto->dataInicio)->startOfDay()->toDateTimeString();
         $dataFim = Carbon::createFromFormat('Y-m-d', $projeto->dataFim)->endOfDay()->toDateTimeString();
@@ -165,33 +166,42 @@ class ProjetoControlador extends Controller
 
         $projetoAtivo = Projeto::where('ativo', 1)->first();
 
-        $dataInicioProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataInicio)->startOfDay()->toDateTimeString();
-        $dataFimProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataFim)->endOfDay()->toDateTimeString();
+        if ($projetoAtivo != null) {
+
+            $dataInicioProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataInicio)->startOfDay()->toDateTimeString();
+            $dataFimProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataFim)->endOfDay()->toDateTimeString();
 
 
-        if ($projeto->ativo == 0 && $dataInicio > $hoje && $dataInicio >= $projetoAtivo->dataInicio && $dataInicio <= $projetoAtivo->first()->dataFim) {
-            return redirect()->route('projetos')->with(['message' => 'Um projeto já está em andamento para esta data', 'msg-type' => 'danger']);
-        }
-        else if ($projeto->ativo == 0 && $dataInicio > $hoje) {
-            $projeto->ativo = 0;
-        }
-        else if ($projeto->ativo == 1 && $dataFim < $hoje || $dataInicio > $hoje) {
-            $projeto->ativo = 0;
-        }
-        else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim >= $dataFimProjetoAtivo) {
-            $projeto->ativo = 0;
-            $projeto->save();
-            return redirect()->route('projetos')->with(['message' => 'Um evento já está em andamento entre esta data.', 'msg-type' => 'danger']);
-        }
-        else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim <= $dataFimProjetoAtivo) {
-            $projeto->ativo = 0;
-            $projeto->save();
-            return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo acontece neste período.', 'msg-type' => 'danger']);
-        }
-        else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo && $dataFim > $dataFimProjetoAtivo) {
-            $projeto->ativo = 0;
-            $projeto->save();
-            return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo acontece neste período.', 'msg-type' => 'danger']);
+            if ($projeto->ativo == 0 && $dataInicio > $hoje && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo) {
+                return redirect()->route('projetos')->with(['message' => 'Um projeto já está em andamento para esta data', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->ativo == 0 && $dataInicio > $hoje) {
+                $projeto->ativo = 0;
+            }
+            else if ($projeto->ativo == 1 && $dataFim < $hoje || $dataInicio > $hoje) {
+                $projeto->ativo = 0;
+            }
+            else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim >= $dataFimProjetoAtivo) {
+                $projeto->ativo = 0;
+                $projeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Um evento já está em andamento entre esta data.', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim <= $dataFimProjetoAtivo) {
+                $projeto->ativo = 0;
+                $projeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo acontece neste período.', 'msg-type' => 'danger']);
+            }
+            else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo && $dataFim > $dataFimProjetoAtivo) {
+                $projeto->ativo = 0;
+                $projeto->save();
+                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo acontece neste período.', 'msg-type' => 'danger']);
+            }
+        } else {
+            if ($hoje >= $dataInicio && $hoje <= $dataFim) {
+                $projeto->ativo = 1;
+            } else {
+                $projeto->ativo = 0;
+            }
         }
 
         if ($request->hasFile('capa')) {
@@ -212,35 +222,6 @@ class ProjetoControlador extends Controller
 
         $projeto->save();
         return redirect()->route('projetos')->with(['message' => 'Atualizado com sucesso', 'msg-type' => 'warning']);
-
-        /*if ($projeto->ativo == 1 && $projeto->dataFim < $hoje) {
-            $projeto->ativo = 0;
-        } else if ($projeto->ativo == 1  && $projeto->dataInicio > $hoje) {
-            $projeto->ativo = 0;
-        } else if ($projeto->ativo == 1 && $projeto->dataInicio <= $hoje &&  $projeto->dataFim >= $hoje) {
-            $projeto->ativo = 1;
-        }  else if ($projeto->ativo == 0 && $projeto->dataInicio <= $hoje &&  $projeto->dataFim >= $hoje) {
-            $projeto->ativo = 1;
-        }*/
-
-
-        /*foreach ($projetos as $p) {
-            if ($projeto->dataInicio >= $p->dataInicio && $p->dataFim >= $projeto->dataInicio && $p != $projeto) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->dataInicio <= $p->dataInicio && $projeto->dataFim >= $p->dataInicio && $p != $projeto) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->dataInicio >= $p->dataInicio && $projeto->dataInicio <= $p->dataFim && $p != $projeto) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            }
-            else if ($p->dataInicio <= $projeto->dataInicio && $p->dataInicio <= $projeto->dataFim  && $p != $projeto) {
-                return redirect()->route('projetos')->with(['message' => 'Já existe um projeto para o mesmo período', 'msg-type' => 'danger']);
-            } else {
-                $projeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Projeto atualizado com sucesso!', 'msg-type' => 'warning']);
-            }
-        }*/
     }
 
     /**
