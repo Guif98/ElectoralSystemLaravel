@@ -17,9 +17,6 @@
         <a class="navbar-brand" href="{{ url('/projetos') }}">
             {{ config('app.name', 'SIGEPRO') }}
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
