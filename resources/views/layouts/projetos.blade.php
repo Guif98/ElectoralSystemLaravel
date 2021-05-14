@@ -22,7 +22,7 @@
             <button class="btn btn-success mt-5 col-lg-auto col-sm-auto p-2">Novo Evento</button>
         </a>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-5">
         <div class="col-lg-10">
         @if (isset($projetos) && $projetos->count() > 0)
             <table id="lg-table-projetos" class="mt-5 table table-hover text-dark table-striped table-responsive">
@@ -66,7 +66,7 @@
 
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-5">
         <div class="col-auto">
         @if (isset($projetos) && $projetos->count() > 0)
             <table id="little-table-projetos" class="mt-5 table table-hover text-dark table-striped table-responsive">

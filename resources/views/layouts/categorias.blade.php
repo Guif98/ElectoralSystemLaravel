@@ -35,8 +35,8 @@
                 <thead class="bg-dark text-light">
                   <tr>
                     <th scope="col">CATEGORIA</th>
-                    <th scope="col">PROJETO</th>
-                    <th scope="col">ID DO PROJETO</th>
+                    <th scope="col">EVENTO</th>
+                    <th scope="col">ID DO EVENTO</th>
                     <th scope="col" colspan="2">AÇÕES</th>
                   </tr>
                 </thead>
