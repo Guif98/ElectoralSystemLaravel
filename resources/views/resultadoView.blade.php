@@ -48,7 +48,7 @@
         </table>
 </div>
 
-<div class="container ml-sm-2 ml-md-auto col-xl-10 col-sm-8 p-2 overflow-auto">
+<div class="container ml-sm-2 ml-md-auto col-xl-10 col-sm-8 p-2 overflow-auto mb-5">
 
     <h4 class="mt-5 mb-5 text-center text-uppercase">RESULTADO GERAL DO EVENTO {{$projeto->nome}}:</h4>
 

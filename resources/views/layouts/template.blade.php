@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm container-fluid">
 
-        <a class="navbar-brand" href="{{ url('/projetos') }}">
+        <a class="navbar-brand" href="{{ route('home') }}">
             {{ config('app.name', 'SIGEPRO') }}
         </a>
 

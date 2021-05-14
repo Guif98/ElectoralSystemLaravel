@@ -67,7 +67,10 @@ class ProjetoControlador extends Controller
         $dataInicio = Carbon::createFromFormat('Y-m-d', $projeto->dataInicio)->startOfDay()->toDateTimeString();
         $dataFim = Carbon::createFromFormat('Y-m-d', $projeto->dataFim)->endOfDay()->toDateTimeString();
         $hoje = Carbon::createFromTimeString(Date(today()))->toDateTimeString();
-        $dataResultadoProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataResultado)->startOfDay()->toDateTimeString();
+        if (isset($projetoAtivo) && $projetoAtivo != null) {
+            $dataResultadoProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataResultado)->startOfDay()->toDateTimeString();
+        }
+
 
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
