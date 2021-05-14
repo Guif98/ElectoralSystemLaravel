@@ -91,12 +91,13 @@
             @endforeach
 
         @endforeach
-        <footer>
-            <div class="p-2 mt-5 mx-auto text-center">
-                    <button type="button" id="voto" class="btn d-none btn-success btn-lg">VOTAR</button>
+     </section>
+        <footer class="m-5 p-5">
+            <div class="mx-auto text-center">
+                <button type="button" id="voto" class="btn d-none btn-success btn-lg mb-5">VOTAR</button>
             </div>
         </footer>
-    </section>
+
 
     <!-- Modal para preencher informacoes -->
 
