@@ -76,7 +76,7 @@
 
 <div class="row justify-content-center">
     <div class="col-xl-auto">
-        <table id="lg-table-subprojetos" class="table mt-5 table-hover table table-striped">
+        <table id="lg-table-subprojetos" class="table mt-5 mb-5 pb-5 table-hover table table-striped">
             <thead class="bg-dark text-white">
               <tr>
                 <th scope="col">TÍTULO</th>
@@ -126,7 +126,7 @@
 @endif
 <div class="row justify-content-center">
     <div class="col-auto">
-        <table id="medium-table-subprojetos" class="table mt-5 mx-auto table table-hover table-striped">
+        <table id="medium-table-subprojetos" class="table mt-5 mb-5 pb-5 mx-auto table table-hover table-striped">
             <thead class="bg-dark text-white">
               <tr>
                 <th scope="col">TÍTULO</th>

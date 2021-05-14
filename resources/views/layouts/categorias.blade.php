@@ -31,7 +31,7 @@
 @if ($categorias->count() > 0)
     <div class="row justify-content-center">
         <div class="col-auto">
-            <table id="lg-table-categorias" class="table mt-5 hidden table-hover table-striped">
+            <table id="lg-table-categorias" class="table mb-5 pb-5 mt-5 hidden table-hover table-striped">
                 <thead class="bg-dark text-light">
                   <tr>
                     <th scope="col">CATEGORIA</th>
@@ -64,7 +64,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-auto">
-            <table id="md-table-categorias" class="table mt-5 hidden table-hover table-striped">
+            <table id="md-table-categorias" class="table mt-5 mb-5 pb-5 hidden table-hover table-striped">
                 <thead class="bg-dark text-light">
                   <tr>
                     <th scope="col">CATEGORIA</th>
