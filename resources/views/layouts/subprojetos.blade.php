@@ -177,13 +177,13 @@
 
 <!-- Modal para imagens-->
 
-        <div id="imgModal" class="modal mt-5">
+        <div id="imgModal" class="modal mt-5 mb-5 p-5">
             <div class="modal-dialog">
-              <div class="modal-content">
+              <div class="modal-content" >
                     <div class="slide">
-                        <img class="demo" id="imageInsideModal" src="" alt="" style="width: 100%;" >
+                        <img class="demo" id="imageInsideModal" src="" alt=""  style="width: 100%; max-height: 300px;" >
                     </div>
-                <div class="modal-body bg-dark">
+                <div class="modal-footer bg-dark">
                     <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="imgModal">Fechar</button>
 
                     <a onclick="return confirm('Deseja realmente excluir esta imagem?')" id="deleteImg" href="{{url("/subprojetos/$projeto_id/deletar/")}}">
