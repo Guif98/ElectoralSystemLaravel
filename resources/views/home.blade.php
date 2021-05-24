@@ -33,6 +33,11 @@
             $cat = $categorias->where('projeto_id', $projeto->id);
             @endphp
             <h2 class="titulo-projeto text-center font-bold d-none">Projetos do evento: {{$projeto->nome}} </h2>
+            <div class="text-center alert-warning p-4 mb-5 mt-5">
+                <h4>Clique nas áreas dos projetos abaixo de sua preferência para votar:</h4>
+            </div>
+
+
 
             @foreach ($cat as $c)
             @php
@@ -42,7 +47,6 @@
 
 
             <!--Início da div categoria -->
-
 
                 <div class="categoria">
                     <input type="hidden" name="" value="{{$c->id}}">
