@@ -125,11 +125,11 @@ class SubProjetoControlador extends Controller
                     }
                 }
             }
+
             $position++;
             $novoVoto->save();
         }
     }
-
         return redirect()->back()->with(['message' => 'Voto computado com sucesso', 'msg-type' => 'success']);
     }
 

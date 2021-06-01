@@ -34,14 +34,14 @@ if (projectDiv.length > 0) {
 
         document.getElementById('voto').classList.remove('d-none');
         $(".titulo-projeto").removeClass('d-none');
-        setTimeout(function() {
+       /* setTimeout(function() {
             $("#votoModal").modal("show");
         }, 100);
 
         $("#votoModal").modal({
             backdrop: 'static',
             keyboard: false
-        });
+        });*/
 
     setTimeout(function(){
         $("#msg-session").fadeOut('fast');
@@ -53,11 +53,46 @@ if (projectDiv.length > 0) {
         if (document.getElementById("nome").value) {
             if (document.getElementById("sobrenome").value) {
                 if (document.getElementById("cpf").value) {
+                    let projetos = []
+                    let votados = document.querySelectorAll(".selected");
+                    let votadosNome = votados.forEach(function (nomes) {
+                        projetos.push(nomes.getElementsByTagName('h4'))
+                    });
+
                     $("#votoModal").modal('hide');
+                    $("#descricaoModal").modal('show');
+
+                    document.getElementById('descricao').innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
+                    <p><b>Sobrenome:</b> ${sobrenome.value}</p>
+                    <p><b>Cpf:</b> ${cpf.value}</p>
+                    <p><b>Projetos Votados:</b></p>`
+
+
+                    let projetosMapped = projetos.map(function(element) {
+
+
+                    return `<ul><li>${element[0].textContent}</li></ul>`
+
+
+
+                    });
+
+                    /*document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
+                    <p><b>Sobrenome:</b> ${sobrenome.value}</p>
+                    <p><b>Cpf:</b> ${cpf.value}</p>
+                    <p><b>Projetos Votados:</b> ${element}</p>
+                    `*/
+
+                    $('#descricaoModal').modal('show');
+                    document.getElementById('descricao').innerHTML += projetosMapped.join('\n');
+
+
                 }
             }
         }
     });
+
+    //projeto.children[1].childNodes.item(1).textContent
 
 
     /**Evento que e ativado quando o botao votar receber o click */
@@ -70,6 +105,7 @@ if (projectDiv.length > 0) {
             let projeto = [];
 
 
+
         /**Condicao que verifica se o usuario setou seu nome e suas informacoes */
         if (nome.length > 1 && sobrenome.length > 1 && cpf.length == 11) {
             projetoVotado.forEach(function(p) {
@@ -77,6 +113,7 @@ if (projectDiv.length > 0) {
                 );
             });
 
+            console.log(projeto);
 
             /**Alert para verificar se o usuario selecionou um candidato/projeto */
             if (projeto.length == 0) {
@@ -85,21 +122,21 @@ if (projectDiv.length > 0) {
                     <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                         <strong>Você deve selecionar no mínimo um projeto!</strong>
                       </div>`
-                } else {
+                } /*else {
                     $("#descricaoModal").modal('show');
                     document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome}</p>
                     <p><b>Sobrenome:</b> ${sobrenome}</p>
                     <p><b>Cpf:</b> ${cpf}</p>
                     <p><b>Projetos Votados:</b> ${projeto.toString()}</p>
                     `
-                }
+                }*/
 
         /**Alert para quando o usuario nao preencher suas informacoes*/
         } else {
                 $("#votoModal").modal("show");
                 mensagem.innerHTML = `
-                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-                    <strong>Você deve preencher suas informações corretamente!</strong>
+                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                    <strong>Por favor preencha suas informações corretamente!</strong>
                 </div>`
         }
     });

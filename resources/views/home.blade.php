@@ -2,9 +2,18 @@
 
 @section('content')
 <form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar">
+
+
     @csrf
     @method('POST')
         <header class="projeto mb-5">
+            @if (session('message'))
+                      <div id="msg-session" class="text-center m-auto p-3 alert-{{session('msg-type')}}">
+                          <p>{{session('message')}}</p>
+                      </div>
+            @endif
+
+
             @foreach ($projetos as $projeto)
             <div class="mx-auto">
                 @if (isset($projeto->capa) && $subProjetos->count() > 0)
@@ -52,7 +61,7 @@
                     <input type="hidden" name="" value="{{$c->id}}">
 
                     <div class="bg-primary p-4 mt-4 mx-auto rounded col-xl-9 col-lg-9">
-                        <h4 class="text-center text-light">{{$c->nome}}</h4>
+                        <h3 class="text-center text-light">{{$c->nome}}</h3>
                     </div>
                     @foreach ($sub as $s)
                     @php
@@ -88,7 +97,7 @@
                         <!--Fim da div projeto -->
                     @endforeach
                     <div class="nulo">
-                        <h4>Nenhuma das opções</h4>
+                        <h5>Nenhuma das opções</h5>
                     </div>
                 </div>
                 <!--Fim da div categoria-->
@@ -119,12 +128,6 @@
               <div class="modal-body">
 
               <!--Divs de mensagens e erros dos modais-->
-
-                  @if (session('message'))
-                      <div id="msg-session" class="text-center m-auto p-3 alert-{{session('msg-type')}}">
-                          <p>{{session('message')}}</p>
-                      </div>
-                  @endif
 
                   @if (count($errors)>0)
                       <div id="msg-error-request" class="alert-danger text-center m-auto mb-5 mt-5 p-3 rounded">
