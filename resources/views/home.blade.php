@@ -172,6 +172,9 @@
                 <div class="modal-header">
                   <h5 class="modal-title">Verifique se as informações abaixo constam com os seus dados informados:</h5>
                 </div>
+                <div id="mensagem-erro" class="text-center">
+
+                </div>
                 <div class="modal-body" id="descricao">
 
                 </div>

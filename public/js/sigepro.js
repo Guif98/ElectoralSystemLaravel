@@ -59,36 +59,52 @@ if (projectDiv.length > 0) {
                         projetos.push(nomes.getElementsByTagName('h4'))
                     });
 
-                    $("#votoModal").modal('hide');
-                    $("#descricaoModal").modal('show');
+                        if (projetos.length > 0) {
+                        $("#votoModal").modal('hide');
+                        $("#descricaoModal").modal('show');
 
-                    document.getElementById('descricao').innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
-                    <p><b>Sobrenome:</b> ${sobrenome.value}</p>
-                    <p><b>Cpf:</b> ${cpf.value}</p>
-                    <p><b>Projetos Votados:</b></p>`
+                        document.getElementById('descricao').innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
+                        <p><b>Sobrenome:</b> ${sobrenome.value}</p>
+                        <p><b>Cpf:</b> ${cpf.value}</p>
+                        <p><b>Projetos Votados:</b></p>`
 
-
-                    let projetosMapped = projetos.map(function(element) {
-
-
-                    return `<ul><li>${element[0].textContent}</li></ul>`
+                        let projetosMapped = projetos.map(function(element) {
 
 
-
-                    });
-
-                    /*document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
-                    <p><b>Sobrenome:</b> ${sobrenome.value}</p>
-                    <p><b>Cpf:</b> ${cpf.value}</p>
-                    <p><b>Projetos Votados:</b> ${element}</p>
-                    `*/
-
-                    $('#descricaoModal').modal('show');
-                    document.getElementById('descricao').innerHTML += projetosMapped.join('\n');
+                        return `<ul><li>${element[0].textContent}</li></ul>`
 
 
+
+                        });
+
+                        /*document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
+                        <p><b>Sobrenome:</b> ${sobrenome.value}</p>
+                        <p><b>Cpf:</b> ${cpf.value}</p>
+                        <p><b>Projetos Votados:</b> ${element}</p>
+                        `*/
+
+                        $('#descricaoModal').modal('show');
+                        document.getElementById('descricao').innerHTML += projetosMapped.join('\n');
+
+                    } else {
+                        alert('Você deve selecionar no mínimo um projeto antes de confirmar suas informações!')
+                        $("#votoModal").modal("hide");
+                        mensagem.innerHTML = `
+                        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            <strong>Você deve selecionar no mínimo um projeto!</strong>
+                          </div>`
+                    }
+                }
+                else {
+                    alert('Preencha o campo CPF')
                 }
             }
+            else {
+                alert('Preencha o campo Sobrenome')
+            }
+        }
+        else {
+            alert('Preencha o campo Nome')
         }
     });
 
@@ -97,6 +113,11 @@ if (projectDiv.length > 0) {
 
     /**Evento que e ativado quando o botao votar receber o click */
     $("#voto").click(function() {
+            if ($("#votoModal").modal('hide')) {
+                $("#votoModal").modal('show')
+            }
+
+
             let mensagem = document.getElementById("mensagem-erro");
             let nome =  document.getElementById("nome").value;
             let sobrenome =  document.getElementById("sobrenome").value;
