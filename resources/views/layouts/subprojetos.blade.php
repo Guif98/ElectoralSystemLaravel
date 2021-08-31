@@ -89,6 +89,7 @@
             </thead>
             <tbody>
               @foreach ($subProjetos as $subProjeto)
+              @if ($subProjeto->desativado == 0)
               @php
                     $fotos = $subProjeto->find($subProjeto->id)->relFotos;
               @endphp
@@ -98,9 +99,11 @@
                     <td>{{$subProjeto->descricao}}</td>
                     <td>{{$subProjeto->integrantes}}</td>
                     <td>@foreach ($fotos as $foto)
+                        @if ($foto->desativado == 0)
                         <a href="#imgModal" class="img" id="{{$foto->id}}">
                             <img style="width: 100px; height: 100px;" src="{{url("/storage/fotos/$foto->foto")}}" alt="image">
                         </a>
+                        @endif
                       @endforeach
                     </td>
                     <td>
@@ -117,6 +120,7 @@
                         </div>
                     </td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
           </table>

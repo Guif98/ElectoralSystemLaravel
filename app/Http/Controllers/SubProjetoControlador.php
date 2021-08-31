@@ -212,7 +212,9 @@ class SubProjetoControlador extends Controller
 
 
     public function deletarFoto($projeto_id, $img) {
-        $this->objFoto->destroy($img);
+        $foto = $this->objFoto->find($img);
+        $foto->desativado = 1;
+        $foto->save();
         return redirect()->back()->with(['message' => 'Imagem excluída com sucesso!', 'msg-type' => 'danger']);
     }
 
@@ -270,7 +272,9 @@ class SubProjetoControlador extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $this->objSubProjeto->destroy($id);
+        $subProjeto = $this->objSubProjeto->find($id);
+        $subProjeto->desativado = 1;
+        $subProjeto->save();
         return redirect()->back()->with(['message' => 'Subprojeto excluído com sucesso!', 'msg-type' => 'danger']);
     }
 }
