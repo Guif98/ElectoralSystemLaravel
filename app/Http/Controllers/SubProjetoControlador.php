@@ -56,7 +56,7 @@ class SubProjetoControlador extends Controller
         $projetosFinalizados = $this->objProjeto->where('exibirResultado', 1)->get();
         $subProjetos = $this->objSubProjeto->all();
         $categorias = $this->objCategoria->all();
-        $fotos = $this->objFoto->all();
+        $fotos = $this->objFoto->all()->where('desativado', 0);
         return view('home', compact('projetos','subProjetos', 'categorias', 'fotos', 'projetosFinalizados'));
     }
 
