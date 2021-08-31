@@ -1,3 +1,35 @@
+let datasFinais = document.querySelectorAll(".dataFim");
+let hoje = new Date();
+let dd = String(hoje.getDate()).padStart(2, '0');
+let mm = String(hoje.getMonth() + 1).padStart(2, '0');
+let yyyy = hoje.getFullYear();
+
+hoje = mm + '/' + dd + '/' + yyyy;
+
+let tempo = new Date(hoje).getTime();
+
+
+datasFinais.forEach(function(item) {
+    let data = item.innerHTML.split('/');
+    let dd = data[0];
+    let mm = data[1];
+    let yyyy = data[2];
+    let dataFinal = mm + '/' + dd + '/' + yyyy;
+    let tempoFinal = new Date(dataFinal).getTime();
+
+    if (tempoFinal < tempo) {
+        let id = item.id;
+        $.ajax({
+            type: "POST",
+            url: "projetos/desativar",
+            data: {id: id},
+            success: function(msg) {
+                alert(msg);
+            }
+        })
+    }
+});
+
 let ativo = document.querySelector('.ativo-checkbox');
 let selector = document.querySelector('.selector');
 let projeto = document.querySelector('.project-div');

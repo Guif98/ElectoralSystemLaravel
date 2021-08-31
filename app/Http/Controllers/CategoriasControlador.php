@@ -25,7 +25,8 @@ class CategoriasControlador extends Controller
     public function index($projeto_id)
     {
         $projeto = $this->objProjeto->find($projeto_id);
-        $categorias = Categorias::where('projeto_id', $projeto_id)->get();
+        $categorias = Categorias::where(['projeto_id' => $projeto_id, 'excluido' => 0])->get();
+
         return view('layouts.categorias', compact('categorias', 'projeto'));
     }
 
@@ -101,7 +102,9 @@ class CategoriasControlador extends Controller
      */
     public function destroy($id)
     {
-        $this->objCategoria->destroy($id);
+        $categoria = $this->objCategoria->find($id);
+        $categoria->excluido = 1;
+        $categoria->save();
         return redirect()->back();
     }
 }

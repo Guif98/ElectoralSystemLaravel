@@ -11,7 +11,7 @@ class Categorias extends Model
     use HasFactory;
 
     protected $table = 'categorias';
-    protected $fillable = ['nome', 'projeto_id'];
+    protected $fillable = ['nome', 'projeto_id', 'excluido'];
 
     public function relSubProjetos() {
         return $this->hasOne(\App\Models\SubProjetos::class, 'categoria_id');

@@ -236,8 +236,17 @@ class ProjetoControlador extends Controller
 
     public function destroy($id)
     {
-        $this->objProjeto->where(['id'=>$id])->delete();
+        $projeto = $this->objProjeto->find($id);
+        $projeto->excluido = 1;
+        $projeto->save();
         return redirect()->route('projetos')->with(['message' => 'Projeto excluído com sucesso', 'msg-type' => 'danger']);
+    }
+
+    public function desativarProjeto(ProjetoRequest $request) {
+        dd($request->id);
+        $projeto = $this->objProjeto->find($request->id);
+        $projeto->ativo = 0;
+        $projeto->desativado_permanentemente = 1;
     }
 
 }

@@ -23,6 +23,7 @@ Route::get('/home', 'SubProjetoControlador@home')->name('home');
 Route::get('/resultados', 'ProjetoControlador@resultado')->name('resultados');
 Route::get('/resultados/{id}', 'ProjetoControlador@resultadoView')->name('resultadoView');
 Route::post('/home', 'SubProjetoControlador@votar')->name('votar');
+Route::post('/projetos/desativar', 'ProjetoControlador@desativarProjeto');
 
 
 

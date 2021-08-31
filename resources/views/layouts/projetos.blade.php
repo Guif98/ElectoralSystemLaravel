@@ -41,7 +41,7 @@
                     <tr>
                         <td class="w-25"><a style="color: rgb(6, 234, 255)" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
                         <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>
-                        <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataFim))}}</td>
+                        <td id="{{$projeto->id}}" class="w-25 dataFim">{{date('d/m/Y', strtotime($projeto->dataFim))}}</td>
                         <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataResultado))}}</td>
                         @if ($projeto->ativo == 1)<td class="w-25">Ativo</td> @else <td class="w-25">Desativado</td>@endif
                         <td class="w-75">
@@ -99,5 +99,8 @@
         </div>
     </div>
 
+    <form name="formDesativarProjeto" id="formDesativarProjeto" action="projetos/desativar" class="m-auto col-md-12 col-sm-8" method="post" enctype="multipart/form-data">
+        @method('POST')
+        @csrf
 @endsection
 
