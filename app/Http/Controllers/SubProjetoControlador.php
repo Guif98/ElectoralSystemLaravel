@@ -53,11 +53,12 @@ class SubProjetoControlador extends Controller
     public function home()
     {
         $projetos = $this->objProjeto->where('ativo', 1)->get();
+        $projetosGeral = $this->objProjeto->where(['ativo' => 0, 'exibirResultado' => 1])->get();
         $projetosFinalizados = $this->objProjeto->where('exibirResultado', 1)->get();
         $subProjetos = $this->objSubProjeto->all();
         $categorias = $this->objCategoria->all();
         $fotos = $this->objFoto->all()->where('desativado', 0);
-        return view('home', compact('projetos','subProjetos', 'categorias', 'fotos', 'projetosFinalizados'));
+        return view('home', compact('projetos','subProjetos', 'categorias', 'fotos', 'projetosFinalizados', 'projetosGeral'));
     }
 
     public function votar(VotoRequest $request) {
@@ -183,21 +184,25 @@ class SubProjetoControlador extends Controller
         if(!empty($fotos)):
 
             foreach($fotos as $foto):
+                if($foto->getSize() > 2097152) {
+                    return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'A imagem excede o tamanho de 2MB', 'msg-type' => 'danger']);
+                } else {
                 $filename = $id . '_' . time() . '_' . $foto->getCLientOriginalName();
-                $foto->move('storage/app/fotos', $filename);
+                $foto->move('storage/app/public', $filename);
 
                 $objFoto = new Foto([
                     'foto' => $filename,
                     'subprojeto_id' => $id
                 ]);
-                if (Foto::where('subprojeto_id', $id)->count() < 4){
+                if (Foto::where(['subprojeto_id'=> $id, 'desativado' => 0])->count() < 4){
                     $objFoto->save();
                 }
 
-                else {
+                else if (Foto::where('subprojeto_id', $id)->count() > 4) {
                     return redirect()->route('addFoto', [$projeto_id, $id])->with(['message' => 'O limite de imagens para cada projeto
                     é de 4 imagens!', 'msg-type' => 'danger']);
                 }
+            }
 
             endforeach;
         endif;

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Projeto;
 use App\Http\Requests\ProjetoRequest;
 use App\Models\SubProjetos;
+use App\Models\Foto;
 use App\Models\Categorias;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -61,8 +62,6 @@ class ProjetoControlador extends Controller
         $projeto->dataResultado = $request->dataResultado;
 
         //Projeto que está ativado
-        $projetoAtivo = $this->objProjeto->where('ativo', '1')->first();
-
 
         $dataInicio = Carbon::createFromFormat('Y-m-d', $projeto->dataInicio)->startOfDay()->toDateTimeString();
         $dataFim = Carbon::createFromFormat('Y-m-d', $projeto->dataFim)->endOfDay()->toDateTimeString();
@@ -71,7 +70,6 @@ class ProjetoControlador extends Controller
             $dataResultadoProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataResultado)->startOfDay()->toDateTimeString();
         }
 
-
         if ($request->hasFile('capa')) {
             $capa = $request->file('capa');
             $filename = time() . '__' . $capa->getClientOriginalName();
@@ -79,38 +77,22 @@ class ProjetoControlador extends Controller
             $this->objProjeto->capa = $filename;
         }
 
-       // dd($this->objProjeto->dataInicio);
-
-        if ($this->objProjeto->where('ativo', '1')->count() == 0) {
-            if ($dataInicio < $hoje) {
-                return redirect()->route('projetos')->with(['message' => 'Não é possível criar um projeto para uma data passada!', 'msg-type' => 'danger']);
-            }
-            else if ($dataInicio == $hoje && $dataFim >= $hoje) {
-                $this->objProjeto->ativo = 1;
-                $this->objProjeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso!', 'msg-type' => 'success']);
-            }
-            else if ($dataInicio > $hoje) {
-                $this->objProjeto->ativo = 0;
-                $this->objProjeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, o projeto será ativado em sua data de início!', 'msg-type' => 'success']);
-            }
+        if($dataInicio < $hoje || $dataFim < $hoje) {
+            return redirect()->route('projetos')->with(['message' => 'Não é possível criar um projeto para uma data passada!', 'msg-type' => 'danger']);
         } else {
-            if ($dataInicio < $hoje) {
-                return redirect()->route('projetos')->with(['message' => 'Não é possível criar um projeto para uma data passada!', 'msg-type' => 'danger']);
-            }
-            else if ($dataInicio == $hoje && $dataFim >= $hoje) {
-                return redirect()->route('projetos')->with(['message' => 'Já há um projeto ativo para esta data!', 'msg-type' => 'danger']);
-            }
-            else if ($dataInicio > $dataResultadoProjetoAtivo) {
-                $this->objProjeto->ativo = 0;
-                $this->objProjeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso, o projeto será ativado em sua data de início!', 'msg-type' => 'success']);
-            }
-            else if ($dataInicio > $hoje && $dataInicio < $dataResultadoProjetoAtivo){
-                return redirect()->route('projetos')->with(['message' => 'Não foi possível criar o projeto pois a data de início deve ser superior a data do resultado do projeto já ativado', 'msg-type' => 'danger']);
-            }
+            $projeto->ativo = 1;
+            $projeto->save();
+            return redirect()->route('projetos')->with(['message' => 'Projeto criado com sucesso', 'msg_type' => 'success']);
         }
+
+    }
+
+    public function votacao($id) {
+        $projeto = Projeto::find($id);
+        $categorias = Categorias::where(['projeto_id' => $id, 'excluido' => 0])->get();
+        $subProjetos = SubProjetos::where('projeto_id', $id)->get();
+        $fotos = Foto::where('desativado', 0)->get();
+        return view('votacao', compact(['projeto', 'categorias', 'subProjetos', 'fotos']));
     }
 
     /**
@@ -167,44 +149,10 @@ class ProjetoControlador extends Controller
         $dataFim = Carbon::createFromFormat('Y-m-d', $projeto->dataFim)->endOfDay()->toDateTimeString();
         $hoje = Carbon::createFromTimeString(Date(today()))->toDateTimeString();
 
-        $projetoAtivo = Projeto::where('ativo', 1)->first();
-
-        if ($projetoAtivo != null) {
-
-            $dataInicioProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataInicio)->startOfDay()->toDateTimeString();
-            $dataFimProjetoAtivo = Carbon::createFromFormat('Y-m-d', $projetoAtivo->dataFim)->endOfDay()->toDateTimeString();
-
-
-            if ($projeto->ativo == 0 && $dataInicio > $hoje && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo) {
-                return redirect()->route('projetos')->with(['message' => 'Um evento já está ativo durante este período', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->ativo == 0 && $dataInicio > $hoje) {
-                $projeto->ativo = 0;
-            }
-            else if ($projeto->ativo == 1 && $dataFim < $hoje || $dataInicio > $hoje) {
-                $projeto->ativo = 0;
-            }
-            else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim >= $dataFimProjetoAtivo) {
-                $projeto->ativo = 0;
-                $projeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Um evento já está em andamento entre esta data.', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio <= $dataInicioProjetoAtivo && $dataFim <= $dataFimProjetoAtivo) {
-                $projeto->ativo = 0;
-                $projeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo ocorre durante este período.', 'msg-type' => 'danger']);
-            }
-            else if ($projeto->ativo == 0 && $projeto->desativado_permanentemente == 0 && $dataInicio >= $dataInicioProjetoAtivo && $dataInicio <= $dataFimProjetoAtivo && $dataFim > $dataFimProjetoAtivo) {
-                $projeto->ativo = 0;
-                $projeto->save();
-                return redirect()->route('projetos')->with(['message' => 'Não é possível criar o evento, pois o evento já ativo ocorre durante este período.', 'msg-type' => 'danger']);
-            }
+        if ($hoje >= $dataInicio && $hoje <= $dataFim) {
+            $projeto->ativo = 1;
         } else {
-            if ($hoje >= $dataInicio && $hoje <= $dataFim) {
-                $projeto->ativo = 1;
-            } else {
-                $projeto->ativo = 0;
-            }
+            $projeto->ativo = 0;
         }
 
         if ($request->hasFile('capa')) {

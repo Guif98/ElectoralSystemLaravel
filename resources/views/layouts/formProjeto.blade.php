@@ -44,18 +44,18 @@
       <label for="categoria" class="form-label">Categoria</label>
         <select class="form-control selector" name="categoria_id" id="categoria_id" required>
         <option  value="{{$subProjeto->relCategorias->id ?? ''}}">@if (isset($subProjeto)){{$subProjeto->relCategorias->nome}}@else Categoria @endif</option>
-        @foreach ($categorias as $categoria)
+        @foreach ($categorias->where('excluido', 0) as $categoria)
         <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
         @endforeach
     </select>
     </div>
     <label for="descricao_div" class="form-label">Descrição</label>
     <div id="descricao_id">
-        <textarea class="mb-3 form-control" id="descricao" name="descricao"  value="" required>@if (isset($subProjeto)) {{$subProjeto->descricao}} @endif</textarea>
+        <textarea class="mb-3 form-control" id="descricao" name="descricao"  value="">@if (isset($subProjeto)) {{$subProjeto->descricao}} @endif</textarea>
     </div>
-    <label for="integrantes_div" class="form-label" required>Integrantes</label>
+    <label for="integrantes_div" class="form-label">Integrantes</label>
     <div id="integrantes_div">
-        <textarea class="mb-3 form-control" id="integrantes" name="integrantes" required>@if (isset($subProjeto)) {{$subProjeto->integrantes}} @endif</textarea>
+        <textarea class="mb-3 form-control" id="integrantes" name="integrantes">@if (isset($subProjeto)) {{$subProjeto->integrantes}} @endif</textarea>
     </div>
     <button type="submit" class="btn btn-success d-inline col-lg-auto col-sm-12">@if (isset($subProjeto))Atualizar @else Salvar  @endif</button>
     <a href="{{url("/subprojetos/$projeto_id")}}" class="btn btn-primary col-lg-auto col-sm-12 mt-lg-0 mt-2">Voltar

@@ -42,11 +42,6 @@
         <label for="dataResultado" class="form-label">Data que o resultado será divulgado:</label>
         <input required type="date" class="form-control" id="dataResultado" name="dataResultado" @if (isset($projeto)) ?? value="{{$projeto->dataResultado}}" : value="" @endif>
     </div>
-    <label for="capa">Adicionar foto de capa:</label>
-    <div class="custom-file mb-3" id="capa">
-        <input type="file" name="capa" class="custom-file-input" id="capa">
-        <label class="custom-file-label" for="capa">Selecionar arquivo</label>
-    </div>
 
     @if (isset($projeto) && $projeto->ativo == 1)
         <label for="">Status do Projeto: Ativo</label>

@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title> {{ config('app.name', 'FUNCIONÁRIO DESTAQUE') }} </title>
+    <title> {{ config('app.name', 'SISVOTE') }} </title>
     <link rel="stylesheet" href="{{url('css/app.css')}}">
     <link rel="stylesheet" href="{{url('css/style.css')}}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="{{asset('css/lightbox.css')}}">
 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm container-fluid">
 
         <a class="navbar-brand" href="{{ route('home') }}">
-            {{ config('app.name', 'FUNCIONÁRIO DESTAQUE') }}
+            {{ config('app.name', 'SISVOTE') }}
         </a>
 
 
@@ -79,5 +78,7 @@
       @yield('content')
       <script src="{{url('js/app.js')}}"></script>
       <script src="{{url('js/sigepro.js')}}"></script>
+      <script src="{{url('js/lightbox.js')}}"></script>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </body>
 </html>

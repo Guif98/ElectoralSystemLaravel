@@ -71,7 +71,7 @@
 @if ($subProjetos->where('projeto_id', $projeto_id)->count() > 0)
 <div class="mx-auto mt-5 text-center mb-5">
     <div class="mt-5">
-        <h4 class="text-center">PROJETOS:</h4>
+        <h4 class="text-center">PROJETOS / CANDIDATOS / OPÇÃO:</h4>
     </div>
 
 <div class="row justify-content-center">
@@ -98,13 +98,18 @@
                     <td>{{$subProjeto->relCategorias->nome}}</td>
                     <td>{{$subProjeto->descricao}}</td>
                     <td>{{$subProjeto->integrantes}}</td>
-                    <td>@foreach ($fotos as $foto)
-                        @if ($foto->desativado == 0)
-                        <a href="#imgModal" class="img" id="{{$foto->id}}">
-                            <img style="width: 100px; height: 100px;" src="{{url("/storage/fotos/$foto->foto")}}" alt="image">
-                        </a>
-                        @endif
-                      @endforeach
+                    <td>
+                        <ul class="list-unstyled d-flex justify-content-center">
+                            @foreach ($fotos as $foto)
+                                @if ($foto->desativado == 0)
+                                <li>
+                                <a href="#imgModal" class="img" id="{{$foto->id}}">
+                                    <img style="width: 100px; height: 100px;" src="{{url("storage/$foto->foto")}}" alt="image">
+                                </a>
+                                </li>
+                                @endif
+                             @endforeach
+                        </ul>
                     </td>
                     <td>
                         <div role="group" class=" btn-group pull-right">
@@ -199,7 +204,8 @@
           </div>
 
 
-    <script>
+      <script src="{{url('js/app.js')}}"></script>
+      <script>
         $(document).ready(function() {
             $(".img").click(function() {
 
@@ -209,6 +215,8 @@
                 let imageInsideModal = document.getElementById('imageInsideModal');
                 $("#imgModal").modal("show");
                 imageInsideModal.src = imgSrc;
+
+                console.log(imgSrc)
 
                     var url = document.getElementById("deleteImg").href;
                     url = url + "/" + img
@@ -224,8 +232,6 @@
 
 
     });
-
-
     </script>
 
 

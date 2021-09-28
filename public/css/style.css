@@ -18,6 +18,37 @@ main {
     padding: 0;
 }
 
+.div-evento {
+    padding: 30px;
+    background: rgb(18, 38, 153);
+    color: #fff;
+    margin: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.div-resultados {
+    background: #333;
+    padding: 30px;
+    margin: 20px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.div-evento:hover, .div-evento:active, .div-evento:focus {
+    background: rgb(30, 58, 216);
+}
+
+.div-resultados:hover, .div-resultados:active, .div-resultados:focus {
+    background: rgb(78, 78, 78);
+}
+
+.categoria-titulo {
+    background-color: rgb(18, 38, 153);
+    color: #fff;
+}
+
 /** Media Queries para as tabelas na blade subprojetos.php **/
 
 @media (min-width: 990px) {

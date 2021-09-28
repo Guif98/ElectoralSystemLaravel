@@ -6,6 +6,11 @@
         <button class="btn btn-primary">Voltar</button>
     </a>
 </div>
+@if($projeto->exibirResultado == 0)
+<div id="evento-alert" class="alert alert-warning alert-dismissible text-center p-5 m-5" role="alert">
+    <h4>Essa votação não pode ser exibida, pois ainda está em andamento!</h4>
+</div>
+@else
 <div class="container-fluid ml-md-auto col-xl-10 col-sm-8  overflow-auto p-2">
     <h4 class="mt-5 mb-5 text-center text-uppercase">VENCEDORES DO EVENTO {{$projeto->nome}}:</h4>
 
@@ -85,6 +90,7 @@
         </tbody>
     </table>
 </div>
+@endif
 
 
 @endsection

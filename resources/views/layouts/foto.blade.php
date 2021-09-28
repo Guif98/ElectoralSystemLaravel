@@ -23,8 +23,8 @@
 <input type="hidden" name="projeto_id" id="projeto_id" value="{{ request()->route('projeto_id') }}">
 <div class="container mx-auto">
     <div class="mb-3 mt-5 mx-auto">
-        <label class="custom-file-label" for="foto">Selecione as fotos (no máximo 4 imagens)</label>
-        <input type="file" class="custom-file-input" name="foto[]"  id="foto[]"  multiple/>
+        <label id="label-foto" class="custom-file-label" for="foto">Selecione as fotos (no máximo 4 imagens)</label>
+        <input onchange="return arquivosSelecionados(event);"  type="file" class="custom-file-input" name="foto[]"  id="foto[]"  multiple/>
     </div>
 
     <div class="mb-3 mt-2 ml-0 p-0">
