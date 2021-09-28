@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Tempo de geração: 31/08/2021 às 09:44
+-- Tempo de geração: 28/09/2021 às 12:53
 -- Versão do servidor: 10.3.25-MariaDB-0ubuntu0.20.04.1
 -- Versão do PHP: 7.4.3
 
@@ -31,15 +31,13 @@ USE `destque2021`;
 --
 
 DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categorias` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `projeto_id` tinyint(3) UNSIGNED NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `excluido` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `categorias_projeto_id_foreign` (`projeto_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -49,14 +47,13 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 --
 
 DROP TABLE IF EXISTS `fotos`;
-CREATE TABLE IF NOT EXISTS `fotos` (
-  `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `fotos` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `subprojeto_id` tinyint(3) UNSIGNED NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fotos_subprojeto_id_foreign` (`subprojeto_id`)
+  `desativado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -66,11 +63,10 @@ CREATE TABLE IF NOT EXISTS `fotos` (
 --
 
 DROP TABLE IF EXISTS `migrations`;
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -80,11 +76,10 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 --
 
 DROP TABLE IF EXISTS `password_resets`;
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  KEY `password_resets_email_index` (`email`)
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -94,8 +89,8 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 --
 
 DROP TABLE IF EXISTS `projetos`;
-CREATE TABLE IF NOT EXISTS `projetos` (
-  `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `projetos` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `capa` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `ativo` tinyint(1) NOT NULL DEFAULT 0,
@@ -106,8 +101,7 @@ CREATE TABLE IF NOT EXISTS `projetos` (
   `exibirResultado` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `excluido` int(11) DEFAULT 0,
-  PRIMARY KEY (`id`)
+  `excluido` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -117,18 +111,16 @@ CREATE TABLE IF NOT EXISTS `projetos` (
 --
 
 DROP TABLE IF EXISTS `subProjetos`;
-CREATE TABLE IF NOT EXISTS `subProjetos` (
-  `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `subProjetos` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `projeto_id` tinyint(3) UNSIGNED NOT NULL,
   `titulo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `categoria_id` tinyint(3) UNSIGNED NOT NULL,
-  `descricao` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `integrantes` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descricao` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `integrantes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `subprojetos_categoria_id_foreign` (`categoria_id`),
-  KEY `subprojetos_projeto_id_foreign` (`projeto_id`)
+  `desativado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -138,15 +130,13 @@ CREATE TABLE IF NOT EXISTS `subProjetos` (
 --
 
 DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -156,8 +146,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 DROP TABLE IF EXISTS `votos`;
-CREATE TABLE IF NOT EXISTS `votos` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `votos` (
+  `id` int(10) UNSIGNED NOT NULL,
   `cpf` bigint(20) DEFAULT NULL,
   `nome` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sobrenome` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -165,12 +155,114 @@ CREATE TABLE IF NOT EXISTS `votos` (
   `categoria_id` tinyint(3) UNSIGNED NOT NULL,
   `projeto_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `votos_subprojeto_id_foreign` (`subProjeto_id`),
-  KEY `votos_categoria_id_foreign` (`categoria_id`),
-  KEY `votos_projeto_id_foreign` (`projeto_id`)
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Índices de tabelas apagadas
+--
+
+--
+-- Índices de tabela `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categorias_projeto_id_foreign` (`projeto_id`);
+
+--
+-- Índices de tabela `fotos`
+--
+ALTER TABLE `fotos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fotos_subprojeto_id_foreign` (`subprojeto_id`);
+
+--
+-- Índices de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Índices de tabela `projetos`
+--
+ALTER TABLE `projetos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `subProjetos`
+--
+ALTER TABLE `subProjetos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subprojetos_categoria_id_foreign` (`categoria_id`),
+  ADD KEY `subprojetos_projeto_id_foreign` (`projeto_id`);
+
+--
+-- Índices de tabela `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Índices de tabela `votos`
+--
+ALTER TABLE `votos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `votos_subprojeto_id_foreign` (`subProjeto_id`),
+  ADD KEY `votos_categoria_id_foreign` (`categoria_id`),
+  ADD KEY `votos_projeto_id_foreign` (`projeto_id`);
+
+--
+-- AUTO_INCREMENT de tabelas apagadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `fotos`
+--
+ALTER TABLE `fotos`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `projetos`
+--
+ALTER TABLE `projetos`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `subProjetos`
+--
+ALTER TABLE `subProjetos`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `votos`
+--
+ALTER TABLE `votos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

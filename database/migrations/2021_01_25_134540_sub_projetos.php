@@ -23,6 +23,7 @@ class SubProjetos extends Migration
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('projeto_id')->references('id')->on('projetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->int('desativado')->default(0);
         });
     }
 

@@ -24,6 +24,7 @@ class Projeto extends Migration
             $table->date('dataResultado')->nullable()->date_format('d/m/Y');
             $table->boolean('exibirResultado')->default(0);
             $table->timestamps();
+            $table->int('excluido')->default(0);
         });
     }
 

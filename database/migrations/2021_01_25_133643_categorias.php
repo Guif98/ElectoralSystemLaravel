@@ -17,6 +17,7 @@ class Categorias extends Migration
             $table->tinyIncrements('id');
             $table->tinyInteger('projeto_id')->unsigned();
             $table->string('nome');
+            $table->int('excluido')->default(0);
             $table->foreign('projeto_id')->references('id')->on('projetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

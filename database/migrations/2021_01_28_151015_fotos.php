@@ -19,6 +19,7 @@ class Fotos extends Migration
             $table->string('foto');
             $table->foreign('subprojeto_id')->references('id')->on('subProjetos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
+            $table->int('desativado')->default(0);
         });
     }
 
