@@ -158,6 +158,7 @@ if (projectDiv.length > 0) {
     $(".project-div").click(
         function(event)
     {
+        if(!event.target.classList.contains('imgProjeto')) {
         const display = $(this).find('.project-content').css('display');
         if (display == 'none')
             $(this).find('.project-content').css('display', 'flex').css('flex-direction', 'column');
@@ -174,6 +175,7 @@ if (projectDiv.length > 0) {
         $(this).addClass('selected');
         $(this).children('input').attr('name', 'voto[]');
         $(this).children('input').parent().siblings('div').children('input').removeAttr('name');
+        }
     }
     );
 
