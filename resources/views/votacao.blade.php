@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@if($projeto->ativo == 0)
+<div id="evento-alert" class="alert alert-warning alert-dismissible text-center p-5 m-5" role="alert">
+    <h4>Votação não disponível : (</h4>
+</div>
+@else
 <form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar">
     @csrf
     @method('POST')
@@ -157,5 +162,5 @@
   </div>
 </form>
 
-
+@endif
 @endsection
