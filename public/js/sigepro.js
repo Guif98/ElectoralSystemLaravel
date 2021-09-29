@@ -24,7 +24,6 @@ function arquivosSelecionados(event) {
     label.innerHTML += arr.join(', ')
 }
 
-
 /*Código JQuery para a view home**/
 
 let projectDiv = document.querySelectorAll('.project-div');
@@ -143,15 +142,7 @@ if (projectDiv.length > 0) {
                     <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                         <strong>Você deve selecionar no mínimo um projeto!</strong>
                       </div>`
-                } /*else {
-                    $("#descricaoModal").modal('show');
-                    document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome}</p>
-                    <p><b>Sobrenome:</b> ${sobrenome}</p>
-                    <p><b>Cpf:</b> ${cpf}</p>
-                    <p><b>Projetos Votados:</b> ${projeto.toString()}</p>
-                    `
-                }*/
-
+                }
         /**Alert para quando o usuario nao preencher suas informacoes*/
         } else {
                 $("#votoModal").modal("show");
@@ -167,9 +158,18 @@ if (projectDiv.length > 0) {
     $(".project-div").click(
         function(event)
     {
+        const display = $(this).find('.project-content').css('display');
+        if (display == 'none')
+            $(this).find('.project-content').css('display', 'flex').css('flex-direction', 'column');
+        else
+            $(this).find('.project-content').css('display', 'none');
+
         $(this).parent().find('.radio').parent().children('input').attr('name', 'selecionada[]');
         $(this).parent().find('.radio').parent().addClass('selecionada');
         $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");
+        $(this).find('span').css('filter', 'brightness(0) invert(1)');
+        $(this).find('.expand_more_image').toggleClass('flip');
+        $(this).siblings().find('span').css('filter', 'brightness(0%)');
         $(this).parent().find('.radio').removeClass('selected');
         $(this).addClass('selected');
         $(this).children('input').attr('name', 'voto[]');
@@ -181,21 +181,7 @@ if (projectDiv.length > 0) {
      * sera selecionado
      */
 
-    $(".nulo").each(function() {
 
-        if ($(this).siblings().length <= 3) {
-
-            if ($(this).siblings('div').hasClass("radio")) {
-                let winner = $(this).siblings('div')[1];
-
-                $(this).text('');
-                $(this).append('<h5>Por não haver outro candidato concorrente, este projeto venceu esta categoria.</h5>');
-                $(this).removeClass("nulo").addClass("winner");
-            }
-        }
-
-        }
-    )
 
     /** Evento para quando o nulo receber o click*/
 

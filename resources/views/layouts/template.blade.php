@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> {{ config('app.name', 'SISVOTE') }} </title>
-    <link rel="stylesheet" href="{{url('css/app.css')}}">
-    <link rel="stylesheet" href="{{url('css/style.css')}}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/lightbox.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
 </head>
 <body>
@@ -66,19 +66,18 @@
                     </div>
                 </li>
             </ul>
-
-
-        <div class="ml-auto d-lg-none d-xl-none">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        </div>
+
+
 
       </nav>
       @yield('content')
-      <script src="{{url('js/app.js')}}"></script>
-      <script src="{{url('js/sigepro.js')}}"></script>
-      <script src="{{url('js/lightbox.js')}}"></script>
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/sigepro.js')}}" defer></script>
+    <script src="{{ asset('js/lightbox.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/loader.js')}}"></script>
 </body>
 </html>

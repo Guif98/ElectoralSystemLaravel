@@ -18,6 +18,20 @@ main {
     padding: 0;
 }
 
+.expand_more_image {
+    -moz-transition: transform 1s;
+    -webkit-transition: transform 1s;
+    transition: transform 1s;
+  }
+
+  .flip {
+    transform: rotate(-180deg);
+  }
+
+.project-content {
+    display: none;
+}
+
 .div-evento {
     padding: 30px;
     background: rgb(18, 38, 153);
@@ -156,8 +170,6 @@ main {
     width: 1000px;
     height: 500px;
 }
-
-
 
 .title {
     padding-top: 100px;

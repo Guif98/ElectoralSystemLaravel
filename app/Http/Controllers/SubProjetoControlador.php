@@ -82,10 +82,7 @@ class SubProjetoControlador extends Controller
 
             foreach ($cpfs as $item) {
                 if ($item->cpf == $request->cpf && $item->categoria_id == $novoVoto->categoria_id) {
-                    $categ = Categorias::where('id', $item->categoria_id)->first();
-                    return redirect()->back()->with(['message' => 'Este CPF já está sendo utilizado na categoria: '
-                    . $categ->nome . ''
-                    , 'msg-type' => 'danger']);
+                    return redirect()->back()->with(['message' => 'Este CPF já está sendo utilizado', 'msg-type' => 'danger']);
                 }
             }
 

@@ -37,7 +37,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($projetos->where('excluido', 0)->sortByDesc('ativo') as $projeto)
+                  @foreach ($projetos->where('excluido', 0)->sortByDesc('dataFim') as $projeto)
                     <tr>
                         <td class="w-25"><a style="color: rgb(6, 234, 255)" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
                         <td class="w-25">{{date('d/m/Y', strtotime($projeto->dataInicio))}}</td>
@@ -77,7 +77,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($projetos as $projeto)
+                  @foreach ($projetos->where('excluido', 0)->sortByDesc('dataFim') as $projeto)
                     <tr>
                         <td><a style="color: aqua" href="{{url("subprojetos/$projeto->id")}}" class="text-decoration-none">{{$projeto->nome}}</a></td>
                         <td class="buttons">

@@ -49,22 +49,29 @@
 
                 <div class="radio project-div div-color">
                     <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
-                    <div class="d-flex flex-column">
+                    <div class="title-and-expand d-flex justify-content-between">
                         <h4><b>{{$s->titulo}}</b></h4>
-                        <p>{{$s->descricao}}</p>
-                        <p>@if (isset($s->integrantes)) <b>Integrantes:</b> {{$s->integrantes}} @endif</p>
+                        <span class="material-icons-outlined expand_more">
+                            <img  class="expand_more_image" width="40" height="40" src="{{url('images/expand_more_black_24dp.svg')}}" alt="expand_more">
+                        </span>
                     </div>
+                    <div class="project-content">
+                        <div class="d-flex flex-column">
+                            <p>{{$s->descricao}}</p>
+                            <p>@if (isset($s->integrantes)) <b>Integrantes:</b> {{$s->integrantes}} @endif</p>
+                        </div>
 
-                    <div class="{{$s->id}} image-container container d-flex flex-wrap justify-content-around">
-                        @foreach ($foto as $f)
-                            <ul class="list-unstyled  ">
-                                <li>
-                                    <a href="{{url("/storage/$f->foto")}}" rel="lightbox[{{$f->subprojeto_id}}]" data-lightbox="lightbox[{{$f->subprojeto_id}}]"  id="{{$f->id}}">
-                                        <img class="imgProjeto" src="{{url("/storage/$f->foto")}}"  alt="image">
-                                    </a>
-                                </li>
-                            </ul>
-                        @endforeach
+                        <div class="{{$s->id}} image-container container d-flex flex-wrap justify-content-around">
+                            @foreach ($foto as $f)
+                                <ul class="list-unstyled  ">
+                                    <li>
+                                        <a href="{{url("/storage/$f->foto")}}" rel="lightbox[{{$f->subprojeto_id}}]" data-lightbox="lightbox[{{$f->subprojeto_id}}]"  id="{{$f->id}}">
+                                            <img class="imgProjeto" src="{{url("/storage/$f->foto")}}"  alt="image">
+                                        </a>
+                                    </li>
+                                </ul>
+                            @endforeach
+                        </div>
                     </div>
 
                 </div>

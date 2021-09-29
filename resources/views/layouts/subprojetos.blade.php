@@ -88,7 +88,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($subProjetos as $subProjeto)
+              @foreach ($subProjetos->sortBy('categoria_id') as $subProjeto)
               @if ($subProjeto->desativado == 0)
               @php
                     $fotos = $subProjeto->find($subProjeto->id)->relFotos;
