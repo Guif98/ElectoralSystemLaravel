@@ -1,3 +1,75 @@
+let grecaptchaKeyMeta = document.querySelector("meta[name='grecaptcha-key']");
+let grecaptchaKey = grecaptchaKeyMeta.getAttribute("content");
+const cpf = document.getElementById('cpf');
+const nome = document.getElementById('nome');
+const sobrenome = document.getElementById('sobrenome');
+
+
+grecaptcha.ready(function() {
+    let form = document.getElementById('formVotar');
+    let cpf = document.getElementById('cpf').value;
+    form.onsubmit = (e) => {
+        if(grecaptcha.getResponse() == "") {
+            e.preventDefault();
+            $('#descricaoModal').modal('hide');
+            $('#votoModal').modal('show');
+            $('#mensagem-erro').find('p').remove();
+            $('#mensagem-erro').append('<p>Você deve confirmar o reCaptcha!</p>');
+            $('#mensagem-erro').find('p').addClass('alert alert-danger');
+        }
+        else {
+            $('#descricaoModal').modal('show');
+            $('#votoModal').modal('hide');
+        }
+    }
+});
+
+
+function validaCpf(strCPF) {
+        var Soma;
+        var Resto;
+        Soma = 0;
+        if (strCPF == "00000000000" || strCPF == "11111111111" || strCPF == "22222222222" || strCPF == "33333333333" || strCPF == "44444444444" || strCPF == "55555555555" || strCPF == "66666666666" || strCPF == "77777777777" || strCPF == "88888888888" || strCPF == "99999999999" ) {
+            $('#cpf').parent().addClass('has-error');
+            $('#cpf').parent().addClass('has-error');
+            $('#cpf').val('');
+            $('#mensagem-erro').find('p').remove();
+            $('#mensagem-erro').append('<p>Você deve preencher o cpf corretamente!</p>');
+            $('#mensagem-erro').find('p').addClass('alert alert-danger');
+            return false;
+        }
+
+        for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+        Resto = (Soma * 10) % 11;
+
+        if ((Resto == 10) || (Resto == 11))  Resto = 0;
+        if (Resto != parseInt(strCPF.substring(9, 10)) ) {
+            $('#cpf').parent().addClass('has-error');
+            $('#cpf').val('');
+            $('#mensagem-erro').find('p').remove();
+            $('#mensagem-erro').append('<p>Você deve preencher o cpf corretamente!</p>');
+            $('#mensagem-erro').find('p').addClass('alert alert-danger');
+            return false;
+        }
+
+        Soma = 0;
+        for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+        Resto = (Soma * 10) % 11;
+
+        if ((Resto == 10) || (Resto == 11))  Resto = 0;
+        if (Resto != parseInt(strCPF.substring(10, 11) ) ) {
+            $('#cpf').parent().addClass('has-error');
+            $('#cpf').val('');
+            $('#mensagem-erro').find('p').remove();
+            $('#mensagem-erro').append('<p>Você deve preencher o cpf corretamente!</p>');
+            $('#mensagem-erro').find('p').addClass('alert alert-danger');
+            return false;
+        }
+
+        return true;
+}
+
+
 let ativo = document.querySelector('.ativo-checkbox');
 let selector = document.querySelector('.selector');
 let projeto = document.querySelector('.project-div');
@@ -147,8 +219,7 @@ if (projectDiv.length > 0) {
         } else {
                 $("#votoModal").modal("show");
                 mensagem.innerHTML = `
-                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-                    <strong>Por favor preencha suas informações corretamente!</strong>
+                <div class="alert alert-warning alert-dismissible fade show text-center d-none" role="alert">
                 </div>`
         }
     });
@@ -159,22 +230,22 @@ if (projectDiv.length > 0) {
         function(event)
     {
         if(!event.target.classList.contains('imgProjeto')) {
-        const display = $(this).find('.project-content').css('display');
-        if (display == 'none')
-            $(this).find('.project-content').css('display', 'flex').css('flex-direction', 'column');
-        else
-            $(this).find('.project-content').css('display', 'none');
+            const display = $(this).find('.project-content').css('display');
+            if (display == 'none')
+                $(this).find('.project-content').css('display', 'flex').css('flex-direction', 'column');
+            else
+                $(this).find('.project-content').css('display', 'none');
 
-        $(this).parent().find('.radio').parent().children('input').attr('name', 'selecionada[]');
-        $(this).parent().find('.radio').parent().addClass('selecionada');
-        $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");
-        $(this).find('span').css('filter', 'brightness(0) invert(1)');
-        $(this).find('.expand_more_image').toggleClass('flip');
-        $(this).siblings().find('span').css('filter', 'brightness(0%)');
-        $(this).parent().find('.radio').removeClass('selected');
-        $(this).addClass('selected');
-        $(this).children('input').attr('name', 'voto[]');
-        $(this).children('input').parent().siblings('div').children('input').removeAttr('name');
+            $(this).parent().find('.radio').parent().children('input').attr('name', 'selecionada[]');
+            $(this).parent().find('.radio').parent().addClass('selecionada');
+            $(this).addClass("bg-dark").addClass("text-light").siblings().removeClass("bg-dark").removeClass("text-light");
+            $(this).find('span').css('filter', 'brightness(0) invert(1)');
+            $(this).find('.expand_more_image').toggleClass('flip');
+            $(this).siblings().find('span').css('filter', 'brightness(0%)');
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+            $(this).children('input').attr('name', 'voto[]');
+            $(this).children('input').parent().siblings('div').children('input').removeAttr('name');
         }
     }
     );

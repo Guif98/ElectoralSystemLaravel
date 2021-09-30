@@ -157,6 +157,7 @@ main {
     .add-foto {
         width: 100%;
     }
+
 }
 
 #votoModal {
@@ -251,7 +252,7 @@ main {
   .imgProjeto {
     width: 200px;
     height: 200px;
-}
+    }
 
   .arrow:hover {
         border-top: 15px solid rgb(255, 255, 255);
@@ -278,7 +279,7 @@ main {
       display: block;
   }
 
-@media (min-width: 360px) and (max-width: 655px) {
+@media (min-width: 375px) and (max-width: 425px) {
     body {
         margin: 0;
         padding: 0;
@@ -324,4 +325,76 @@ main {
       }
 
 
+}
+
+@media (min-width: 300px) and (max-width: 374px) {
+    .imgProjeto {
+        width: 60px;
+        height: 60px;
+    }
+
+    .g-recaptcha {
+        transform:scale(0.77);
+        transform-origin:2 0;
+    }
+
+    .image-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #rc-imageselect {
+        transform:scale(0.1);
+        transform-origin:0 5;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 424px) {
+    .imgProjeto {
+        width: 60px;
+        height: 60px;
+    }
+
+    .g-recaptcha {
+        transform:scale(0.77);
+        transform-origin:2 0;
+    }
+
+    .image-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #rc-imageselect {
+        transform:scale(0.1);
+        transform-origin:0 2;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 609px) {
+    .imgProjeto {
+        width: 60px;
+        height: 60px;
+    }
+
+    .g-recaptcha {
+        transform:scale(0.77);
+        transform-origin:2 0;
+    }
+
+    .image-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #rc-imageselect {
+        transform:scale(0.1);
+        transform-origin:0 0;
+    }
 }

@@ -35,9 +35,9 @@
                     $fotos = $subProjeto->find($subProjeto->id)->relFotos;
                 @endphp
                 <ul class="list-unstyled d-flex flex-wrap justify-content-around text-center">
-                    @foreach ($fotos as $foto)
+                    @foreach ($fotos->where('desativado', 0) as $foto)
                     <li class="mt-3">
-                        <img style="width: 98%; height: 100%;" src="{{url("/storage/fotos/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
+                        <img style="width: 98%; height: 100%; max-width: 300px; max-height: 300px;" src="{{url("/storage/$foto->foto")}}" bigimage="{{url("/storage/app/fotos/$foto->foto")}}" alt="image">
                     </li>
                     @endforeach
                 </ul>

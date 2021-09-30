@@ -6,6 +6,8 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="grecaptcha-key" content="{{config('recaptcha.v3.public_key')}}">
+
 
     <title>{{ config('app.name', 'SISVOTE') }}</title>
 
@@ -14,6 +16,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/sigepro.js')}}" defer></script>
     <script src="{{ asset('js/lightbox.js')}}"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 

@@ -5,9 +5,18 @@
     <h4>Votação não disponível : (</h4>
 </div>
 @else
-<form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar">
+
+<div class="mx-auto">
+    <div class="m-2">
+        <a href="{{route('home')}}">
+            <button class="btn btn-primary">Voltar</button>
+        </a>
+    </div>
+</div>
+<form action="{{route('votar')}}" method="post" id="formVotar" name="formVotar" data-grecaptcha-action="message" >
     @csrf
     @method('POST')
+    <input type="hidden" id="gRecaptchaResponse" name="gRecaptchaResponse">
         <header class="projeto mb-5">
             @if (session('message'))
                       <div id="msg-session" class="text-center m-auto p-3 alert-{{session('msg-type')}}">
@@ -134,11 +143,20 @@
           </div>
           <div>
               <label for="cpf" class="form-label">CPF</label>
-              <input form="formVotar" type="text" maxlength="11" class="form-control" required id="cpf" onkeypress="return apenasNumeros()" name="cpf">
+              <input onchange="return validaCpf(this.value);" form="formVotar" type="text" maxlength="11" class="form-control" required id="cpf" onkeypress="return apenasNumeros()" name="cpf">
           </div>
       </div>
 
       <div class="modal-footer">
+        <div class="form-group mt-2 mx-auto">
+            {!! NoCaptcha::renderJs() !!}
+            {!! NoCaptcha::display() !!}
+            @if ($errors->has('g-recaptcha-response'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                </span>
+            @endif
+        </div>
           <button type="button" id="confirmar" class="btn btn-primary">Confirmar</button>
       </div>
 </div>

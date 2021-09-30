@@ -28,7 +28,8 @@ class VotoRequest extends FormRequest
         return [
             'nome' => 'required|string',
             'sobrenome' => 'required|string',
-            'cpf' => 'required|size:11'
+            'cpf' => 'required|size:11',
+            'g-recaptcha-response' => 'required|captcha'
         ];
     }
 
@@ -36,7 +37,8 @@ class VotoRequest extends FormRequest
         return [
             'nome.required' => 'O campo nome é obrigatório',
             'sobrenome.required' => 'O campo sobrenome é obrigatório',
-            'cpf.required' => 'O CPF é obrigatório e único'
+            'cpf.required' => 'O CPF é obrigatório e único',
+            'g-recaptcha-response.required' => 'Recaptcha é obrigatório'
         ];
     }
 }
