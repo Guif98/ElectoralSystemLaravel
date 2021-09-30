@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -64,4 +63,3 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 =======
 # ElectoralSystemLaravel
 Electoral System developed in Laravel with MariaDB. Using this system you can create a lot of elections that work at the same time with others elections or you can create an election to run alone in the program. The votes will be displayed for the admin during the election of some project or event, but at the end of the election it'll be displayed for everybody. This system allows images upload.
->>>>>>> e060e2b5a35af58d8c5cb240c1bdb1a74f07dbec
