@@ -5,6 +5,13 @@
     <h4>Votação não disponível : (</h4>
 </div>
 @else
+<header class="projeto mb-2">
+    @if (session('message'))
+              <div id="msg-session" class="text-center m-auto p-3 alert-{{session('msg-type')}}">
+                  <p>{{session('message')}}</p>
+              </div>
+    @endif
+</header>
 
 <div class="mx-auto">
     <div class="m-2">
@@ -17,13 +24,7 @@
     @csrf
     @method('POST')
     <input type="hidden" id="gRecaptchaResponse" name="gRecaptchaResponse">
-        <header class="projeto mb-5">
-            @if (session('message'))
-                      <div id="msg-session" class="text-center m-auto p-3 alert-{{session('msg-type')}}">
-                          <p>{{session('message')}}</p>
-                      </div>
-            @endif
-        </header>
+
 <div>
     <h2 class="titulo-projeto text-center font-bold">{{$projeto->nome}} </h2>
     <h5 class="text-center">A votação termina na data {{date('d/m/Y', strtotime($projeto->dataFim))}}</h5>
