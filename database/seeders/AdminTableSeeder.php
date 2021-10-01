@@ -16,8 +16,8 @@ class AdminTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'admin',
-            'email' => 'admin@esteio.rs.gov.br',
-            'password' => \bcrypt('Senha@esteio123')
+            'email' => 'admin@admin',
+            'password' => \bcrypt('Admin123')
         ]);
     }
 }
