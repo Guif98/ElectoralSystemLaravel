@@ -40,9 +40,6 @@
         //dd($sub)
     @endphp
 
-
-    <!--Início da div categoria -->
-
         <div class="cat">
             <input type="hidden" name="" value="{{$c->id}}">
 
@@ -53,9 +50,6 @@
             @php
                 $foto = $fotos->where('subprojeto_id', $s->id);
             @endphp
-
-            <!-- Div projeto -->
-
 
                 <div class="radio project-div div-color">
                     <input type="hidden" id="{{$s->id}}" value="{{$s->id}}">
@@ -87,13 +81,11 @@
                 </div>
 
 
-                <!--Fim da div projeto -->
             @endforeach
             <div class="nulo">
                 <h5>Nenhuma das opções</h5>
             </div>
         </div>
-        <!--Fim da div categoria-->
     @endforeach
 </div>
 
@@ -103,8 +95,6 @@
     </div>
 </footer>
 
-
-<!-- Modal para preencher informacoes -->
 
 <div class="modal fade" id="votoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="votoModal" aria-hidden="true">
 <div class="modal-dialog">
@@ -119,8 +109,6 @@
       <input type="hidden"@if (isset($projeto)) value="{{$projeto->id}}" @endif name="projeto_id">
       <div class="modal-body">
 
-      <!--Divs de mensagens e erros dos modais-->
-
           @if (count($errors)>0)
               <div id="msg-error-request" class="alert-danger text-center m-auto mb-5 mt-5 p-3 rounded">
                   @foreach ($errors->all() as $error)
@@ -133,7 +121,6 @@
 
           </div>
 
-      <!-- Fim das divs de mensagens e erros -->
           <div>
               <label for="nome" class="form-label">Nome</label>
               <input form="formVotar" type="text" class="form-control" name="nome" id="nome">
@@ -164,8 +151,6 @@
 </div>
 </div>
 
-
-<!-- Confirmar submit -->
 
   <div class="modal" id="descricaoModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

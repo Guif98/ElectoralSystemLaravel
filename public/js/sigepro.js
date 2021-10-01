@@ -103,16 +103,8 @@ let projectDiv = document.querySelectorAll('.project-div');
 
 if (projectDiv.length > 0) {
 
-        document.getElementById('voto').classList.remove('d-none');
-        $(".titulo-projeto").removeClass('d-none');
-       /* setTimeout(function() {
-            $("#votoModal").modal("show");
-        }, 100);
-
-        $("#votoModal").modal({
-            backdrop: 'static',
-            keyboard: false
-        });*/
+    document.getElementById('voto').classList.remove('d-none');
+    $(".titulo-projeto").removeClass('d-none');
 
     setTimeout(function(){
         $("#msg-session").fadeOut('fast');
@@ -129,7 +121,6 @@ if (projectDiv.length > 0) {
                     let votadosNome = votados.forEach(function (nomes) {
                         projetos.push(nomes.getElementsByTagName('h4'))
                     });
-
                         if (projetos.length > 0) {
                         $("#votoModal").modal('hide');
                         $("#descricaoModal").modal('show');
@@ -144,15 +135,7 @@ if (projectDiv.length > 0) {
 
                         return `<ul><li>${element[0].textContent}</li></ul>`
 
-
-
                         });
-
-                        /*document.getElementById("descricao").innerHTML = `<p><b>Nome:</b> ${nome.value}</p>
-                        <p><b>Sobrenome:</b> ${sobrenome.value}</p>
-                        <p><b>Cpf:</b> ${cpf.value}</p>
-                        <p><b>Projetos Votados:</b> ${element}</p>
-                        `*/
 
                         $('#descricaoModal').modal('show');
                         document.getElementById('descricao').innerHTML += projetosMapped.join('\n');
@@ -178,8 +161,6 @@ if (projectDiv.length > 0) {
             alert('Preencha o campo Nome')
         }
     });
-
-    //projeto.children[1].childNodes.item(1).textContent
 
 
     /**Evento que e ativado quando o botao votar receber o click */

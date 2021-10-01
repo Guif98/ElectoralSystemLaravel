@@ -31,9 +31,7 @@
             <h3 class="text-center text-uppercase">Votações:</h3>
         @foreach ($projetos as $projeto)
             @php
-            //dd($projeto->id)
-            //dd($categorias->where('projeto_id', $projeto->id))->get();
-            $cat = $categorias->where('projeto_id', $projeto->id);
+                $cat = $categorias->where('projeto_id', $projeto->id);
             @endphp
         <a class="text-decoration-none" href="{{url("votar/$projeto->id")}}">
         <div class="div-evento">
